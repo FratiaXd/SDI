@@ -39,7 +39,7 @@ else()
     login.cpp
           headers/login.h
     login.ui
-  )
+          headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h headers/cargo_receiver.h src/cargo_owner.cpp src/cargo_receiver.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp)
 endif()
 
 target_link_libraries(sdi_app PRIVATE Qt5::Widgets)
