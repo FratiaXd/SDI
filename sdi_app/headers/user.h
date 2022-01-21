@@ -16,6 +16,7 @@ protected:
     string mobile;
 public:
     void sign_in();
+    void order_history();
     void sign_out();
 };
 

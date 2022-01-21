@@ -22,7 +22,8 @@ protected:
     string cpc;
 public:
     bool check_cpc();
-
+    void see_cargo_order();
+    void update_order();
 };
 
 #endif //SDI_APP_DRIVER_H
