@@ -15,6 +15,8 @@ protected:
     string email;
     string mobile;
 public:
+    User(string usnm, string psswrd, string em, string phone);
+    void registration();
     void sign_in();
     void order_history();
     void sign_out();

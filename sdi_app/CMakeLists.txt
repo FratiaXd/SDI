@@ -29,16 +29,16 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(ANDROID)
   add_library(sdi_app SHARED
           src/main.cpp
-    login.cpp
-          headers/login.h
-    login.ui
+          gui/registration.cpp gui/menu_cargoown.cpp gui/user_type.cpp gui/start.cpp
+          gui/registration.h gui/menu_cargoown.h gui/user_type.h gui/start.h
+          gui/registration.ui gui/menu_cargoown.ui gui/user_type.ui gui/start.ui
   )
 else()
   add_executable(sdi_app
           src/main.cpp
-    login.cpp
-          headers/login.h
-    login.ui
+          gui/registration.cpp gui/menu_cargoown.cpp gui/user_type.cpp gui/start.cpp
+          gui/registration.h gui/menu_cargoown.h gui/user_type.h gui/start.h
+          gui/registration.ui gui/menu_cargoown.ui gui/user_type.ui gui/start.ui
           headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h src/cargo_owner.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp headers/cargo.h src/cargo.cpp)
 endif()
 
