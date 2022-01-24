@@ -4,6 +4,10 @@
 #include <QDialog>
 #include "user_type.h"
 #include "menu_cargoown.h"
+#include "menu_trcomp.h"
+#include "menu_forwarder.h"
+#include "menu_driver.h"
+#include "menu_receiver.h"
 
 namespace Ui {
 class start;

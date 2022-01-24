@@ -3,3 +3,16 @@
 //
 #include "headers/driver.h"
 
+using namespace std;
+
+bool Driver::check_cpc() {
+
+}
+
+void Driver::see_cargo_order() {
+
+}
+
+void Driver::update_order() {
+
+}

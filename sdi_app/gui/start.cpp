@@ -23,8 +23,12 @@ void start::on_pushButton_2_clicked()
 
 void start::on_pushButton_clicked()
 {
+    //user login function
+    //check user type and credentials in db
+    //open menu for user type
+    //example
     this->hide();
-    menu_cargoown menu_cargoown;
-    menu_cargoown.setModal(true);
-    menu_cargoown.exec();
+    menu_forwarder menu_forwarder;
+    menu_forwarder.setModal(true);
+    menu_forwarder.exec();
 }

@@ -51,9 +51,9 @@ void user_type::on_pushButton_clicked()
     {
         //set type driver true
         this->hide();
-        registration registration;
-        registration.setModal(true);
-        registration.exec();
+        driver_reg driver_reg;
+        driver_reg.setModal(true);
+        driver_reg.exec();
     }
     else
     {

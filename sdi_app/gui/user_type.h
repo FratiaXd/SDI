@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "registration.h"
+#include "driver_reg.h"
 
 namespace Ui {
 class user_type;

@@ -3,3 +3,24 @@
 //
 #include "headers/cargo.h"
 
+using namespace std;
+
+void Cargo::assign_company() {
+
+}
+
+void Cargo::assign_driver() {
+
+}
+
+void Cargo::assign_forwarder() {
+
+}
+
+void Cargo::assign_owner() {
+
+}
+
+void Cargo::assign_receiver() {
+
+}
