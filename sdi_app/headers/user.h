@@ -14,8 +14,10 @@ protected:
     string password;
     string email;
     string mobile;
+    string type;
 public:
-    User(string usnm, string psswrd, string em, string phone);
+    void set_type(string m);
+    string get_type();
     void registration();
     void sign_in();
     void order_history();

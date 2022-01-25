@@ -1,14 +1,14 @@
 #ifndef MENU_FORWARDER_H
 #define MENU_FORWARDER_H
 
-#include <QDialog>
-#include "order_history.h"
+#include <QWidget>
+#include "headers/forwarder.h"
 
 namespace Ui {
 class menu_forwarder;
 }
 
-class menu_forwarder : public QDialog
+class menu_forwarder : public QWidget
 {
     Q_OBJECT
 
@@ -17,12 +17,10 @@ public:
     ~menu_forwarder();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
 
 private:
     Ui::menu_forwarder *ui;
+    Forwarder forw1;
 };
 
 #endif // MENU_FORWARDER_H

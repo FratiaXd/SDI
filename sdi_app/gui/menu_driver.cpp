@@ -2,7 +2,7 @@
 #include "ui_menu_driver.h"
 
 menu_driver::menu_driver(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::menu_driver)
 {
     ui->setupUi(this);

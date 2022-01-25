@@ -1,13 +1,14 @@
 #ifndef MENU_DRIVER_H
 #define MENU_DRIVER_H
 
-#include <QDialog>
+#include <QWidget>
+#include "headers/driver.h"
 
 namespace Ui {
 class menu_driver;
 }
 
-class menu_driver : public QDialog
+class menu_driver : public QWidget
 {
     Q_OBJECT
 
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::menu_driver *ui;
+    Driver driv1;
 };
 
 #endif // MENU_DRIVER_H

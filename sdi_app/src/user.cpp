@@ -5,11 +5,12 @@
 
 using namespace std;
 
-User::User(string usnm, string psswrd, string em, string phone) {
-    username = usnm;
-    password = psswrd;
-    email = em;
-    mobile = phone;
+void User::set_type(string m) {
+    type = m;
+}
+
+string User::get_type() {
+    return type;
 }
 
 void User::registration() {

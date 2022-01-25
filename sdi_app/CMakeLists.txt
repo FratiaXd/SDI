@@ -29,16 +29,46 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(ANDROID)
   add_library(sdi_app SHARED
           src/main.cpp
-          gui/registration.cpp gui/menu_cargoown.cpp gui/user_type.cpp gui/start.cpp gui/menu_cargoown.cpp gui/menu_trcomp.cpp gui/menu_forwarder.cpp gui/menu_driver.cpp gui/driver_reg.cpp gui/menu_receiver.cpp gui/order_history.cpp
-          gui/registration.h gui/menu_cargoown.h gui/user_type.h gui/start.h gui/menu_cargoown.h gui/menu_trcomp.h gui/menu_forwarder.h gui/menu_driver.h gui/driver_reg.h gui/menu_receiver.h gui/order_history.h
-          gui/registration.ui gui/menu_cargoown.ui gui/user_type.ui gui/start.ui gui/menu_cargoown.ui gui/menu_trcomp.ui gui/menu_forwarder.ui gui/menu_driver.ui gui/driver_reg.ui gui/menu_receiver.ui gui/order_history.ui
-  )
+          gui/application.cpp
+          gui/application.h
+          gui/application.ui
+          gui/menu_driver.cpp
+          gui/menu_driver.h
+          gui/menu_driver.ui
+          gui/menu_forwarder.cpp
+          gui/menu_forwarder.h
+          gui/menu_forwarder.ui
+          gui/menu_receiver.cpp
+          gui/menu_receiver.h
+          gui/menu_receiver.ui
+          gui/menu_company.cpp
+          gui/menu_company.h
+          gui/menu_company.ui
+          gui/menu_owner.cpp
+          gui/menu_owner.h
+          gui/menu_owner.ui
+          )
 else()
   add_executable(sdi_app
           src/main.cpp
-          gui/registration.cpp gui/menu_cargoown.cpp gui/user_type.cpp gui/start.cpp gui/menu_cargoown.cpp gui/menu_trcomp.cpp gui/menu_forwarder.cpp gui/menu_driver.cpp gui/driver_reg.cpp gui/menu_receiver.cpp gui/order_history.cpp
-          gui/registration.h gui/menu_cargoown.h gui/user_type.h gui/start.h gui/menu_cargoown.h gui/menu_trcomp.h gui/menu_forwarder.h gui/menu_driver.h gui/driver_reg.h gui/menu_receiver.h gui/order_history.h
-          gui/registration.ui gui/menu_cargoown.ui gui/user_type.ui gui/start.ui gui/menu_cargoown.ui gui/menu_trcomp.ui gui/menu_forwarder.ui gui/menu_driver.ui gui/driver_reg.ui gui/menu_receiver.ui gui/order_history.ui
+          gui/application.cpp
+          gui/application.h
+          gui/application.ui
+          gui/menu_driver.cpp
+          gui/menu_driver.h
+          gui/menu_driver.ui
+          gui/menu_forwarder.cpp
+          gui/menu_forwarder.h
+          gui/menu_forwarder.ui
+          gui/menu_receiver.cpp
+          gui/menu_receiver.h
+          gui/menu_receiver.ui
+          gui/menu_company.cpp
+          gui/menu_company.h
+          gui/menu_company.ui
+          gui/menu_owner.cpp
+          gui/menu_owner.h
+          gui/menu_owner.ui
           headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h src/cargo_owner.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp headers/cargo.h src/cargo.cpp)
 endif()
 

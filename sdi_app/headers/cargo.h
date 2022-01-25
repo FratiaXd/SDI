@@ -11,10 +11,11 @@ using namespace std;
 class Cargo {
 protected:
     string cargoID;
+    string status;
     double weight;
     double height;
     double width;
-    double lenght;
+    double length;
     string type;
     string source;
     string destination;
@@ -25,6 +26,7 @@ protected:
     string driver;
     string receiver;
 public:
+    void update_status();
     void assign_owner();
     void assign_forwarder();
     void assign_driver();

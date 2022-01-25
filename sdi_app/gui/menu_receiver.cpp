@@ -2,7 +2,7 @@
 #include "ui_menu_receiver.h"
 
 menu_receiver::menu_receiver(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::menu_receiver)
 {
     ui->setupUi(this);
