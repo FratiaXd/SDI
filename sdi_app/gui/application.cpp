@@ -28,27 +28,27 @@ void application::on_pushButton_clicked()
 //user type page
 void application::on_pushButton_3_clicked()
 {
-    if (ui->radioButton->isChecked() == true) {
+    if (ui->radioButton->isChecked()) {
         //set user class type driver
         user1.set_type("driver");
         ui->stackedWidget->setCurrentIndex(2);
     }
-    else if (ui->radioButton_2->isChecked() == true) {
+    else if (ui->radioButton_2->isChecked()) {
         //set user class type forwarder
         user1.set_type("forwarder");
         ui->stackedWidget->setCurrentIndex(3);
     }
-    else if (ui->radioButton_3->isChecked() == true) {
+    else if (ui->radioButton_3->isChecked()) {
         //set user class type owner
         user1.set_type("owner");
         ui->stackedWidget->setCurrentIndex(3);
     }
-    else if (ui->radioButton_4->isChecked() == true) {
+    else if (ui->radioButton_4->isChecked()) {
         //set user class type receiver
         user1.set_type("receiver");
         ui->stackedWidget->setCurrentIndex(3);
     }
-    else if (ui->radioButton_5->isChecked() == true) {
+    else if (ui->radioButton_5->isChecked()) {
         //set user class type company
         user1.set_type("company");
         ui->stackedWidget->setCurrentIndex(3);
