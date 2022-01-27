@@ -12,6 +12,7 @@ class User {
 protected:
     string username;
     string password;
+    string full_name;
     string email;
     string mobile;
     string type;

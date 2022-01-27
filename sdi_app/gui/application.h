@@ -38,6 +38,7 @@ private:
     menu_owner omenu;
     menu_company cmenu;
     menu_receiver rmenu;
+    User user1;
 };
 
 #endif // APPLICATION_H

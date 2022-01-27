@@ -5,6 +5,10 @@
 
 using namespace std;
 
+void Cargo::update_status() {
+
+}
+
 void Cargo::assign_company() {
 
 }
