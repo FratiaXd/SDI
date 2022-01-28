@@ -11,7 +11,8 @@ using namespace std;
 
 class TranspCompany : public User {
 public:
-    //TransCompany(string u, string p, string f_n, string em, string num, string t);
+    TranspCompany();
+    TranspCompany(string u, string p, string f_n, string em, string num, string t);
     double calculate_comission();
     void offer_driver();
 };

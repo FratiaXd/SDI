@@ -5,14 +5,18 @@
 
 using namespace std;
 
-/*Forwarder::Forwarder(string u, string p, string f_n, string em, string num, string t) {
+Forwarder::Forwarder() {
+
+}
+
+Forwarder::Forwarder(string u, string p, string f_n, string em, string num, string t) {
     username = u;
     password = p;
     full_name = f_n;
     email = em;
     mobile = num;
     type = t;
-}*/
+}
 
 void Forwarder::make_offer() {
 

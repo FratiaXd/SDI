@@ -5,6 +5,10 @@
 
 using namespace std;
 
+Driver::Driver() {
+
+}
+
 bool Driver::check_cpc() {
 
 }

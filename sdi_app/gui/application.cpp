@@ -65,43 +65,52 @@ void application::on_pushButton_4_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     //check cpc
 }
+
 //default registration page
 void application::on_pushButton_5_clicked()
 {
-    if (ui->lineEdit_7->text().isEmpty() == true) {
+    if (ui->lineEdit_7->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
-    else if (ui->lineEdit_8->text().isEmpty() == true) {
+    else if (ui->lineEdit_8->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
-    else if (ui->lineEdit_9->text().isEmpty() == true) {
+    else if (ui->lineEdit_9->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
-    else if (ui->lineEdit_10->text().isEmpty() == true) {
+    else if (ui->lineEdit_10->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
-    else if (ui->lineEdit_11->text().isEmpty() == true) {
+    else if (ui->lineEdit_11->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
     else {
         //create user according to user.type
+        string a = ui->lineEdit_7->text().toStdString();
+        string b = ui->lineEdit_8->text().toStdString();
+        string c = ui->lineEdit_9->text().toStdString();
+        string d = ui->lineEdit_10->text().toStdString();
+        string e = ui->lineEdit_11->text().toStdString();
         if (user1.get_type() == "driver") {
             //Registration function in user is:
-            //constructor for driver
             //Encrypt function
             //Pass all details to the db function
         }
         else if (user1.get_type() == "forwarder") {
-            //Registration function in user
+            Forwarder forw(a, b, c, d, e, "forwarder");
+            //Registration function
         }
         else if (user1.get_type() == "owner") {
-            //Registration function in user
+            CargoOwner own(a, b, c, d, e, "cargo owner");
+            //Registration function
         }
         else if (user1.get_type() == "receiver") {
-            //Registration function in user
+            User receiv(a, b, c, d, e, "receiver");
+            //Registration function
         }
         else if (user1.get_type() == "company") {
-            //Registration function in user
+            TranspCompany comp(a, b, c, d, e, "transportation company");
+            //Registration function
         }
         //destroy user
         QMessageBox::information(this, "Registration", "Account was succesfully created");

@@ -21,6 +21,7 @@ protected:
     double lorryWeight;
     string cpc;
 public:
+    Driver();
     bool check_cpc();
     void see_cargo_order();
     void update_order();

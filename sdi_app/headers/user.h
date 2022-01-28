@@ -19,6 +19,8 @@ protected:
 public:
     void set_type(string m);
     string get_type();
+    User();
+    User(string u, string p, string f_n, string em, string num, string t);
     void registration();
     void sign_in();
     void order_history();

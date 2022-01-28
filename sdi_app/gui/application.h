@@ -33,12 +33,12 @@ private slots:
 
 private:
     Ui::application *ui;
+    User user1;
     menu_driver dmenu;
     menu_forwarder fmenu;
     menu_owner omenu;
     menu_company cmenu;
     menu_receiver rmenu;
-    User user1;
 };
 
 #endif // APPLICATION_H

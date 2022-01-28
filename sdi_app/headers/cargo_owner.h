@@ -13,7 +13,8 @@ class CargoOwner : public User {
 protected:
     string address;
 public:
-    //CargoOwner(string u, string p, string f_n, string em, string num, string t);
+    CargoOwner();
+    CargoOwner(string u, string p, string f_n, string em, string num, string t);
    double calculate_shipping();
    void place_order();
 };

@@ -11,7 +11,8 @@ using namespace std;
 
 class Forwarder : public User {
 public:
-    //Forwarder(string u, string p, string f_n, string em, string num, string t);
+    Forwarder();
+    Forwarder(string u, string p, string f_n, string em, string num, string t);
     void make_offer();
     void move_cargo();
 };
