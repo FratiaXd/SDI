@@ -10,6 +10,7 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -no-pie")
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
@@ -72,4 +73,4 @@ else()
           headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h src/cargo_owner.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp headers/cargo.h src/cargo.cpp)
 endif()
 
-target_link_libraries(sdi_app PRIVATE Qt5::Widgets)
+target_link_libraries(sdi_app PRIVATE Qt5::Widgets -lpqxx -lpq)

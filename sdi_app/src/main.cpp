@@ -1,5 +1,5 @@
 #include "gui/application.h"
-
+#include <pqxx/pqxx>
 #include <QApplication>
 
 int main(int argc, char *argv[])
