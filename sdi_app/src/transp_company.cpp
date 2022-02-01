@@ -9,13 +9,14 @@ TranspCompany::TranspCompany() {
 
 }
 
-TranspCompany::TranspCompany(string u, string p, string f_n, string em, string num, string t) {
+TranspCompany::TranspCompany(string u, string p, string f_n, string em, string num, string t, string a) {
     username = u;
     password = p;
     full_name = f_n;
     email = em;
     mobile = num;
     type = t;
+    address = a;
 }
 
 double TranspCompany::calculate_comission() {

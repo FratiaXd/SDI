@@ -12,7 +12,7 @@ using namespace std;
 class Forwarder : public User {
 public:
     Forwarder();
-    Forwarder(string u, string p, string f_n, string em, string num, string t);
+    Forwarder(string u, string p, string f_n, string em, string num, string t, string a);
     void make_offer();
     void move_cargo();
 };

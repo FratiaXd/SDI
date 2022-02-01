@@ -9,6 +9,10 @@ Driver::Driver() {
 
 }
 
+void Driver::registration_driver() {
+
+}
+
 bool Driver::check_cpc() {
 
 }

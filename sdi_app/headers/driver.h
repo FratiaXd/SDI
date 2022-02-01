@@ -22,6 +22,7 @@ protected:
     string cpc;
 public:
     Driver();
+    void registration_driver();
     bool check_cpc();
     void see_cargo_order();
     void update_order();

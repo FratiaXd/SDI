@@ -91,26 +91,27 @@ void application::on_pushButton_5_clicked()
         string c = ui->lineEdit_9->text().toStdString();
         string d = ui->lineEdit_10->text().toStdString();
         string e = ui->lineEdit_11->text().toStdString();
+        string f = ui->lineEdit_12->text().toStdString();
         if (user1.get_type() == "driver") {
             //Registration function in user is:
             //Encrypt function
             //Pass all details to the db function
         }
         else if (user1.get_type() == "forwarder") {
-            Forwarder forw(a, b, c, d, e, "forwarder");
-            //Registration function
+            Forwarder forw(a, b, c, d, e, "forwarder", f);
+            forw.registration(a, b, c, d, e, "forwarder", a);
         }
         else if (user1.get_type() == "owner") {
-            CargoOwner own(a, b, c, d, e, "cargo owner");
-            //Registration function
+            CargoOwner own(a, b, c, d, e, "cargo owner", f);
+            own.registration(a, b, c, d, e, "owner", a);
         }
         else if (user1.get_type() == "receiver") {
-            User receiv(a, b, c, d, e, "receiver");
-            //Registration function
+            User receiv(a, b, c, d, e, "receiver", f);
+            receiv.registration(a, b, c, d, e, "receiver", a);
         }
         else if (user1.get_type() == "company") {
-            TranspCompany comp(a, b, c, d, e, "transportation company");
-            //Registration function
+            TranspCompany comp(a, b, c, d, e, "transportation company", f);
+            comp.registration(a, b, c, d, e, "company", a);
         }
         //destroy user
         QMessageBox::information(this, "Registration", "Account was succesfully created");
