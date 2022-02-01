@@ -15,14 +15,19 @@ protected:
     string driverlID;
     string lorryType;
     string lorryRegNum;
-    double lorryHeight;
-    double lorryWidth;
-    double lorryLenght;
-    double lorryWeight;
+    string lorryHeight;
+    string lorryWidth;
+    string lorryLenght;
+    string lorryWeight;
     string cpc;
 public:
     Driver();
-    void registration_driver();
+    Driver(string n, string p, string nf, string e, string m, string t, string a,
+           string ni, string lid, string tp, string reg, string he, string wi,
+           string le, string we, string cpc);
+    void registration_driver(string n, string p, string nf, string e, string m, string t, string a, \
+                             string ni, string lid, string tp, string reg, string he, string wi,    \
+                             string le, string we, string cpc);
     bool check_cpc();
     void see_cargo_order();
     void update_order();

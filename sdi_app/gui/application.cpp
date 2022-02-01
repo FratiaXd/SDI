@@ -63,7 +63,46 @@ void application::on_pushButton_3_clicked()
 void application::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    //check cpc
+    if (ui->lineEdit_3->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_4->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_5->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_6->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_13->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_14->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_15->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_16->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_17->text().isEmpty()) {
+        ui->label_5->setText("Enter missing details");
+    }
+    else {
+        //check cpc function
+        string g = ui->lineEdit_3->text().toStdString();;
+        string h = ui->lineEdit_4->text().toStdString();;
+        string i = ui->lineEdit_5->text().toStdString();;
+        string j = ui->lineEdit_6->text().toStdString();;
+        string k = ui->lineEdit_13->text().toStdString();;
+        string l = ui->lineEdit_14->text().toStdString();;
+        string m = ui->lineEdit_15->text().toStdString();;
+        string o = ui->lineEdit_16->text().toStdString();;
+        string p = ui->lineEdit_17->text().toStdString();;
+        Driver driv("null", "null", "null", "null", "null", "driver", "null", g, h, i, j, k, l, m, o, p);
+    }
 }
 
 //default registration page
@@ -93,9 +132,8 @@ void application::on_pushButton_5_clicked()
         string e = ui->lineEdit_11->text().toStdString();
         string f = ui->lineEdit_12->text().toStdString();
         if (user1.get_type() == "driver") {
-            //Registration function in user is:
+            //
             //Encrypt function
-            //Pass all details to the db function
         }
         else if (user1.get_type() == "forwarder") {
             Forwarder forw(a, b, c, d, e, "forwarder", f);
