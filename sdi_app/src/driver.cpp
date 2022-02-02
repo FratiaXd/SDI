@@ -12,15 +12,17 @@ Driver::Driver() {
 
 }
 
-Driver::Driver(string n, string p, string nf, string e, string m, string t, string a, string ni, string lid, string tp,
-               string reg, string he, string wi, string le, string we, string cp) {
-    username = n;
+void Driver::set_driver(string u, string p, string f_n, string em, string num, string t, string a) {
+    username = u;
     password = p;
-    full_name = nf;
-    email = e;
-    mobile = m;
+    full_name = f_n;
+    email = em;
+    mobile = num;
     type = t;
     address = a;
+}
+
+void Driver::driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cp) {
     NI_number = ni;
     driverlID = lid;
     lorryType = tp;
@@ -32,9 +34,7 @@ Driver::Driver(string n, string p, string nf, string e, string m, string t, stri
     cpc = cp;
 }
 
-void Driver::registration_driver(string n, string p, string nf, string e, string m, string t, string a, \
-                                 string ni, string lid, string tp, string reg, string he, string wi,    \
-                                 string le, string we, string cpc) {
+void Driver::registration_driver() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -44,8 +44,8 @@ void Driver::registration_driver(string n, string p, string nf, string e, string
     }
     string sql = "INSERT INTO USERS(USERNAME, PASSWORD, FULLNAME, EMAIL, MOBILE, TYPE, ADDRESS," \
                  "NINUMBER, LICENSEID, LORRY_TYPE, REGISTRATION_NUM, L_HEIGHT, L_WIDTH, L_LENGHT, L_WEIGHT, CPC)" \
-                 "VALUES('"+ n + "', '" + p + "', '" + nf + "', '" + e + "', '" + m + "', '" + t + "', '" + a + "', '" \
-                 + ni + "', '" + lid + "', '" + tp + "', '" + reg + "', '" + he + "', '" + wi + "', '" + le + "', '" + we + "', '" + cpc + "');";
+                 "VALUES('"+ username + "', '" + password + "', '" + full_name + "', '" + email + "', '" + mobile + "', '" + type + "', '" + address + "', '" \
+                 + NI_number + "', '" + driverlID + "', '" + lorryType + "', '" + lorryRegNum + "', '" + lorryHeight + "', '" + lorryWidth + "', '" + lorryLenght + "', '" + lorryWeight + "', '" + cpc + "');";
 
     work W(C);
 

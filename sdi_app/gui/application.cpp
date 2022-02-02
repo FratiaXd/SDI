@@ -92,6 +92,7 @@ void application::on_pushButton_4_clicked()
     }
     else {
         //check cpc function
+        //check lorry reg number
         string g = ui->lineEdit_3->text().toStdString();;
         string h = ui->lineEdit_4->text().toStdString();;
         string i = ui->lineEdit_5->text().toStdString();;
@@ -101,7 +102,7 @@ void application::on_pushButton_4_clicked()
         string m = ui->lineEdit_15->text().toStdString();;
         string o = ui->lineEdit_16->text().toStdString();;
         string p = ui->lineEdit_17->text().toStdString();;
-        Driver driv("null", "null", "null", "null", "null", "driver", "null", g, h, i, j, k, l, m, o, p);
+        driv.driver_details(g, h, i, j, k, l, m, o, p);
     }
 }
 
@@ -132,24 +133,25 @@ void application::on_pushButton_5_clicked()
         string e = ui->lineEdit_11->text().toStdString();
         string f = ui->lineEdit_12->text().toStdString();
         if (user1.get_type() == "driver") {
-            //
+            driv.set_driver(a, b, c, d, e, "driver", f);
+            driv.registration_driver();
             //Encrypt function
         }
         else if (user1.get_type() == "forwarder") {
             Forwarder forw(a, b, c, d, e, "forwarder", f);
-            forw.registration(a, b, c, d, e, "forwarder", a);
+            forw.registration();
         }
         else if (user1.get_type() == "owner") {
             CargoOwner own(a, b, c, d, e, "cargo owner", f);
-            own.registration(a, b, c, d, e, "owner", a);
+            own.registration();
         }
         else if (user1.get_type() == "receiver") {
             User receiv(a, b, c, d, e, "receiver", f);
-            receiv.registration(a, b, c, d, e, "receiver", a);
+            receiv.registration();
         }
         else if (user1.get_type() == "company") {
             TranspCompany comp(a, b, c, d, e, "transportation company", f);
-            comp.registration(a, b, c, d, e, "company", a);
+            comp.registration();
         }
         //destroy user
         QMessageBox::information(this, "Registration", "Account was succesfully created");

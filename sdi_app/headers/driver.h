@@ -22,12 +22,9 @@ protected:
     string cpc;
 public:
     Driver();
-    Driver(string n, string p, string nf, string e, string m, string t, string a,
-           string ni, string lid, string tp, string reg, string he, string wi,
-           string le, string we, string cpc);
-    void registration_driver(string n, string p, string nf, string e, string m, string t, string a, \
-                             string ni, string lid, string tp, string reg, string he, string wi,    \
-                             string le, string we, string cpc);
+    void set_driver(string u, string p, string f_n, string em, string num, string t, string a);
+    void driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cpc);
+    void registration_driver();
     bool check_cpc();
     void see_cargo_order();
     void update_order();

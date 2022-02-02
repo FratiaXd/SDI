@@ -40,6 +40,7 @@ private:
     menu_owner omenu;
     menu_company cmenu;
     menu_receiver rmenu;
+    Driver driv;
 };
 
 #endif // APPLICATION_H

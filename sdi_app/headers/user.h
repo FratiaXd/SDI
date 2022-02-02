@@ -22,7 +22,7 @@ public:
     string get_type();
     User();
     User(string u, string p, string f_n, string em, string num, string t, string a);
-    void registration(string n, string p, string nf, string e, string m, string t, string a);
+    void registration();
     void sign_in();
     void order_history();
     void sign_out();

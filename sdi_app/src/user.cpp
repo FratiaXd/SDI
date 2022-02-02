@@ -29,7 +29,7 @@ string User::get_type() {
     return type;
 }
 
-void User::registration(string n, string p, string nf, string e, string m, string t, string a) {
+void User::registration() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -38,7 +38,7 @@ void User::registration(string n, string p, string nf, string e, string m, strin
         cout << "Can't open database" << endl;
     }
     string sql = "INSERT INTO USERS(USERNAME, PASSWORD, FULLNAME, EMAIL, MOBILE, TYPE, ADDRESS)" \
-                 "VALUES('"+ n + "', '" + p + "', '" + nf + "', '" + e + "', '" + m + "', '" + t + "', '" + a + "');";
+                 "VALUES('"+ username + "', '" + password + "', '" + full_name + "', '" + email + "', '" + mobile + "', '" + type + "', '" + address + "');";
 
     work W(C);
 
