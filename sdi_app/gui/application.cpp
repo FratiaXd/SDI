@@ -62,7 +62,6 @@ void application::on_pushButton_3_clicked()
 //lorry registration page
 void application::on_pushButton_4_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
     if (ui->lineEdit_3->text().isEmpty()) {
         ui->label_5->setText("Enter missing details");
     }
@@ -76,15 +75,19 @@ void application::on_pushButton_4_clicked()
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_13->text().isEmpty()) {
+        //has to be double
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_14->text().isEmpty()) {
+        //has to be double
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_15->text().isEmpty()) {
+        //has to be double
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_16->text().isEmpty()) {
+        //has to be double
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_17->text().isEmpty()) {
@@ -103,6 +106,7 @@ void application::on_pushButton_4_clicked()
         string o = ui->lineEdit_16->text().toStdString();;
         string p = ui->lineEdit_17->text().toStdString();;
         driv.driver_details(g, h, i, j, k, l, m, o, p);
+        ui->stackedWidget->setCurrentIndex(3);
     }
 }
 
@@ -161,11 +165,21 @@ void application::on_pushButton_5_clicked()
 //log in
 void application::on_pushButton_2_clicked()
 {
-    //Log in function in user :
-    //Decrypt
-    //Check in DB user type
-    //Open menu for user
-    ui->stackedWidget->setCurrentIndex(4);
+    if (ui->lineEdit->text().isEmpty()) {
+        ui->label_6->setText("Enter missing details");
+    }
+    else if (ui->lineEdit_2->text().isEmpty()) {
+        ui->label_6->setText("Enter missing details");
+    }
+    else {
+        string nm = ui->lineEdit->text().toStdString();
+        string pass = ui->lineEdit_2->text().toStdString();
+        //Log in function in user :
+        //Decrypt
+        //Check in DB user type
+        //Open menu for user
+        ui->stackedWidget->setCurrentIndex(4);
+    }
 }
 
 

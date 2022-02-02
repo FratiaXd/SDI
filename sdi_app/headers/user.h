@@ -23,7 +23,7 @@ public:
     User();
     User(string u, string p, string f_n, string em, string num, string t, string a);
     void registration();
-    void sign_in();
+    void sign_in(string usnm, string psswrd);
     void order_history();
     void sign_out();
 };
