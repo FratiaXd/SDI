@@ -69,6 +69,43 @@ bool User::sign_in(string usnm, string psswrd) {
     return answ;
 }
 
+int User::open_menu(string usn) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string type;
+    string sql = "SELECT type FROM USERS WHERE username = '" + usn + "';";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        type =  c[0].as<string>();
+    }
+
+    if (type == "driver"){
+        return 4;
+    }
+    else if (type == "forwarder"){
+        return 5;
+    }
+    else if (type == "owner"){
+        return 6;
+    }
+    else if (type == "receiver"){
+        return 7;
+    }
+    else {
+        return 8;
+    }
+}
+
 void User::order_history() {
 
 }

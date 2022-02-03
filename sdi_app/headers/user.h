@@ -24,6 +24,7 @@ public:
     User(string u, string p, string f_n, string em, string num, string t, string a);
     void registration();
     bool sign_in(string usnm, string psswrd);
+    int open_menu(string usn);
     void order_history();
     void sign_out();
 };

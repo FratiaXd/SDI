@@ -96,16 +96,26 @@ void application::on_pushButton_4_clicked()
     else {
         //check cpc function
         //check lorry reg number
-        string g = ui->lineEdit_3->text().toStdString();;
-        string h = ui->lineEdit_4->text().toStdString();;
-        string i = ui->lineEdit_5->text().toStdString();;
-        string j = ui->lineEdit_6->text().toStdString();;
-        string k = ui->lineEdit_13->text().toStdString();;
-        string l = ui->lineEdit_14->text().toStdString();;
-        string m = ui->lineEdit_15->text().toStdString();;
-        string o = ui->lineEdit_16->text().toStdString();;
-        string p = ui->lineEdit_17->text().toStdString();;
+        string g = ui->lineEdit_3->text().toStdString();
+        string h = ui->lineEdit_4->text().toStdString();
+        string i = ui->lineEdit_5->text().toStdString();
+        string j = ui->lineEdit_6->text().toStdString();
+        string k = ui->lineEdit_13->text().toStdString();
+        string l = ui->lineEdit_14->text().toStdString();
+        string m = ui->lineEdit_15->text().toStdString();
+        string o = ui->lineEdit_16->text().toStdString();
+        string p = ui->lineEdit_17->text().toStdString();
+        ui->lineEdit_3->clear();
+        ui->lineEdit_4->clear();
+        ui->lineEdit_5->clear();
+        ui->lineEdit_6->clear();
+        ui->lineEdit_13->clear();
+        ui->lineEdit_14->clear();
+        ui->lineEdit_15->clear();
+        ui->lineEdit_16->clear();
+        ui->lineEdit_17->clear();
         driv.driver_details(g, h, i, j, k, l, m, o, p);
+        QMessageBox::information(this, "Lorry check", "Check success!");
         ui->stackedWidget->setCurrentIndex(3);
     }
 }
@@ -192,7 +202,7 @@ void application::on_pushButton_2_clicked()
         }
         else {
             QMessageBox::information(this, "Log in", "Welcome back!");
-            ui->stackedWidget->setCurrentIndex(4);
+            ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
         }
         //Log in function in user :
         //Decrypt

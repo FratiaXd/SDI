@@ -97,7 +97,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RadioButton</string>
+      <string>Driver</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_2">
@@ -110,7 +110,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RadioButton</string>
+      <string>Forwarder</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_3">
@@ -123,7 +123,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RadioButton</string>
+      <string>Owner</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_4">
@@ -136,7 +136,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RadioButton</string>
+      <string>Receiver</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_5">
@@ -144,12 +144,12 @@
       <rect>
        <x>300</x>
        <y>280</y>
-       <width>112</width>
+       <width>201</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>RadioButton</string>
+      <string>Transportation company</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_3">
@@ -316,12 +316,12 @@
       <rect>
        <x>280</x>
        <y>40</y>
-       <width>131</width>
+       <width>201</width>
        <height>41</height>
       </rect>
      </property>
      <property name="text">
-      <string>Default reg</string>
+      <string>Default registration</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_5">

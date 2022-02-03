@@ -39,6 +39,19 @@
     <string>History</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>30</y>
+     <width>191</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Driver menu</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
