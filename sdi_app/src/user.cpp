@@ -29,6 +29,30 @@ string User::get_type() {
     return type;
 }
 
+string User::encrypt(string value) {
+    int i;
+    char* arr;
+    string n_obj(value);
+    arr = &n_obj[0];
+    for(i = 0; (i < 100 && arr[i] != '\0'); i++) {
+        arr[i] = arr[i] + 2;
+    }
+    string str(arr);
+    return str;
+}
+
+string User::decrypt(string value) {
+    int i;
+    char* arr;
+    string n_obj(value);
+    arr = &n_obj[0];
+    for(i = 0; (i < 100 && arr[i] != '\0'); i++){
+        arr[i] = arr[i] - 2;
+    }
+    string str(arr);
+    return str;
+}
+
 void User::registration() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
@@ -37,8 +61,15 @@ void User::registration() {
     else {
         cout << "Can't open database" << endl;
     }
+    string unm = encrypt(username);
+    string pw = encrypt(password);
+    string f_nm = encrypt(full_name);
+    string ema = encrypt(email);
+    string mob = encrypt(mobile);
+    string add = encrypt(address);
+
     string sql = "INSERT INTO USERS(USERNAME, PASSWORD, FULLNAME, EMAIL, MOBILE, TYPE, ADDRESS)" \
-                 "VALUES('"+ username + "', '" + password + "', '" + full_name + "', '" + email + "', '" + mobile + "', '" + type + "', '" + address + "');";
+                 "VALUES('"+ unm + "', '" + pw + "', '" + f_nm + "', '" + ema + "', '" + mob + "', '" + type + "', '" + add + "');";
 
     work W(C);
 
@@ -57,7 +88,9 @@ bool User::sign_in(string usnm, string psswrd) {
     }
 
     bool answ;
-    string sql = "SELECT EXISTS(SELECT 1 FROM USERS WHERE username = '" + usnm + "' AND password = '" + psswrd + "');";
+    string u = encrypt(usnm);
+    string p = encrypt(psswrd);
+    string sql = "SELECT EXISTS(SELECT 1 FROM USERS WHERE username = '" + u + "' AND password = '" + p + "');";
 
     nontransaction N(C);
 

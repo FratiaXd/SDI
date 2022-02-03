@@ -22,6 +22,8 @@ public:
     string get_type();
     User();
     User(string u, string p, string f_n, string em, string num, string t, string a);
+    string encrypt(string value);
+    string decrypt(string value);
     void registration();
     bool sign_in(string usnm, string psswrd);
     int open_menu(string usn);
