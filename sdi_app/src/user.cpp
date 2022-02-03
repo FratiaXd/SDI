@@ -47,7 +47,7 @@ void User::registration() {
     cout << "User saved" << endl;
 }
 
-void User::sign_in(string usnm, string psswrd) {
+bool User::sign_in(string usnm, string psswrd) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -56,12 +56,17 @@ void User::sign_in(string usnm, string psswrd) {
         cout << "Can't open database" << endl;
     }
 
-    string sql = "SELECT username, password FROM USERS WHERE username = '" + usnm + "' AND password = '" + psswrd + "';";
+    bool answ;
+    string sql = "SELECT EXISTS(SELECT 1 FROM USERS WHERE username = '" + usnm + "' AND password = '" + psswrd + "');";
 
     nontransaction N(C);
 
     result R(N.exec(sql));
 
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        answ =  c[0].as<bool>();
+    }
+    return answ;
 }
 
 void User::order_history() {

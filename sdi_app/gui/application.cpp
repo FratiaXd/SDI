@@ -139,25 +139,36 @@ void application::on_pushButton_5_clicked()
         if (user1.get_type() == "driver") {
             driv.set_driver(a, b, c, d, e, "driver", f);
             driv.registration_driver();
+            driv.~Driver();
             //Encrypt function
         }
         else if (user1.get_type() == "forwarder") {
             Forwarder forw(a, b, c, d, e, "forwarder", f);
             forw.registration();
+            forw.~Forwarder();
         }
         else if (user1.get_type() == "owner") {
             CargoOwner own(a, b, c, d, e, "cargo owner", f);
             own.registration();
+            own.~CargoOwner();
         }
         else if (user1.get_type() == "receiver") {
             User receiv(a, b, c, d, e, "receiver", f);
             receiv.registration();
+            receiv.~User();
         }
         else if (user1.get_type() == "company") {
             TranspCompany comp(a, b, c, d, e, "transportation company", f);
             comp.registration();
+            comp.~TranspCompany();
         }
-        //destroy user
+        user1.~User();
+        ui->lineEdit_7->clear();
+        ui->lineEdit_8->clear();
+        ui->lineEdit_9->clear();
+        ui->lineEdit_10->clear();
+        ui->lineEdit_11->clear();
+        ui->lineEdit_12->clear();
         QMessageBox::information(this, "Registration", "Account was succesfully created");
         ui->stackedWidget->setCurrentIndex(0);
     }
@@ -174,11 +185,19 @@ void application::on_pushButton_2_clicked()
     else {
         string nm = ui->lineEdit->text().toStdString();
         string pass = ui->lineEdit_2->text().toStdString();
+        if (!user1.sign_in(nm, pass)) {
+            ui->lineEdit->clear();
+            ui->lineEdit_2->clear();
+            QMessageBox::critical(this, "Log in", "Incorrect username/password");
+        }
+        else {
+            QMessageBox::information(this, "Log in", "Welcome back!");
+            ui->stackedWidget->setCurrentIndex(4);
+        }
         //Log in function in user :
         //Decrypt
         //Check in DB user type
         //Open menu for user
-        ui->stackedWidget->setCurrentIndex(4);
     }
 }
 
