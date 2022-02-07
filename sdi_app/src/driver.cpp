@@ -42,10 +42,27 @@ void Driver::registration_driver() {
     else {
         cout << "Can't open database" << endl;
     }
+
+    string un = encrypt(username);
+    string pw = encrypt(password);
+    string f_nm = encrypt(full_name);
+    string ema = encrypt(email);
+    string mob = encrypt(mobile);
+    string add = encrypt(address);
+    string ni = encrypt(NI_number);
+    string di = encrypt(driverlID);
+    string lt = encrypt(lorryType);
+    string lrg = encrypt(lorryRegNum);
+    string he = encrypt(lorryHeight);
+    string wi = encrypt(lorryWidth);
+    string le = encrypt(lorryLenght);
+    string we = encrypt(lorryWeight);
+    string c = encrypt(cpc);
+
     string sql = "INSERT INTO USERS(USERNAME, PASSWORD, FULLNAME, EMAIL, MOBILE, TYPE, ADDRESS," \
                  "NINUMBER, LICENSEID, LORRY_TYPE, REGISTRATION_NUM, L_HEIGHT, L_WIDTH, L_LENGHT, L_WEIGHT, CPC)" \
-                 "VALUES('"+ username + "', '" + password + "', '" + full_name + "', '" + email + "', '" + mobile + "', '" + type + "', '" + address + "', '" \
-                 + NI_number + "', '" + driverlID + "', '" + lorryType + "', '" + lorryRegNum + "', '" + lorryHeight + "', '" + lorryWidth + "', '" + lorryLenght + "', '" + lorryWeight + "', '" + cpc + "');";
+                 "VALUES('"+ un + "', '" + pw+ "', '" + f_nm + "', '" + ema + "', '" + mob + "', '" + type + "', '" + add + "', '" \
+                 + ni + "', '" + di + "', '" + lt + "', '" + lrg + "', '" + he + "', '" + wi + "', '" + le + "', '" + we + "', '" + c + "');";
 
     work W(C);
 
