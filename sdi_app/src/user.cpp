@@ -111,27 +111,28 @@ int User::open_menu(string usn) {
         cout << "Can't open database" << endl;
     }
 
-    string type;
-    string sql = "SELECT type FROM USERS WHERE username = '" + usn + "';";
+    string n = encrypt(usn);
+    string tpe;
+    string sql = "SELECT type FROM USERS WHERE username = '" + n + "';";
 
     nontransaction N(C);
 
     result R(N.exec(sql));
 
     for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
-        type =  c[0].as<string>();
+        tpe =  c[0].as<string>();
     }
 
-    if (type == "driver"){
+    if (tpe == "driver"){
         return 4;
     }
-    else if (type == "forwarder"){
+    else if (tpe == "forwarder"){
         return 5;
     }
-    else if (type == "owner"){
+    else if (tpe == "owner"){
         return 6;
     }
-    else if (type == "receiver"){
+    else if (tpe == "receiver"){
         return 7;
     }
     else {
