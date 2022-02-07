@@ -129,7 +129,7 @@ int User::open_menu(string usn) {
     else if (tpe == "forwarder"){
         return 5;
     }
-    else if (tpe == "owner"){
+    else if (tpe == "cargo owner"){
         return 6;
     }
     else if (tpe == "receiver"){

@@ -32,6 +32,8 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void logOutUser();
+
 private:
     Ui::application *ui;
     User user1;

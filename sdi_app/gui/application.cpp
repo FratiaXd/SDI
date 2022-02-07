@@ -13,6 +13,12 @@ application::application(QWidget *parent) :
     ui->stackedWidget->addWidget(&omenu);
     ui->stackedWidget->addWidget(&rmenu);
     ui->stackedWidget->addWidget(&cmenu);
+
+    connect(&dmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
+    connect(&fmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
+    connect(&omenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
+    connect(&rmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
+    connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
 }
 
 application::~application()
@@ -170,7 +176,7 @@ void application::on_pushButton_5_clicked()
         else if (user1.get_type() == "company") {
             TranspCompany comp(a, b, c, d, e, "transportation company", f);
             comp.registration();
-            comp.~TranspCompany();
+
         }
         user1.~User();
         ui->lineEdit_7->clear();
@@ -202,6 +208,8 @@ void application::on_pushButton_2_clicked()
         }
         else {
             QMessageBox::information(this, "Log in", "Welcome back!");
+            ui->lineEdit->clear();
+            ui->lineEdit_2->clear();
             ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
         }
         //Log in function in user :
@@ -209,6 +217,11 @@ void application::on_pushButton_2_clicked()
         //Check in DB user type
         //Open menu for user
     }
+}
+
+void application::logOutUser()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 

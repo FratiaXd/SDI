@@ -12,3 +12,8 @@ menu_receiver::~menu_receiver()
 {
     delete ui;
 }
+
+void menu_receiver::on_pushButton_clicked()
+{
+    emit log_out();
+}

@@ -16,9 +16,15 @@ public:
     explicit menu_receiver(QWidget *parent = nullptr);
     ~menu_receiver();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::menu_receiver *ui;
     User user1;
+
+signals:
+    void log_out();
 };
 
 #endif // MENU_RECEIVER_H

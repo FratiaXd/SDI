@@ -16,9 +16,15 @@ public:
     explicit menu_company(QWidget *parent = nullptr);
     ~menu_company();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::menu_company *ui;
     TranspCompany comp1;
+
+signals:
+    void log_out();
 };
 
 #endif // MENU_COMPANY_H

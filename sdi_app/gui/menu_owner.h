@@ -16,9 +16,15 @@ public:
     explicit menu_owner(QWidget *parent = nullptr);
     ~menu_owner();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::menu_owner *ui;
     CargoOwner owner1;
+
+signals:
+    void log_out();
 };
 
 #endif // MENU_OWNER_H

@@ -13,3 +13,9 @@ menu_forwarder::~menu_forwarder()
     delete ui;
 }
 
+
+
+void menu_forwarder::on_pushButton_clicked()
+{
+    emit log_out();
+}

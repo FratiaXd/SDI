@@ -16,9 +16,15 @@ public:
     explicit menu_driver(QWidget *parent = nullptr);
     ~menu_driver();
 
+private slots:
+    void on_pushButton_3_clicked();
+
 private:
     Ui::menu_driver *ui;
     Driver driv1;
+
+signals:
+    void log_out();
 };
 
 #endif // MENU_DRIVER_H

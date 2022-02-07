@@ -12,3 +12,8 @@ menu_driver::~menu_driver()
 {
     delete ui;
 }
+
+void menu_driver::on_pushButton_3_clicked()
+{
+    emit log_out();
+}

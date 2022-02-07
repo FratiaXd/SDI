@@ -12,3 +12,8 @@ menu_owner::~menu_owner()
 {
     delete ui;
 }
+
+void menu_owner::on_pushButton_clicked()
+{
+    emit log_out();
+}

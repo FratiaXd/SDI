@@ -17,10 +17,14 @@ public:
     ~menu_forwarder();
 
 private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::menu_forwarder *ui;
     Forwarder forw1;
+
+signals:
+    void log_out();
 };
 
 #endif // MENU_FORWARDER_H
