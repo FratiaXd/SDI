@@ -24,6 +24,8 @@ public:
     User(string u, string p, string f_n, string em, string num, string t, string a);
     string encrypt(string value);
     string decrypt(string value);
+    void set_n(string u);
+    string get_n();
     void registration();
     bool sign_in(string usnm, string psswrd);
     int open_menu(string usn);

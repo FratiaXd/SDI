@@ -72,6 +72,7 @@ void menu_owner::on_pushButton_5_clicked()
         string typ = ui->lineEdit_5->text().toStdString();
         string sour = ui->lineEdit_6->text().toStdString();
         string dest = ui->lineEdit_7->text().toStdString();
+        //check values to be int
         float wei_fl = stof(wei);
         float hei_fl = stof(hei);
         float wid_fl = stof(wid);
@@ -87,7 +88,7 @@ void menu_owner::on_pushButton_5_clicked()
 
 void menu_owner::on_pushButton_6_clicked()
 {
-    cargo1.generate_id();
+    string cID = cargo1.generate_id();
     cargo1.update_status("Waiting for forwarder");
     cargo1.assign_owner();
 

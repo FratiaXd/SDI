@@ -30,7 +30,7 @@ void Cargo::set_primary_values(string w, string h, string wi, string leng, strin
     shippingCost = cost;
 }
 
-int Cargo::generate_id() {
+string Cargo::generate_id() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -50,7 +50,11 @@ int Cargo::generate_id() {
         answ =  c[0].as<int>();
     }
 
-    int id = 100 + answ;
+    int id_int = 100 + answ;
+
+    string id = to_string(id_int);
+
+    cargoID = id;
 
     return id;
 }

@@ -53,6 +53,14 @@ string User::decrypt(string value) {
     return str;
 }
 
+void User::set_n(string u) {
+    username = u;
+}
+
+string User::get_n() {
+    return username;
+}
+
 void User::registration() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
