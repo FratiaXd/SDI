@@ -127,23 +127,23 @@ int User::open_menu(string usn) {
         return 4;
     }
     else if (tpe == "forwarder"){
+        //set username
         return 5;
     }
     else if (tpe == "cargo owner"){
+        //
         return 6;
     }
     else if (tpe == "receiver"){
+        //
         return 7;
     }
     else {
+        //
         return 8;
     }
 }
 
 void User::order_history() {
-
-}
-
-void User::sign_out() {
 
 }

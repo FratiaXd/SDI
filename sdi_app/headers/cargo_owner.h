@@ -13,7 +13,7 @@ class CargoOwner : public User {
 public:
     CargoOwner();
     CargoOwner(string u, string p, string f_n, string em, string num, string t, string a);
-   double calculate_shipping();
+   float calculate_shipping(float w, float h, float l, float we, string src, string addr);
    void place_order();
 };
 

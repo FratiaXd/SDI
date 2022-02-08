@@ -212,10 +212,6 @@ void application::on_pushButton_2_clicked()
             ui->lineEdit_2->clear();
             ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
         }
-        //Log in function in user :
-        //Decrypt
-        //Check in DB user type
-        //Open menu for user
     }
 }
 

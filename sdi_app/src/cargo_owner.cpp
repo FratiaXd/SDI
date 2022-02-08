@@ -19,8 +19,10 @@ CargoOwner::CargoOwner(string u, string p, string f_n, string em, string num, st
     address = a;
 }
 
-double CargoOwner::calculate_shipping() {
-
+float CargoOwner::calculate_shipping(float w, float h, float l, float we, string src, string addr) {
+    //calc
+    float a = 100.6;
+    return a;
 }
 
 void CargoOwner::place_order() {

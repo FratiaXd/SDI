@@ -4,9 +4,59 @@
 #include "headers/cargo.h"
 
 using namespace std;
+using namespace pqxx;
 
-void Cargo::update_status() {
+Cargo::Cargo() {
 
+}
+
+bool Cargo::cargo_exists() {
+    if (weight.empty()){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+void Cargo::set_primary_values(string w, string h, string wi, string leng, string t, string s, string d, string cost) {
+    weight = w;
+    height = h;
+    width = wi;
+    length = leng;
+    type = t;
+    source = s;
+    destination = d;
+    shippingCost = cost;
+}
+
+int Cargo::generate_id() {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    int answ;
+    string sql = "SELECT COUNT(cargo_id) FROM cargo;";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        answ =  c[0].as<int>();
+    }
+
+    int id = 100 + answ;
+
+    return id;
+}
+
+void Cargo::update_status(string currentStatus) {
+    status = currentStatus;
 }
 
 void Cargo::assign_company() {

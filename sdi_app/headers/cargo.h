@@ -2,6 +2,8 @@
 // Created by fratia on 1/21/22.
 //
 #include "string"
+#include <pqxx/pqxx>
+#include "iostream"
 
 using namespace std;
 
@@ -12,21 +14,26 @@ class Cargo {
 protected:
     string cargoID;
     string status;
-    double weight;
-    double height;
-    double width;
-    double length;
+    string weight;
+    string height;
+    string width;
+    string length;
     string type;
     string source;
     string destination;
-    double shippingCost;
+    string shippingCost;
     string owner;
     string forwarder;
     string company;
-    string driver;
+    string drver;
     string receiver;
 public:
-    void update_status();
+    Cargo();
+    //Cargo();
+    bool cargo_exists();
+    void set_primary_values(string w, string h, string wi, string leng, string t, string s, string d, string cost);
+    int generate_id();
+    void update_status(string currentStatus);
     void assign_owner();
     void assign_forwarder();
     void assign_driver();

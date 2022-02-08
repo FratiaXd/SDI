@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="label">
@@ -55,9 +55,9 @@
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>170</y>
-       <width>101</width>
+       <x>220</x>
+       <y>120</y>
+       <width>151</width>
        <height>41</height>
       </rect>
      </property>
@@ -68,14 +68,27 @@
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>220</x>
        <y>260</y>
-       <width>101</width>
+       <width>151</width>
        <height>41</height>
       </rect>
      </property>
      <property name="text">
       <string>My orders</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>190</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Forwarder offers</string>
      </property>
     </widget>
    </widget>
@@ -166,10 +179,10 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>390</y>
-       <width>67</width>
-       <height>17</height>
+       <x>360</x>
+       <y>100</y>
+       <width>251</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="text">
