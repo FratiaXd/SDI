@@ -42,6 +42,9 @@ private:
     menu_company cmenu;
     menu_receiver rmenu;
     Driver driv;
+
+    //signals:
+    //void pass_username();
 };
 
 #endif // APPLICATION_H

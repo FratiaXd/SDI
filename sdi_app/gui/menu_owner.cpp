@@ -6,6 +6,7 @@ menu_owner::menu_owner(QWidget *parent) :
     ui(new Ui::menu_owner)
 {
     ui->setupUi(this);
+
 }
 
 menu_owner::~menu_owner()
@@ -17,6 +18,10 @@ void menu_owner::on_pushButton_clicked()
 {
     emit log_out();
 }
+
+//void menu_owner::receive_username(std::string a) {
+    //owner1.set_n(a);
+//}
 
 void menu_owner::on_pushButton_2_clicked()
 {
@@ -90,7 +95,28 @@ void menu_owner::on_pushButton_6_clicked()
 {
     string cID = cargo1.generate_id();
     cargo1.update_status("Waiting for forwarder");
-    cargo1.assign_owner();
-
+    //string d = owner1.get_n();
+    //cout << d;
+    //cargo1.assign_owner();
     //pass to db and encrypt
+}
+
+void menu_owner::on_pushButton_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void menu_owner::on_pushButton_8_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void menu_owner::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void menu_owner::on_pushButton_9_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }

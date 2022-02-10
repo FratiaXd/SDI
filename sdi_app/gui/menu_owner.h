@@ -18,6 +18,18 @@ public:
     ~menu_owner();
 
 private slots:
+    void on_pushButton_9_clicked();
+
+private slots:
+    void on_pushButton_3_clicked();
+
+private slots:
+    void on_pushButton_8_clicked();
+
+private slots:
+    void on_pushButton_4_clicked();
+
+private slots:
     void on_pushButton_7_clicked();
 
     void on_pushButton_2_clicked();
@@ -27,6 +39,8 @@ private slots:
     void on_pushButton_5_clicked();
 
     void on_pushButton_6_clicked();
+
+    //void receive_username(std::string a);
 
 private:
     Ui::menu_owner *ui;

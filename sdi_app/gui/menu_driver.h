@@ -17,6 +17,24 @@ public:
     ~menu_driver();
 
 private slots:
+    void on_pushButton_7_clicked();
+
+private slots:
+    void on_pushButton_2_clicked();
+
+private slots:
+    void on_pushButton_6_clicked();
+
+private slots:
+    void on_pushButton_4_clicked();
+
+private slots:
+    void on_pushButton_5_clicked();
+
+private slots:
+    void on_pushButton_clicked();
+
+private slots:
     void on_pushButton_3_clicked();
 
 private:

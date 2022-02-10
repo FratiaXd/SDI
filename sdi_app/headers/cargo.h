@@ -34,11 +34,11 @@ public:
     void set_primary_values(string w, string h, string wi, string leng, string t, string s, string d, string cost);
     string generate_id();
     void update_status(string currentStatus);
-    void assign_owner();
-    void assign_forwarder();
-    void assign_driver();
-    void assign_company();
-    void assign_receiver();
+    void assign_owner(string own);
+    void assign_forwarder(string forw);
+    void assign_driver(string dri);
+    void assign_company(string com);
+    void assign_receiver(string rec);
 };
 
 #endif //SDI_APP_CARGO_H

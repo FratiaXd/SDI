@@ -63,22 +63,22 @@ void Cargo::update_status(string currentStatus) {
     status = currentStatus;
 }
 
-void Cargo::assign_company() {
-
+void Cargo::assign_company(string com) {
+    company = com;
 }
 
-void Cargo::assign_driver() {
-
+void Cargo::assign_driver(string dri) {
+    drver = dri;
 }
 
-void Cargo::assign_forwarder() {
-
+void Cargo::assign_forwarder(string forw) {
+    forwarder = forw;
 }
 
-void Cargo::assign_owner() {
-
+void Cargo::assign_owner(string own) {
+    owner = own;
 }
 
-void Cargo::assign_receiver() {
-
+void Cargo::assign_receiver(string rec) {
+    receiver = rec;
 }

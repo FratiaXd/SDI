@@ -17,3 +17,13 @@ void menu_receiver::on_pushButton_clicked()
 {
     emit log_out();
 }
+
+void menu_receiver::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void menu_receiver::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}

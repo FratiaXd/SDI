@@ -17,6 +17,24 @@ public:
     ~menu_forwarder();
 
 private slots:
+    void on_pushButton_12_clicked();
+
+private slots:
+    void on_pushButton_3_clicked();
+
+private slots:
+    void on_pushButton_11_clicked();
+
+private slots:
+    void on_pushButton_4_clicked();
+
+private slots:
+    void on_pushButton_5_clicked();
+
+private slots:
+    void on_pushButton_2_clicked();
+
+private slots:
     void on_pushButton_clicked();
 
 private:

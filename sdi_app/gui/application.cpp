@@ -19,6 +19,8 @@ application::application(QWidget *parent) :
     connect(&omenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&rmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
+
+    //connect(this, SIGNAL(pass_username()), &omenu, SLOT(receive_username(user1.get_n())));
 }
 
 application::~application()
@@ -210,6 +212,8 @@ void application::on_pushButton_2_clicked()
             QMessageBox::information(this, "Log in", "Welcome back!");
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
+            //user1.set_n(nm);
+            //emit pass_username();
             ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
         }
     }
