@@ -19,6 +19,30 @@ bool Cargo::cargo_exists() {
     }
 }
 
+string Cargo::encrypt(string value) {
+    int i;
+    char* arr;
+    string n_obj(value);
+    arr = &n_obj[0];
+    for(i = 0; (i < 100 && arr[i] != '\0'); i++) {
+        arr[i] = arr[i] + 4;
+    }
+    string str(arr);
+    return str;
+}
+
+string Cargo::decrypt(string value) {
+    int i;
+    char* arr;
+    string n_obj(value);
+    arr = &n_obj[0];
+    for(i = 0; (i < 100 && arr[i] != '\0'); i++){
+        arr[i] = arr[i] - 4;
+    }
+    string str(arr);
+    return str;
+}
+
 void Cargo::set_primary_values(string w, string h, string wi, string leng, string t, string s, string d, string cost) {
     weight = w;
     height = h;
@@ -81,4 +105,32 @@ void Cargo::assign_owner(string own) {
 
 void Cargo::assign_receiver(string rec) {
     receiver = rec;
+}
+
+void Cargo::savetoDB() {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    } else {
+        cout << "Can't open database" << endl;
+    }
+    string a = encrypt(cargoID);
+    string b = encrypt(status);
+    string c = encrypt(weight);
+    string d = encrypt(height);
+    string e = encrypt(width);
+    string f = encrypt(length);
+    string g = encrypt(type);
+    string h = encrypt(source);
+    string i = encrypt(destination);
+    string v = encrypt(shippingCost);
+    string k = encrypt(owner);
+
+    string sql = "INSERT INTO CARGO(CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST, OWNER) VALUES('" + a + "', '" + b + "', '" + c + "', '" + d + "', '" + e + "', '" + f + "', '" + g + "', '" + h + "', '" + i + "', '" + v + "', '" + k + "');";
+
+    work W(C);
+
+    W.exec(sql);
+    W.commit();
+    cout << "Cargo saved" << endl;
 }

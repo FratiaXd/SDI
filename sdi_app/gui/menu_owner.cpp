@@ -1,7 +1,8 @@
 #include "menu_owner.h"
 #include "ui_menu_owner.h"
+#include "QMessageBox"
 
-string uman;
+string username_;
 
 menu_owner::menu_owner(QWidget *parent) :
     QWidget(parent),
@@ -22,8 +23,8 @@ void menu_owner::on_pushButton_clicked()
 }
 
 void menu_owner::receive_username(QString txt) {
-    uman = txt.toStdString();
-    owner1.set_n(uman);
+    username_ = txt.toStdString();
+    owner1.set_n(username_);
 }
 
 void menu_owner::on_pushButton_2_clicked()
@@ -98,10 +99,17 @@ void menu_owner::on_pushButton_6_clicked()
 {
     string cID = cargo1.generate_id();
     cargo1.update_status("Waiting for forwarder");
-    //string d = owner1.get_n();
-    //cout << d;
-    //cargo1.assign_owner();
-    //pass to db and encrypt
+    cargo1.assign_owner(username_);
+    cargo1.savetoDB();
+    QMessageBox::information(this, "Order", "Your order was successful!");
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->lineEdit->clear();
+    ui->lineEdit_2->clear();
+    ui->lineEdit_3->clear();
+    ui->lineEdit_4->clear();
+    ui->lineEdit_5->clear();
+    ui->lineEdit_6->clear();
+    ui->lineEdit_7->clear();
 }
 
 void menu_owner::on_pushButton_4_clicked()

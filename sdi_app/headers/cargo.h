@@ -29,8 +29,9 @@ protected:
     string receiver;
 public:
     Cargo();
-    //Cargo();
     bool cargo_exists();
+    string encrypt(string value);
+    string decrypt(string value);
     void set_primary_values(string w, string h, string wi, string leng, string t, string s, string d, string cost);
     string generate_id();
     void update_status(string currentStatus);
@@ -39,6 +40,7 @@ public:
     void assign_driver(string dri);
     void assign_company(string com);
     void assign_receiver(string rec);
+    void savetoDB();
 };
 
 #endif //SDI_APP_CARGO_H
