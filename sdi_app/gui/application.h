@@ -43,8 +43,8 @@ private:
     menu_receiver rmenu;
     Driver driv;
 
-    //signals:
-    //void pass_username();
+    signals:
+    void pass_username(QString tx);
 };
 
 #endif // APPLICATION_H

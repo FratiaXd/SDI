@@ -40,7 +40,7 @@ private slots:
 
     void on_pushButton_6_clicked();
 
-    //void receive_username(std::string a);
+    void receive_username(QString tx);
 
 private:
     Ui::menu_owner *ui;

@@ -1,6 +1,8 @@
 #include "menu_owner.h"
 #include "ui_menu_owner.h"
 
+string uman;
+
 menu_owner::menu_owner(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_owner)
@@ -19,9 +21,10 @@ void menu_owner::on_pushButton_clicked()
     emit log_out();
 }
 
-//void menu_owner::receive_username(std::string a) {
-    //owner1.set_n(a);
-//}
+void menu_owner::receive_username(QString txt) {
+    uman = txt.toStdString();
+    owner1.set_n(uman);
+}
 
 void menu_owner::on_pushButton_2_clicked()
 {
