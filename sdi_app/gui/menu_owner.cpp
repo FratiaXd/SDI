@@ -101,7 +101,7 @@ void menu_owner::on_pushButton_6_clicked()
     cargo1.update_status("Waiting for forwarder");
     cargo1.assign_owner(username_);
     cargo1.savetoDB();
-    QMessageBox::information(this, "Order", "Your order was successful!");
+    QMessageBox::information(this, "Order", "Your order was successful! Order has been added to 'My orders' list.");
     ui->stackedWidget->setCurrentIndex(0);
     ui->lineEdit->clear();
     ui->lineEdit_2->clear();
@@ -115,19 +115,24 @@ void menu_owner::on_pushButton_6_clicked()
 void menu_owner::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //Forwarder offers
 }
 
 void menu_owner::on_pushButton_8_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    //Go back from forwarder offers
 }
 
 void menu_owner::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+    cargo1.request_history(username_, "owner");
+    //Order history
 }
 
 void menu_owner::on_pushButton_9_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    //Go back from history
 }

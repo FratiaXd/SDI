@@ -134,3 +134,41 @@ void Cargo::savetoDB() {
     W.commit();
     cout << "Cargo saved" << endl;
 }
+
+void Cargo::request_history(string user, string actor) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string un_en = encrypt(user);
+
+    string sql = "SELECT CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST FROM CARGO WHERE " + actor + " = '" + un_en + "';";
+
+    nontransaction N(C);
+    vector<Cargo> v1;
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        Cargo a1;
+        cargoID = c[0].as<string>();
+        status = c[1].as<string>();
+        weight = c[2].as<string>();
+        height = c[3].as<string>();
+        width = c[4].as<string>();
+        length = c[5].as<string>();
+        type = c[6].as<string>();
+        source = c[7].as<string>();
+        destination = c[8].as<string>();
+        shippingCost = c[9].as<string>();
+        v1.push_back(a1);
+    }
+    //decrypt
+    //sort
+    //create qtree
+    //delete
+}

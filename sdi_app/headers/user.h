@@ -29,7 +29,6 @@ public:
     void registration();
     bool sign_in(string usnm, string psswrd);
     int open_menu(string usn);
-    void order_history();
 };
 
 #endif //SDI_APP_USER_H

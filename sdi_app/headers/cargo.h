@@ -41,6 +41,7 @@ public:
     void assign_company(string com);
     void assign_receiver(string rec);
     void savetoDB();
+    void request_history(string user, string actor);
 };
 
 #endif //SDI_APP_CARGO_H

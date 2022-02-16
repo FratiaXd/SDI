@@ -152,7 +152,3 @@ int User::open_menu(string usn) {
         return 8;
     }
 }
-
-void User::order_history() {
-
-}
