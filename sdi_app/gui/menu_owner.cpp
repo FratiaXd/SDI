@@ -10,11 +10,34 @@ menu_owner::menu_owner(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QStringList ColumnNames;
+    ColumnNames << "ID" << "Status";
+
+    ui->treeWidget->setColumnCount(2);
+    ui->treeWidget->setHeaderLabels(ColumnNames);
+
+    AddRoot("101", "Waiting for forwarder");
 }
 
 menu_owner::~menu_owner()
 {
     delete ui;
+}
+
+void menu_owner::AddRoot(QString id, QString status) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+    itm->setText(0, id);
+    itm->setText(1, status);
+    ui->treeWidget->addTopLevelItem(itm);
+
+    AddChild(itm, "weight", "200kg");
+    AddChild(itm, "height", "2m");
+}
+void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem();
+    itm->setText(0, id);
+    itm->setText(1, status);
+    parent->addChild(itm);
 }
 
 void menu_owner::on_pushButton_clicked()
@@ -128,6 +151,7 @@ void menu_owner::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
     cargo1.request_history(username_, "owner");
+
     //Order history
 }
 

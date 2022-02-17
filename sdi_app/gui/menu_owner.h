@@ -4,6 +4,9 @@
 #include <QWidget>
 #include "headers/cargo_owner.h"
 #include "headers/cargo.h"
+#include <QtCore>
+#include <QtGui>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class menu_owner;
@@ -12,6 +15,9 @@ class menu_owner;
 class menu_owner : public QWidget
 {
     Q_OBJECT
+
+    void AddRoot (QString id, QString status);
+    void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
     explicit menu_owner(QWidget *parent = nullptr);
