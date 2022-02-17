@@ -29,6 +29,7 @@ protected:
     string receiver;
 public:
     Cargo();
+    Cargo(string d, string f, string e, string r, string h,string yt, string fr, string ds, string dd, string sdv);
     bool cargo_exists();
     string encrypt(string value);
     string decrypt(string value);
@@ -42,6 +43,7 @@ public:
     void assign_receiver(string rec);
     void savetoDB();
     void request_history(string user, string actor);
+    string get_id();
 };
 
 #endif //SDI_APP_CARGO_H

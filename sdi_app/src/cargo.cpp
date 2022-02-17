@@ -10,6 +10,19 @@ Cargo::Cargo() {
 
 }
 
+Cargo::Cargo(string d, string f, string e, string r, string h,string yt, string fr, string ds, string dd, string sdv) {
+    cargoID = d;
+    status = f;
+    weight = e;
+    height = r;
+    width = h;
+    length = yt;
+    type = fr;
+    source = ds;
+    destination = dd;
+    shippingCost = sdv;
+}
+
 bool Cargo::cargo_exists() {
     if (weight.empty()){
         return false;
@@ -135,6 +148,10 @@ void Cargo::savetoDB() {
     cout << "Cargo saved" << endl;
 }
 
+string Cargo::get_id() {
+    return cargoID;
+}
+
 void Cargo::request_history(string user, string actor) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
@@ -149,26 +166,32 @@ void Cargo::request_history(string user, string actor) {
     string sql = "SELECT CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST FROM CARGO WHERE " + actor + " = '" + un_en + "';";
 
     nontransaction N(C);
-    vector<Cargo> v1;
 
     result R(N.exec(sql));
 
+    list<Cargo> l1;
+
     for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
-        Cargo a1;
-        cargoID = c[0].as<string>();
-        status = c[1].as<string>();
-        weight = c[2].as<string>();
-        height = c[3].as<string>();
-        width = c[4].as<string>();
-        length = c[5].as<string>();
-        type = c[6].as<string>();
-        source = c[7].as<string>();
-        destination = c[8].as<string>();
-        shippingCost = c[9].as<string>();
-        v1.push_back(a1);
+        string cargID = decrypt(c[0].as<string>());
+        string statu = decrypt(c[1].as<string>());
+        string weigh = decrypt(c[2].as<string>());
+        string heigh = decrypt(c[3].as<string>());
+        string widt = decrypt(c[4].as<string>());
+        string lengt = decrypt(c[5].as<string>());
+        string typ = decrypt(c[6].as<string>());
+        string sourc = decrypt(c[7].as<string>());
+        string destinatio = decrypt(c[8].as<string>());
+        string shippingCos = decrypt(c[9].as<string>());
+        Cargo it(cargID, statu, weigh, heigh, widt, lengt, typ, sourc, destinatio, shippingCos);
+        l1.push_back(it);
     }
-    //decrypt
-    //sort
+
+    l1.reverse();
+
+    for (list<Cargo>::iterator i = l1.begin(); i != l1.end(); ++i) {
+        cout << i->get_id() << endl;
+    }
+
     //create qtree
     //delete
 }
