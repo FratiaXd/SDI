@@ -20,7 +20,8 @@ application::application(QWidget *parent) :
     connect(&rmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
 
-    QObject::connect(this, SIGNAL(pass_username(QString)), &omenu, SLOT(receive_username(QString)));
+    QObject::connect(this, SIGNAL(pass_username_o(QString)), &omenu, SLOT(receive_username_o(QString)));
+    //QObject::connect(this, SIGNAL(pass_username_r(QString)), &rmenu, SLOT(receive_username(QString)));
 }
 
 application::~application()
@@ -213,7 +214,7 @@ void application::on_pushButton_2_clicked()
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
             QString qna = QString::fromStdString(nm);
-            emit pass_username(qna);
+            emit pass_username_o(qna);
             ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
         }
     }

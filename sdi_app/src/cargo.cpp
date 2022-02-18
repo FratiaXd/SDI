@@ -180,6 +180,31 @@ string Cargo::get_shippingCost() {
     return shippingCost;
 }
 
+bool Cargo::has_any_orders(string unm, string actor) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    bool exists;
+    string encr = encrypt(unm);
+
+    string sql = "SELECT EXISTS(SELECT 1 FROM CARGO WHERE " + actor + " = '" + encr + "');";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        exists =  c[0].as<bool>();
+    }
+
+    return exists;
+}
+
 list<Cargo> Cargo::request_history(string user, string actor) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {

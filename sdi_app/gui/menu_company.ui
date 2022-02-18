@@ -216,6 +216,21 @@
       <string>Go back</string>
      </property>
     </widget>
+    <widget class="QTreeWidget" name="treeWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>581</width>
+       <height>421</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string notr="true">1</string>
+      </property>
+     </column>
+    </widget>
    </widget>
   </widget>
  </widget>

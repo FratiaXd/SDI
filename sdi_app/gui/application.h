@@ -44,7 +44,7 @@ private:
     Driver driv;
 
     signals:
-    void pass_username(QString tx);
+    void pass_username_o(QString tx);
 };
 
 #endif // APPLICATION_H

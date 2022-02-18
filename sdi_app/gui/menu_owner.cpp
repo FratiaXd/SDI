@@ -49,7 +49,7 @@ void menu_owner::on_pushButton_clicked()
     emit log_out();
 }
 
-void menu_owner::receive_username(QString txt) {
+void menu_owner::receive_username_o(QString txt) {
     username_ = txt.toStdString();
     owner1.set_n(username_);
 }
@@ -154,20 +154,26 @@ void menu_owner::on_pushButton_8_clicked()
 void menu_owner::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    list<Cargo> d1 = cargo1.request_history(username_, "owner");
-    for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
-        AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
-                QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
-                QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
-                QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
-                QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()));
+    //check if user has any orders
+    if (!cargo1.has_any_orders(username_, "owner")){
+        ui->label_6->setText("You don't have any orders");
     }
     //Order history
+    else {
+        list<Cargo> d1 = cargo1.request_history(username_, "owner");
+        for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+            AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                    QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                    QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                    QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                    QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()));
+        }
+    }
 }
 
 void menu_owner::on_pushButton_9_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
-    //Delete items from qtreewidget
+    ui->treeWidget->clear();
     //Go back from history
 }

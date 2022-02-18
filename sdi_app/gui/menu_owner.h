@@ -46,7 +46,7 @@ private slots:
 
     void on_pushButton_6_clicked();
 
-    void receive_username(QString tx);
+    void receive_username_o(QString tx);
 
 private:
     Ui::menu_owner *ui;
