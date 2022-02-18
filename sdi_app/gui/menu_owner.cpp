@@ -175,5 +175,6 @@ void menu_owner::on_pushButton_9_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget->clear();
+    ui->label_6->clear();
     //Go back from history
 }

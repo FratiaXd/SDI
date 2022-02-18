@@ -3,7 +3,11 @@
 
 #include <QWidget>
 #include "headers/transp_company.h"
+#include "headers/cargo.h"
 #include "iostream"
+#include <QtCore>
+#include <QtGui>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class menu_company;
@@ -12,6 +16,9 @@ class menu_company;
 class menu_company : public QWidget
 {
     Q_OBJECT
+
+    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
+    void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
     explicit menu_company(QWidget *parent = nullptr);
@@ -49,6 +56,7 @@ private slots:
 private:
     Ui::menu_company *ui;
     TranspCompany comp1;
+    Cargo cargo1;
 
 signals:
     void log_out();
