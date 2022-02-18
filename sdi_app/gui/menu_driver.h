@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "headers/driver.h"
+#include "iostream"
 
 namespace Ui {
 class menu_driver;
@@ -36,6 +37,8 @@ private slots:
 
 private slots:
     void on_pushButton_3_clicked();
+
+    void receive_username_d(QString tx);
 
 private:
     Ui::menu_driver *ui;

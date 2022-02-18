@@ -45,6 +45,10 @@ private:
 
     signals:
     void pass_username_o(QString tx);
+    void pass_username_r(QString tx);
+    void pass_username_c(QString tx);
+    void pass_username_f(QString tx);
+    void pass_username_d(QString tx);
 };
 
 #endif // APPLICATION_H

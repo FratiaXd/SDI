@@ -1,6 +1,8 @@
 #include "menu_receiver.h"
 #include "ui_menu_receiver.h"
 
+string usrname_;
+
 menu_receiver::menu_receiver(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_receiver)
@@ -11,6 +13,11 @@ menu_receiver::menu_receiver(QWidget *parent) :
 menu_receiver::~menu_receiver()
 {
     delete ui;
+}
+
+void menu_receiver::receive_username_r(QString tx)  {
+    usrname_ = tx.toStdString();
+    user1.set_n(usrname_);
 }
 
 void menu_receiver::on_pushButton_clicked()

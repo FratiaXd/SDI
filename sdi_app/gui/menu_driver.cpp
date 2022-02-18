@@ -1,6 +1,8 @@
 #include "menu_driver.h"
 #include "ui_menu_driver.h"
 
+string ussnm_;
+
 menu_driver::menu_driver(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_driver)
@@ -16,6 +18,11 @@ menu_driver::~menu_driver()
 void menu_driver::on_pushButton_3_clicked()
 {
     emit log_out();
+}
+
+void menu_driver::receive_username_d(QString tx) {
+    ussnm_ = tx.toStdString();
+    driv1.set_n(ussnm_);
 }
 
 void menu_driver::on_pushButton_clicked()

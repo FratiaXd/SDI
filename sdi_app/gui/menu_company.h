@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "headers/transp_company.h"
+#include "iostream"
 
 namespace Ui {
 class menu_company;
@@ -42,6 +43,8 @@ private slots:
 
 private slots:
     void on_pushButton_clicked();
+
+    void receive_username_c(QString tx);
 
 private:
     Ui::menu_company *ui;

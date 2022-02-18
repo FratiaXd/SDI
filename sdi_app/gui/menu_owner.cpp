@@ -49,8 +49,8 @@ void menu_owner::on_pushButton_clicked()
     emit log_out();
 }
 
-void menu_owner::receive_username_o(QString txt) {
-    username_ = txt.toStdString();
+void menu_owner::receive_username_o(QString tx) {
+    username_ = tx.toStdString();
     owner1.set_n(username_);
 }
 

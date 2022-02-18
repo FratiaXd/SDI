@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "headers/forwarder.h"
+#include "iostream"
 
 namespace Ui {
 class menu_forwarder;
@@ -36,6 +37,8 @@ private slots:
 
 private slots:
     void on_pushButton_clicked();
+
+    void receive_username_f(QString tx);
 
 private:
     Ui::menu_forwarder *ui;

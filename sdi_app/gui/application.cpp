@@ -21,7 +21,10 @@ application::application(QWidget *parent) :
     connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
 
     QObject::connect(this, SIGNAL(pass_username_o(QString)), &omenu, SLOT(receive_username_o(QString)));
-    //QObject::connect(this, SIGNAL(pass_username_r(QString)), &rmenu, SLOT(receive_username(QString)));
+    QObject::connect(this, SIGNAL(pass_username_r(QString)), &rmenu, SLOT(receive_username_r(QString)));
+    QObject::connect(this, SIGNAL(pass_username_c(QString)), &cmenu, SLOT(receive_username_c(QString)));
+    QObject::connect(this, SIGNAL(pass_username_d(QString)), &dmenu, SLOT(receive_username_d(QString)));
+    QObject::connect(this, SIGNAL(pass_username_f(QString)), &fmenu, SLOT(receive_username_f(QString)));
 }
 
 application::~application()
@@ -214,8 +217,25 @@ void application::on_pushButton_2_clicked()
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
             QString qna = QString::fromStdString(nm);
-            emit pass_username_o(qna);
-            ui->stackedWidget->setCurrentIndex(user1.open_menu(nm));
+            int m = user1.open_menu(nm);
+            switch (m) {
+                case 4:
+                    emit pass_username_d(qna);
+                    break;
+                case 5:
+                    emit pass_username_f(qna);
+                    break;
+                case 6:
+                    emit pass_username_o(qna);
+                    break;
+                case 7:
+                    emit pass_username_r(qna);
+                    break;
+                case 8:
+                    emit pass_username_c(qna);
+                    break;
+            }
+            ui->stackedWidget->setCurrentIndex(m);
         }
     }
 }

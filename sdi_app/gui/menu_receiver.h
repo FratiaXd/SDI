@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "headers/user.h"
+#include "headers/cargo.h"
+#include "iostream"
 
 namespace Ui {
 class menu_receiver;
@@ -24,6 +26,8 @@ private slots:
 
 private slots:
     void on_pushButton_clicked();
+
+    void receive_username_r(QString tx);
 
 private:
     Ui::menu_receiver *ui;

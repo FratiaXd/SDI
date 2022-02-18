@@ -1,6 +1,8 @@
 #include "menu_company.h"
 #include "ui_menu_company.h"
 
+string usrnam_;
+
 menu_company::menu_company(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_company)
@@ -16,6 +18,11 @@ menu_company::~menu_company()
 void menu_company::on_pushButton_clicked()
 {
     emit log_out();
+}
+
+void menu_company::receive_username_c(QString tx) {
+    usrnam_ = tx.toStdString();
+    comp1.set_n(usrnam_);
 }
 
 void menu_company::on_pushButton_2_clicked()

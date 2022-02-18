@@ -1,6 +1,8 @@
 #include "menu_forwarder.h"
 #include "ui_menu_forwarder.h"
 
+string usnm_;
+
 menu_forwarder::menu_forwarder(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_forwarder)
@@ -13,7 +15,10 @@ menu_forwarder::~menu_forwarder()
     delete ui;
 }
 
-
+void menu_forwarder::receive_username_f(QString tx) {
+    usnm_ = tx.toStdString();
+    forw1.set_n(usnm_);
+}
 
 void menu_forwarder::on_pushButton_clicked()
 {
