@@ -42,8 +42,17 @@ public:
     void assign_company(string com);
     void assign_receiver(string rec);
     void savetoDB();
-    void request_history(string user, string actor);
+    list<Cargo> request_history(string user, string actor);
     string get_id();
+    string get_status();
+    string get_weight();
+    string get_height();
+    string get_width();
+    string get_length();
+    string get_type();
+    string get_source();
+    string get_destination();
+    string get_shippingCost();
 };
 
 #endif //SDI_APP_CARGO_H

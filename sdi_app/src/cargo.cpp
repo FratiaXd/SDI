@@ -152,7 +152,35 @@ string Cargo::get_id() {
     return cargoID;
 }
 
-void Cargo::request_history(string user, string actor) {
+string Cargo::get_status() {
+    return status;
+}
+string Cargo::get_weight() {
+    return weight;
+}
+string Cargo::get_height() {
+    return height;
+}
+string Cargo::get_width() {
+    return width;
+}
+string Cargo::get_length() {
+    return length;
+}
+string Cargo::get_type() {
+    return type;
+}
+string Cargo::get_source() {
+    return source;
+}
+string Cargo::get_destination() {
+    return destination;
+}
+string Cargo::get_shippingCost() {
+    return shippingCost;
+}
+
+list<Cargo> Cargo::request_history(string user, string actor) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -188,10 +216,5 @@ void Cargo::request_history(string user, string actor) {
 
     l1.reverse();
 
-    for (list<Cargo>::iterator i = l1.begin(); i != l1.end(); ++i) {
-        cout << i->get_id() << endl;
-    }
-
-    //create qtree
-    //delete
+    return l1;
 }

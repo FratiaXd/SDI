@@ -15,8 +15,6 @@ menu_owner::menu_owner(QWidget *parent) :
 
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
-
-    AddRoot("101", "Waiting for forwarder");
 }
 
 menu_owner::~menu_owner()
@@ -24,14 +22,20 @@ menu_owner::~menu_owner()
     delete ui;
 }
 
-void menu_owner::AddRoot(QString id, QString status) {
+void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     itm->setText(0, id);
     itm->setText(1, status);
     ui->treeWidget->addTopLevelItem(itm);
 
-    AddChild(itm, "weight", "200kg");
-    AddChild(itm, "height", "2m");
+    AddChild(itm, "weight", wei);
+    AddChild(itm, "height", hei);
+    AddChild(itm, "width", wid);
+    AddChild(itm, "length", len);
+    AddChild(itm, "type", typ);
+    AddChild(itm, "source", src);
+    AddChild(itm, "destination", dest);
+    AddChild(itm, "shipping cost", cost);
 }
 void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
@@ -150,13 +154,20 @@ void menu_owner::on_pushButton_8_clicked()
 void menu_owner::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    cargo1.request_history(username_, "owner");
-
+    list<Cargo> d1 = cargo1.request_history(username_, "owner");
+    for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+        AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()));
+    }
     //Order history
 }
 
 void menu_owner::on_pushButton_9_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    //Delete items from qtreewidget
     //Go back from history
 }

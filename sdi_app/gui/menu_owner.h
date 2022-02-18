@@ -16,7 +16,7 @@ class menu_owner : public QWidget
 {
     Q_OBJECT
 
-    void AddRoot (QString id, QString status);
+    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
