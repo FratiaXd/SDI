@@ -1,34 +1,44 @@
 //
 // Created by fratia on 1/21/22.
 //
-#include "string"
-#include <pqxx/pqxx>
-#include "iostream"
 
-using namespace std;
+/** @file cargo.h
+ *  @brief Class representing all information about cargo's sent by users
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
 
 #ifndef SDI_APP_CARGO_H
 #define SDI_APP_CARGO_H
 
+#include "string"
+#include <pqxx/pqxx>
+#include "iostream"
+using namespace std;
+
 class Cargo {
 protected:
-    string cargoID;
-    string status;
-    string weight;
-    string height;
-    string width;
-    string length;
-    string type;
-    string source;
-    string destination;
-    string shippingCost;
-    string owner;
-    string forwarder;
-    string company;
-    string drver;
-    string receiver;
+    string cargoID;         /*!< a string value */
+    string status;          /*!< a string value */
+    string weight;          /*!< a string value */
+    string height;          /*!< a string value */
+    string width;           /*!< a string value */
+    string length;          /*!< a string value */
+    string type;            /*!< a string value */
+    string source;          /*!< a string value */
+    string destination;     /*!< a string value */
+    string shippingCost;    /*!< a string value */
+    string owner;           /*!< a string value */
+    string forwarder;       /*!< a string value */
+    string company;         /*!< a string value */
+    string drver;           /*!< a string value */
+    string receiver;        /*!< a string value */
 public:
+    /** @brief Default constructor
+     *
+     */
     Cargo();
+
     Cargo(string d, string f, string e, string r, string h,string yt, string fr, string ds, string dd, string sdv);
     bool cargo_exists();
     string encrypt(string value);

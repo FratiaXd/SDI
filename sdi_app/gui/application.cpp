@@ -7,19 +7,21 @@ application::application(QWidget *parent) :
     ui(new Ui::application)
 {
     ui->setupUi(this);
-
+    //menu page objects
     ui->stackedWidget->addWidget(&dmenu);
     ui->stackedWidget->addWidget(&fmenu);
     ui->stackedWidget->addWidget(&omenu);
     ui->stackedWidget->addWidget(&rmenu);
     ui->stackedWidget->addWidget(&cmenu);
 
+    //signals application to log out the user and go back to the main screen
     connect(&dmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&fmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&omenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&rmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
 
+    //passes username to other menu classes
     QObject::connect(this, SIGNAL(pass_username_o(QString)), &omenu, SLOT(receive_username_o(QString)));
     QObject::connect(this, SIGNAL(pass_username_r(QString)), &rmenu, SLOT(receive_username_r(QString)));
     QObject::connect(this, SIGNAL(pass_username_c(QString)), &cmenu, SLOT(receive_username_c(QString)));
@@ -32,48 +34,46 @@ application::~application()
     delete ui;
 }
 
-//Start sign up process
+//opens user sign up window
 void application::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-//user type page
+
+//opens account type window to allow user to choose his role
 void application::on_pushButton_3_clicked()
 {
     if (ui->radioButton->isChecked()) {
-        //set user class type driver
         user1.set_type("driver");
         ui->stackedWidget->setCurrentIndex(2);
     }
     else if (ui->radioButton_2->isChecked()) {
-        //set user class type forwarder
         user1.set_type("forwarder");
         ui->stackedWidget->setCurrentIndex(3);
     }
     else if (ui->radioButton_3->isChecked()) {
-        //set user class type owner
         user1.set_type("owner");
         ui->stackedWidget->setCurrentIndex(3);
     }
     else if (ui->radioButton_4->isChecked()) {
-        //set user class type receiver
         user1.set_type("receiver");
         ui->stackedWidget->setCurrentIndex(3);
     }
     else if (ui->radioButton_5->isChecked()) {
-        //set user class type company
         user1.set_type("company");
         ui->stackedWidget->setCurrentIndex(3);
     }
+    //does not allow proceeding until radio button is checked
     else {
         ui->label_2->setText("Choose account type");
     }
 
 }
 
-//lorry registration page
+//opens lorry registration page
 void application::on_pushButton_4_clicked()
 {
+    //does not allow proceeding until each line has user input
     if (ui->lineEdit_3->text().isEmpty()) {
         ui->label_5->setText("Enter missing details");
     }
@@ -87,27 +87,27 @@ void application::on_pushButton_4_clicked()
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_13->text().isEmpty()) {
-        //has to be double
+        //has to be double (tbc)
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_14->text().isEmpty()) {
-        //has to be double
+        //has to be double (tbc)
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_15->text().isEmpty()) {
-        //has to be double
+        //has to be double (tbc)
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_16->text().isEmpty()) {
-        //has to be double
+        //has to be double (tbc)
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_17->text().isEmpty()) {
         ui->label_5->setText("Enter missing details");
     }
     else {
-        //check cpc function
-        //check lorry reg number
+        //check cpc function (tbc)
+        //check lorry reg number (tbc)
         string g = ui->lineEdit_3->text().toStdString();
         string h = ui->lineEdit_4->text().toStdString();
         string i = ui->lineEdit_5->text().toStdString();
@@ -126,15 +126,17 @@ void application::on_pushButton_4_clicked()
         ui->lineEdit_15->clear();
         ui->lineEdit_16->clear();
         ui->lineEdit_17->clear();
+        //saves driver's lorry information for later use
         driv.driver_details(g, h, i, j, k, l, m, o, p);
         QMessageBox::information(this, "Lorry check", "Check success!");
         ui->stackedWidget->setCurrentIndex(3);
     }
 }
 
-//default registration page
+//opens registration page
 void application::on_pushButton_5_clicked()
 {
+    //does not allow proceeding until each line has user input
     if (ui->lineEdit_7->text().isEmpty()) {
         ui->label_4->setText("Enter missing details");
     }
@@ -151,7 +153,7 @@ void application::on_pushButton_5_clicked()
         ui->label_4->setText("Enter missing details");
     }
     else {
-        //create user according to user.type
+        //creates the user according to user.type saved previously in account type window
         string a = ui->lineEdit_7->text().toStdString();
         string b = ui->lineEdit_8->text().toStdString();
         string c = ui->lineEdit_9->text().toStdString();
@@ -162,7 +164,6 @@ void application::on_pushButton_5_clicked()
             driv.set_driver(a, b, c, d, e, "driver", f);
             driv.registration_driver();
             driv.~Driver();
-            //Encrypt function
         }
         else if (user1.get_type() == "forwarder") {
             Forwarder forw(a, b, c, d, e, "forwarder", f);
@@ -195,7 +196,7 @@ void application::on_pushButton_5_clicked()
         ui->stackedWidget->setCurrentIndex(0);
     }
 }
-//log in
+//opens menu according to the user type
 void application::on_pushButton_2_clicked()
 {
     if (ui->lineEdit->text().isEmpty()) {
@@ -204,6 +205,7 @@ void application::on_pushButton_2_clicked()
     else if (ui->lineEdit_2->text().isEmpty()) {
         ui->label_6->setText("Enter missing details");
     }
+    //does not allow proceeding until each line has user input
     else {
         string nm = ui->lineEdit->text().toStdString();
         string pass = ui->lineEdit_2->text().toStdString();
@@ -240,6 +242,7 @@ void application::on_pushButton_2_clicked()
     }
 }
 
+//returns user back to start page
 void application::logOutUser()
 {
     ui->stackedWidget->setCurrentIndex(0);
