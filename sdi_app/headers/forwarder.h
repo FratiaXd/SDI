@@ -33,7 +33,13 @@ public:
      * @param a address
      */
     Forwarder(string u, string p, string f_n, string em, string num, string t, string a);
+
+    /** @brief Sends an offer to the cargo owner
+     */
     void make_offer();
+
+    /** @brief Sends an offer to the company
+     */
     void move_cargo();
 };
 

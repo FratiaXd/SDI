@@ -19,7 +19,7 @@ TranspCompany::TranspCompany(string u, string p, string f_n, string em, string n
     address = a;
 }
 
-double TranspCompany::calculate_comission() {
+double TranspCompany::calculate_comission(double fullPrice) {
 
 }
 

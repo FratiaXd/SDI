@@ -1,3 +1,9 @@
+/** @file menu_receiver.h
+ *  @brief Class representing GUI functionality for cargo receiver
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef MENU_RECEIVER_H
 #define MENU_RECEIVER_H
 

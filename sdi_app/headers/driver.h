@@ -44,10 +44,39 @@ public:
      */
     void set_driver(string u, string p, string f_n, string em, string num, string t, string a);
 
+    /** @brief Saves driver's lorry details
+     *
+     * @param ni NI number
+     * @param lid lorry ID
+     * @param tp type of lorry
+     * @param reg lorry registration number
+     * @param he lorry height
+     * @param wi lorry width
+     * @param le lorry length
+     * @param we lorry weight
+     * @param cpc lorry's cpc number
+     */
     void driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cpc);
+
+    /** @brief
+     *
+     */
     void registration_driver();
+
+    /** @brief Validates lorry's cpc number with use of API
+     *
+     * @return true if lorry is appropriate/ false not appropriate
+     */
     bool check_cpc();
+
+    /** @brief
+     *
+     */
     void see_cargo_order();
+
+    /** @brief
+     *
+     */
     void update_order();
 };
 

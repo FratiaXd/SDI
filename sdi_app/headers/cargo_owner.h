@@ -34,7 +34,22 @@ public:
      * @param a address
      */
     CargoOwner(string u, string p, string f_n, string em, string num, string t, string a);
+
+    /** @brief Calculates cargo shipping price according to its details
+     *
+     * @param w width
+     * @param h height
+     * @param l length
+     * @param we weight
+     * @param src source address
+     * @param addr destination address
+     * @return shipping price
+     */
    float calculate_shipping(float w, float h, float l, float we, string src, string addr);
+
+   /** @brief
+    *
+    */
    void place_order();
 };
 

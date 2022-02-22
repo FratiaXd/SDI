@@ -1,3 +1,9 @@
+/** @file menu_receiver.h
+ *  @brief Class representing GUI functionality for forwarder
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef MENU_FORWARDER_H
 #define MENU_FORWARDER_H
 

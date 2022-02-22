@@ -1,3 +1,9 @@
+/** @file menu_receiver.h
+ *  @brief Class representing GUI functionality for driver
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef MENU_DRIVER_H
 #define MENU_DRIVER_H
 

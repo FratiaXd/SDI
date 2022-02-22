@@ -34,7 +34,16 @@ public:
      * @param a address
      */
     TranspCompany(string u, string p, string f_n, string em, string num, string t, string a);
-    double calculate_comission();
+
+    /** @brief Calculates comission part for order provided
+     *
+     * @param fullPrice price paid by the cargo owner
+     * @return how much comission the company will earn
+     */
+    double calculate_comission(double fullPrice);
+
+    /** @brief Sends an offer with cargo details to the closest driver
+     */
     void offer_driver();
 };
 

@@ -1,3 +1,9 @@
+/** @file menu_receiver.h
+ *  @brief Class representing GUI functionality for transportation company
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef MENU_COMPANY_H
 #define MENU_COMPANY_H
 

@@ -1,3 +1,9 @@
+/** @file menu_receiver.h
+ *  @brief Class representing GUI functionality for login/registration windows
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
