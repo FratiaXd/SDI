@@ -9,6 +9,7 @@ menu_driver::menu_driver(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //sets up tree widget for displaying or history
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
@@ -42,7 +43,7 @@ void menu_driver::AddChild(QTreeWidgetItem *parent, QString id, QString status) 
     itm->setText(1, status);
     parent->addChild(itm);
 }
-
+//returns user to log in page
 void menu_driver::on_pushButton_3_clicked()
 {
     emit log_out();
@@ -75,11 +76,12 @@ void menu_driver::on_pushButton_6_clicked()
 
 void menu_driver::on_pushButton_2_clicked()
 {
+    //if user doesn't have any orders
     ui->stackedWidget->setCurrentIndex(3);
     if (!cargo1.has_any_orders(ussnm_, "driver")){
         ui->label_5->setText("You don't have any orders");
     }
-        //Order history
+    //Order history
     else {
         list<Cargo> d1 = cargo1.request_history(ussnm_, "driver");
         for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
