@@ -7,6 +7,7 @@ To make this work you need
 3. Libqxx
 
 ////////////////////////////////
+
 after installed
 POSTGRESQL SETUP
 
