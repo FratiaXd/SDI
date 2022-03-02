@@ -205,7 +205,7 @@ bool Cargo::has_any_orders(string unm, string actor) {
     return exists;
 }
 
-list<Cargo> Cargo::request_history(string user, string actor) {
+list<Cargo> Cargo::request_history(string column, string val) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -214,9 +214,9 @@ list<Cargo> Cargo::request_history(string user, string actor) {
         cout << "Can't open database" << endl;
     }
 
-    string un_en = encrypt(user);
+    string valueEnc = encrypt(val);
 
-    string sql = "SELECT CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST FROM CARGO WHERE " + actor + " = '" + un_en + "';";
+    string sql = "SELECT CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST FROM CARGO WHERE " + column + " = '" +  valueEnc + "';";
 
     nontransaction N(C);
 

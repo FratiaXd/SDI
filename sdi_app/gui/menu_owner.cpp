@@ -160,7 +160,7 @@ void menu_owner::on_pushButton_3_clicked()
     }
     //Order history
     else {
-        list<Cargo> d1 = cargo1.request_history(username_, "owner");
+        list<Cargo> d1 = cargo1.request_history("owner", username_);
         for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),

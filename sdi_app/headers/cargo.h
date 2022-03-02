@@ -149,7 +149,7 @@ public:
      * @param actor user type
      * @return
      */
-    list<Cargo> request_history(string user, string actor);
+    list<Cargo> request_history(string column, string val);
 
     /** @brief Returns requested value
      *

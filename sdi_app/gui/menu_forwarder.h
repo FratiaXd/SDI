@@ -23,12 +23,15 @@ class menu_forwarder : public QWidget
 {
     Q_OBJECT
 
-    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
+    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
     explicit menu_forwarder(QWidget *parent = nullptr);
     ~menu_forwarder();
+
+private slots:
+    void on_pushButton_6_clicked();
 
 private slots:
     void on_pushButton_12_clicked();

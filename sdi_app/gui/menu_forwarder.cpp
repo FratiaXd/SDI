@@ -14,6 +14,9 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
 
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+
+    ui->treeWidget_2->setColumnCount(2);
+    ui->treeWidget_2->setHeaderLabels(ColumnNames);
 }
 
 menu_forwarder::~menu_forwarder()
@@ -21,11 +24,11 @@ menu_forwarder::~menu_forwarder()
     delete ui;
 }
 
-void menu_forwarder::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
-    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+void menu_forwarder::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
     itm->setText(1, status);
-    ui->treeWidget->addTopLevelItem(itm);
+    widget->addTopLevelItem(itm);
 
     AddChild(itm, "weight", wei);
     AddChild(itm, "height", hei);
@@ -56,21 +59,35 @@ void menu_forwarder::on_pushButton_clicked()
 void menu_forwarder::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    list<Cargo> f1 = cargo1.request_history("status", "Waiting for forwarder");
+    for (list<Cargo>::iterator i = f1.begin(); i != f1.end(); ++i) {
+        AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
+    }
+
+    //list waiting for forwarder
 }
 
 void menu_forwarder::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
+    //go back
 }
 
 void menu_forwarder::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //list cargos and companies
 }
 
 void menu_forwarder::on_pushButton_11_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    //go back
 }
 
 void menu_forwarder::on_pushButton_3_clicked()
@@ -81,13 +98,13 @@ void menu_forwarder::on_pushButton_3_clicked()
     }
     //Order history
     else {
-        list<Cargo> d1 = cargo1.request_history(usnm_, "forwarder");
+        list<Cargo> d1 = cargo1.request_history("forwarder", usnm_);
         for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
                     QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
-                    QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()));
+                    QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget);
         }
     }
 }
@@ -97,4 +114,9 @@ void menu_forwarder::on_pushButton_12_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget->clear();
     ui->label_5->clear();
+}
+
+void menu_forwarder::on_pushButton_6_clicked()
+{
+    //make an offer
 }
