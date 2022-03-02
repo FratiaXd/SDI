@@ -100,6 +100,29 @@ void Cargo::update_status(string currentStatus) {
     status = currentStatus;
 }
 
+void Cargo::update_db_status(string newStatus) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string nstatusEncr = encrypt(newStatus);
+    string idEncr = encrypt(cargoID);
+
+    work W(C);
+
+    string sql = "UPDATE cargo SET status = '" + nstatusEncr + "' WHERE cargo_id = '" + idEncr + "';";
+
+    W.exec( sql );
+
+    W.commit();
+
+    cout << "Status updated" << endl;
+}
+
 void Cargo::assign_company(string com) {
     company = com;
 }

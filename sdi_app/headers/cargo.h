@@ -100,6 +100,7 @@ public:
      */
     void update_status(string currentStatus);
 
+    void update_db_status(string newStatus);
     /** @brief Assign cargo owner to the cargo
      *
      * @param own cargo owner's username

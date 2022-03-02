@@ -68,7 +68,7 @@ void menu_forwarder::on_pushButton_2_clicked()
                 QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
     }
 
-    //list waiting for forwarder
+    //list 'waiting for forwarder'
 }
 
 void menu_forwarder::on_pushButton_5_clicked()
@@ -118,5 +118,14 @@ void menu_forwarder::on_pushButton_12_clicked()
 
 void menu_forwarder::on_pushButton_6_clicked()
 {
+    list<Cargo> f2 = cargo1.request_history("status", "Waiting for forwarder");
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = f2.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.assign_forwarder(usnm_);
+    offerCargo.update_db_status("Waiting for owner");
+    ui->stackedWidget->setCurrentIndex(0);
+    //add notification
     //make an offer
 }
