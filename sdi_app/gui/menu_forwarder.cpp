@@ -124,7 +124,7 @@ void menu_forwarder::on_pushButton_6_clicked()
     advance(it, cargoNum);
     Cargo offerCargo = *it;
     offerCargo.assign_forwarder(usnm_);
-    offerCargo.update_db_status("Waiting for owner");
+    offerCargo.update_db_status("Waiting for owner", "forwarder", usnm_);
     ui->stackedWidget->setCurrentIndex(0);
     //add notification
     //make an offer

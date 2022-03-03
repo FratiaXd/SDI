@@ -22,12 +22,20 @@ class menu_owner : public QWidget
 {
     Q_OBJECT
 
-    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
+    void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
+    void AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
+    void AddChild2(QTreeWidgetItem *parent, QString id, QString status, QString actorID);
 
 public:
     explicit menu_owner(QWidget *parent = nullptr);
     ~menu_owner();
+
+private slots:
+    void on_pushButton_11_clicked();
+
+private slots:
+    void on_pushButton_10_clicked();
 
 private slots:
     void on_pushButton_9_clicked();

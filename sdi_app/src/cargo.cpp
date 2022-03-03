@@ -100,7 +100,7 @@ void Cargo::update_status(string currentStatus) {
     status = currentStatus;
 }
 
-void Cargo::update_db_status(string newStatus) {
+void Cargo::update_db_status(string newStatus, string actor, string usernm) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
         cout << "Opened database successfully: " << C.dbname() << endl;
@@ -111,10 +111,10 @@ void Cargo::update_db_status(string newStatus) {
 
     string nstatusEncr = encrypt(newStatus);
     string idEncr = encrypt(cargoID);
-
+    string usernEncr = encrypt(usernm);
     work W(C);
 
-    string sql = "UPDATE cargo SET status = '" + nstatusEncr + "' WHERE cargo_id = '" + idEncr + "';";
+    string sql = "UPDATE cargo SET status = '" + nstatusEncr + "', " + actor + " = '" + usernEncr + "' WHERE cargo_id = '" + idEncr + "';";
 
     W.exec( sql );
 
@@ -199,6 +199,9 @@ string Cargo::get_source() {
 string Cargo::get_destination() {
     return destination;
 }
+string Cargo::get_forwarder() {
+    return forwarder;
+}
 string Cargo::get_shippingCost() {
     return shippingCost;
 }
@@ -259,6 +262,61 @@ list<Cargo> Cargo::request_history(string column, string val) {
         string destinatio = decrypt(c[8].as<string>());
         string shippingCos = decrypt(c[9].as<string>());
         Cargo it(cargID, statu, weigh, heigh, widt, lengt, typ, sourc, destinatio, shippingCos);
+        l1.push_back(it);
+    }
+
+    l1.reverse();
+
+    return l1;
+}
+
+list<Cargo> Cargo::request_offers(string column, string val, string type, string actor, string nm) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string valueEnc = encrypt(val);
+    string usernmEnc = encrypt(nm);
+
+    string sql = "SELECT CARGO_ID, STATUS, WEIGHT, HEIGHT, WIDTH, LENGTH, TYPE, SOURCE, DESTINATION, SHIPPING_COST, " + type + " FROM CARGO WHERE " + column + " = '" +  valueEnc + "' AND " + actor + " = '" + usernmEnc + "';";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    list<Cargo> l1;
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        string cargID = decrypt(c[0].as<string>());
+        string statu = decrypt(c[1].as<string>());
+        string weigh = decrypt(c[2].as<string>());
+        string heigh = decrypt(c[3].as<string>());
+        string widt = decrypt(c[4].as<string>());
+        string lengt = decrypt(c[5].as<string>());
+        string typ = decrypt(c[6].as<string>());
+        string sourc = decrypt(c[7].as<string>());
+        string destinatio = decrypt(c[8].as<string>());
+        string shippingCos = decrypt(c[9].as<string>());
+        Cargo it(cargID, statu, weigh, heigh, widt, lengt, typ, sourc, destinatio, shippingCos);
+        if (type == "forwarder") {
+            it.assign_forwarder(decrypt(c[10].as<string>()));
+        }
+        if (type == "owner") {
+            it.assign_owner(decrypt(c[10].as<string>()));
+        }
+        if (type == "driver") {
+            it.assign_driver(decrypt(c[10].as<string>()));
+        }
+        if (type == "company") {
+            it.assign_company(decrypt(c[10].as<string>()));
+        }
+        if (type == "receiver") {
+            it.assign_receiver(decrypt(c[10].as<string>()));
+        }
         l1.push_back(it);
     }
 

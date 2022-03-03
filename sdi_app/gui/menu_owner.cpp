@@ -13,8 +13,14 @@ menu_owner::menu_owner(QWidget *parent) :
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
+    QStringList ColumnNames2;
+    ColumnNames2 << "ID" << "Status" << "Forwarder's username";
+
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+
+    ui->treeWidget_2->setColumnCount(3);
+    ui->treeWidget_2->setHeaderLabels(ColumnNames2);
 }
 
 menu_owner::~menu_owner()
@@ -22,11 +28,11 @@ menu_owner::~menu_owner()
     delete ui;
 }
 
-void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
-    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
     itm->setText(1, status);
-    ui->treeWidget->addTopLevelItem(itm);
+    widget->addTopLevelItem(itm);
 
     AddChild(itm, "weight", wei);
     AddChild(itm, "height", hei);
@@ -41,6 +47,30 @@ void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(0, id);
     itm->setText(1, status);
+    parent->addChild(itm);
+}
+
+void menu_owner::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
+    itm->setText(0, id);
+    itm->setText(1, status);
+    itm->setText(2, actorID);
+    widget->addTopLevelItem(itm);
+
+    AddChild(itm, "weight", wei);
+    AddChild(itm, "height", hei);
+    AddChild(itm, "width", wid);
+    AddChild(itm, "length", len);
+    AddChild(itm, "type", typ);
+    AddChild(itm, "source", src);
+    AddChild(itm, "destination", dest);
+    AddChild(itm, "shipping cost", cost);
+}
+void menu_owner::AddChild2(QTreeWidgetItem *parent, QString id, QString status, QString actorID) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem();
+    itm->setText(0, id);
+    itm->setText(1, status);
+    itm->setText(2, actorID);
     parent->addChild(itm);
 }
 
@@ -142,6 +172,15 @@ void menu_owner::on_pushButton_6_clicked()
 void menu_owner::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+        AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                 QString::fromStdString(i->get_forwarder()),
+                QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
+    }
     //Forwarder offers
 }
 
@@ -166,7 +205,7 @@ void menu_owner::on_pushButton_3_clicked()
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
                     QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
-                    QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()));
+                    QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget);
         }
     }
 }
@@ -177,4 +216,14 @@ void menu_owner::on_pushButton_9_clicked()
     ui->treeWidget->clear();
     ui->label_6->clear();
     //Go back from history
+}
+
+void menu_owner::on_pushButton_10_clicked()
+{
+    //decline
+}
+
+void menu_owner::on_pushButton_11_clicked()
+{
+    //accept
 }
