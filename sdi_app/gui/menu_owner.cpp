@@ -187,6 +187,7 @@ void menu_owner::on_pushButton_4_clicked()
 void menu_owner::on_pushButton_8_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
     //Go back from forwarder offers
 }
 
@@ -220,10 +221,27 @@ void menu_owner::on_pushButton_9_clicked()
 
 void menu_owner::on_pushButton_10_clicked()
 {
+    list<Cargo> v1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = v1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.assign_forwarder("");
+    offerCargo.update_db_status("Waiting for forwarder", "forwarder", "");
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
     //decline
 }
 
 void menu_owner::on_pushButton_11_clicked()
 {
+    list<Cargo> d1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = d1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.update_db_status("Accepted. Waiting for further actions", "owner", username_);
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
     //accept
 }
