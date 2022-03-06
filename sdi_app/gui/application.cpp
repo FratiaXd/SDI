@@ -106,17 +106,19 @@ void application::on_pushButton_4_clicked()
         ui->label_5->setText("Enter missing details");
     }
     else {
-        //check cpc function (tbc)
-        //check lorry reg number (tbc)
         string g = ui->lineEdit_3->text().toStdString();
         string h = ui->lineEdit_4->text().toStdString();
         string i = ui->lineEdit_5->text().toStdString();
-        string j = ui->lineEdit_6->text().toStdString();
+        string j = ui->lineEdit_6->text().toStdString(); //reg num
         string k = ui->lineEdit_13->text().toStdString();
         string l = ui->lineEdit_14->text().toStdString();
         string m = ui->lineEdit_15->text().toStdString();
         string o = ui->lineEdit_16->text().toStdString();
-        string p = ui->lineEdit_17->text().toStdString();
+        string p = ui->lineEdit_17->text().toStdString(); //cpc
+
+        //check cpc function (tbc)
+        //check lorry reg number (tbc)
+        //if both true
         ui->lineEdit_3->clear();
         ui->lineEdit_4->clear();
         ui->lineEdit_5->clear();
@@ -130,6 +132,8 @@ void application::on_pushButton_4_clicked()
         driv.driver_details(g, h, i, j, k, l, m, o, p);
         QMessageBox::information(this, "Lorry check", "Check success!");
         ui->stackedWidget->setCurrentIndex(3);
+
+        //if false ask for details again and display message
     }
 }
 

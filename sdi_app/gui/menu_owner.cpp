@@ -27,7 +27,7 @@ menu_owner::~menu_owner()
 {
     delete ui;
 }
-
+//builds tree view (gui) with list of orders
 void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
@@ -43,13 +43,14 @@ void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, Q
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
+//builds tree view subcategories (gui) with list of orders
 void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(0, id);
     itm->setText(1, status);
     parent->addChild(itm);
 }
-
+//builds tree view (gui) with list of offers
 void menu_owner::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
@@ -66,30 +67,23 @@ void menu_owner::AddRoot2(QString id, QString status, QString actorID, QString w
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
-void menu_owner::AddChild2(QTreeWidgetItem *parent, QString id, QString status, QString actorID) {
-    QTreeWidgetItem *itm = new QTreeWidgetItem();
-    itm->setText(0, id);
-    itm->setText(1, status);
-    itm->setText(2, actorID);
-    parent->addChild(itm);
-}
 
 void menu_owner::on_pushButton_clicked()
 {
     emit log_out();
 }
-
+//receives current user username from application
 void menu_owner::receive_username_o(QString tx) {
     username_ = tx.toStdString();
     owner1.set_n(username_);
 }
-
+//hides button make order until price is calculated
 void menu_owner::on_pushButton_2_clicked()
 {
     ui->pushButton_6->setVisible(false);
     ui->stackedWidget->setCurrentIndex(1);
 }
-
+//go back from order page
 void menu_owner::on_pushButton_7_clicked()
 {
     //details will be lost message
@@ -106,7 +100,7 @@ void menu_owner::on_pushButton_7_clicked()
     ui->lineEdit_7->clear();
     ui->label_2->setText("Price");
 }
-
+//making order
 void menu_owner::on_pushButton_5_clicked()
 {
     if (ui->lineEdit->text().isEmpty()) {
@@ -131,18 +125,19 @@ void menu_owner::on_pushButton_5_clicked()
         ui->label_2->setText("Enter missing details");
     }
     else {
-        string wei = ui->lineEdit->text().toStdString();
-        string hei = ui->lineEdit_2->text().toStdString();
-        string wid = ui->lineEdit_3->text().toStdString();
-        string len = ui->lineEdit_4->text().toStdString();
+        string wei = ui->lineEdit->text().toStdString(); //float
+        string hei = ui->lineEdit_2->text().toStdString(); //float
+        string wid = ui->lineEdit_3->text().toStdString(); //float
+        string len = ui->lineEdit_4->text().toStdString(); //float
         string typ = ui->lineEdit_5->text().toStdString();
         string sour = ui->lineEdit_6->text().toStdString();
         string dest = ui->lineEdit_7->text().toStdString();
-        //check values to be int
+        //check values to be float
         float wei_fl = stof(wei);
         float hei_fl = stof(hei);
         float wid_fl = stof(wid);
         float len_fl = stof(len);
+        //calculate shipping function
         float pr = owner1.calculate_shipping(wei_fl, hei_fl, len_fl, wid_fl, sour, dest);
         string disp_pr = to_string(pr);
         QString qstr = QString::fromStdString(disp_pr);
@@ -151,7 +146,8 @@ void menu_owner::on_pushButton_5_clicked()
         cargo1.set_primary_values(wei, hei, wid, len, typ, sour, dest, disp_pr);
     }
 }
-
+//button make order
+//updates database and order
 void menu_owner::on_pushButton_6_clicked()
 {
     string cID = cargo1.generate_id();
@@ -168,10 +164,11 @@ void menu_owner::on_pushButton_6_clicked()
     ui->lineEdit_6->clear();
     ui->lineEdit_7->clear();
 }
-
+//display forwarder offers
 void menu_owner::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //need to add if similar to order history if there is no offers
     list<Cargo> o1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
     for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
@@ -181,16 +178,14 @@ void menu_owner::on_pushButton_4_clicked()
                 QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
                 QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
     }
-    //Forwarder offers
 }
-
+//Go back from forwarder offers
 void menu_owner::on_pushButton_8_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
-    //Go back from forwarder offers
 }
-
+//display order history
 void menu_owner::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
@@ -210,15 +205,14 @@ void menu_owner::on_pushButton_3_clicked()
         }
     }
 }
-
+//Go back from history
 void menu_owner::on_pushButton_9_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget->clear();
     ui->label_6->clear();
-    //Go back from history
 }
-
+//decline forwarders offer
 void menu_owner::on_pushButton_10_clicked()
 {
     list<Cargo> v1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
@@ -230,9 +224,8 @@ void menu_owner::on_pushButton_10_clicked()
     offerCargo.update_db_status("Waiting for forwarder", "forwarder", "");
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
-    //decline
 }
-
+//accept forwarders offer
 void menu_owner::on_pushButton_11_clicked()
 {
     list<Cargo> d1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);

@@ -75,6 +75,10 @@ bool Driver::check_cpc() {
 
 }
 
+bool Driver::check_regnum() {
+
+}
+
 void Driver::see_cargo_order() {
 
 }

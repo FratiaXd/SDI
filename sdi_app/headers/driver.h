@@ -69,6 +69,8 @@ public:
      */
     bool check_cpc();
 
+    bool check_regnum();
+
     /** @brief
      *
      */
