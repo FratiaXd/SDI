@@ -160,6 +160,7 @@ public:
      */
     string get_id();
 
+    void set_id(string id);
     /** @brief Returns requested value
      *
      * @return status

@@ -175,6 +175,10 @@ string Cargo::get_id() {
     return cargoID;
 }
 
+void Cargo::set_id(string id) {
+    cargoID = id;
+}
+
 string Cargo::get_status() {
     return status;
 }

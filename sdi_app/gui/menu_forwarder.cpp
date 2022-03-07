@@ -99,13 +99,14 @@ void menu_forwarder::on_pushButton_5_clicked()
 void menu_forwarder::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //lists companies on the market
     vector<TranspCompany> v1 = comp1.request_companies();
     for (vector<TranspCompany>::iterator k = v1.begin(); k != v1.end(); ++k) {
         AddRoot2(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
                  QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
                  QString::fromStdString(k->get_address()));
     }
-    //combobox lists cargo's waiting for progress
+    //combobox lists cargos waiting for progress
     list<Cargo> h1 = cargo1.request_offers("status", "Accepted. Waiting for further actions", "forwarder", "forwarder", usnm_);
     for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
         ui->comboBox->addItem(QString::fromStdString(i->get_id()));
@@ -119,6 +120,7 @@ void menu_forwarder::on_pushButton_11_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
+    ui->treeWidget_3->clear();
     //go back
 }
 
@@ -165,5 +167,18 @@ void menu_forwarder::on_pushButton_6_clicked()
 
 void menu_forwarder::on_pushButton_7_clicked()
 {
+    //check if something is choosen
+    vector<TranspCompany> v1 = comp1.request_companies();
+    int companyNum = ui->treeWidget_3->currentIndex().row();
+    string companyName = v1[companyNum].get_n();
+    string cargoId = ui->comboBox->currentText().toStdString();
+    Cargo cargo2;
+    cargo2.set_id(cargoId);
+    cargo2.update_db_status("Waiting for company response", "company", companyName);
+    cout << "Status updated" << endl;
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->comboBox->clear();
+    ui->treeWidget_3->clear();
     //send offer to transp com
+    //add notification
 }
