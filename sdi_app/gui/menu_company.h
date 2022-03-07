@@ -24,6 +24,7 @@ class menu_company : public QWidget
     Q_OBJECT
 
     void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
+    void AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
@@ -31,13 +32,19 @@ public:
     ~menu_company();
 
 private slots:
+    void on_pushButton_11_clicked();
+
+private slots:
+    void on_pushButton_12_clicked();
+
+private slots:
+    void on_pushButton_10_clicked();
+
+private slots:
     void on_pushButton_9_clicked();
 
 private slots:
     void on_pushButton_5_clicked();
-
-private slots:
-    void on_pushButton_8_clicked();
 
 private slots:
     void on_pushButton_4_clicked();
