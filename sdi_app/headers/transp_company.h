@@ -12,9 +12,12 @@
 #ifndef SDI_APP_TRANSP_COMPANY_H
 #define SDI_APP_TRANSP_COMPANY_H
 
+#include "iostream"
+#include <pqxx/pqxx>
 #include "string"
 #include "user.h"
 using namespace std;
+using namespace pqxx;
 
 class TranspCompany : public User {
 public:
@@ -34,6 +37,8 @@ public:
      * @param a address
      */
     TranspCompany(string u, string p, string f_n, string em, string num, string t, string a);
+
+    vector<TranspCompany> request_companies();
 
     /** @brief Calculates comission part for order provided
      *

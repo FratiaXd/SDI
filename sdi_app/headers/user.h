@@ -81,6 +81,13 @@ public:
      */
     string get_n();
 
+    string get_fulln();
+
+    string get_email();
+
+    string get_mobile();
+
+    string get_address();
     /** @brief Connects to the database and saves user details in there
      */
     void registration();

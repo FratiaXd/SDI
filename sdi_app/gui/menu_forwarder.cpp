@@ -12,11 +12,17 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
+    QStringList ColumnNames3;
+    ColumnNames3 << "Company name" << "Email";
+
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
 
     ui->treeWidget_2->setColumnCount(2);
     ui->treeWidget_2->setHeaderLabels(ColumnNames);
+
+    ui->treeWidget_3->setColumnCount(2);
+    ui->treeWidget_3->setHeaderLabels(ColumnNames3);
 }
 
 menu_forwarder::~menu_forwarder()
@@ -39,6 +45,18 @@ void menu_forwarder::AddRoot(QString id, QString status, QString wei, QString he
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
+
+void menu_forwarder::AddRoot2(QString comName, QString comEmail, QString userName, QString phone, QString addrCom) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_3);
+    itm->setText(0, comName);
+    itm->setText(1, comEmail);
+    ui->treeWidget_3->addTopLevelItem(itm);
+
+    AddChild(itm, "username", userName);
+    AddChild(itm, "phone number", phone);
+    AddChild(itm, "address", addrCom);
+}
+
 void menu_forwarder::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(0, id);
@@ -81,12 +99,26 @@ void menu_forwarder::on_pushButton_5_clicked()
 void menu_forwarder::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    vector<TranspCompany> v1 = comp1.request_companies();
+    for (vector<TranspCompany>::iterator k = v1.begin(); k != v1.end(); ++k) {
+        AddRoot2(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
+                 QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
+                 QString::fromStdString(k->get_address()));
+    }
+    //combobox lists cargo's waiting for progress
+    list<Cargo> h1 = cargo1.request_offers("status", "Accepted. Waiting for further actions", "forwarder", "forwarder", usnm_);
+    for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
+        ui->comboBox->addItem(QString::fromStdString(i->get_id()));
+    }
     //list cargos and companies
+    //combobox
+    
 }
 
 void menu_forwarder::on_pushButton_11_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->comboBox->clear();
     //go back
 }
 
@@ -129,4 +161,9 @@ void menu_forwarder::on_pushButton_6_clicked()
     ui->treeWidget_2->clear();
     //add notification
     //make an offer
+}
+
+void menu_forwarder::on_pushButton_7_clicked()
+{
+    //send offer to transp com
 }

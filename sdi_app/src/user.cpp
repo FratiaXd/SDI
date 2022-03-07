@@ -61,6 +61,22 @@ string User::get_n() {
     return username;
 }
 
+string User::get_fulln() {
+    return full_name;
+}
+
+string User::get_email() {
+    return email;
+}
+
+string User::get_mobile() {
+    return mobile;
+}
+
+string User::get_address() {
+    return address;
+}
+
 void User::registration() {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
