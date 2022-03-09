@@ -109,7 +109,8 @@ void menu_forwarder::on_pushButton_4_clicked()
     //combobox lists cargos waiting for progress
     list<Cargo> h1 = cargo1.request_offers("status", "Accepted. Waiting for further actions", "forwarder", "forwarder", usnm_);
     for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
-        ui->comboBox->addItem(QString::fromStdString(i->get_id()));
+        string cargoInfo = "ID - " + i->get_id() + "/" + i->get_source() + " - " + i->get_destination();
+        ui->comboBox->addItem(QString::fromStdString(cargoInfo));
     }
     //list cargos and companies
     //combobox

@@ -127,7 +127,8 @@ void menu_company::on_pushButton_3_clicked()
     //find driver
     list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
     for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
-        ui->comboBox->addItem(QString::fromStdString(i->get_id()));
+        string cargoInfo = "ID - " + i->get_id() + "/" + i->get_source() + " - " + i->get_destination();
+        ui->comboBox->addItem(QString::fromStdString(cargoInfo));
     }
 }
 
@@ -201,6 +202,7 @@ void menu_company::on_pushButton_10_clicked()
         list<Cargo>::iterator it = o1.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
+        //calculate comission function is in transpostation company class
         double commision = comp1.calculate_comission(atof(offerCargo.get_shippingCost().c_str()));
         QString qstr = QString::fromStdString((to_string(commision)));
         ui->label_7->setText("Comission: " + qstr);

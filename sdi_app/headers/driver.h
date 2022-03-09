@@ -82,6 +82,8 @@ public:
     vector<Driver> sort_drivers(vector<Driver>& unsorted, string cargoLoc);
 
     string get_location();
+
+    string request_locationDB();
     /** @brief
      *
      */

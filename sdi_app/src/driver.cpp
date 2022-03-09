@@ -146,6 +146,29 @@ string Driver::get_location() {
     return currentPos;
 }
 
+string Driver::request_locationDB() {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string usernEncr = encrypt(username);
+    string currLocation;
+    string sql = "SELECT LOCATION FROM USERS WHERE USERNAME = '" + usernEncr + "';";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        currLocation = decrypt(c[0].as<string>());
+    }
+    return currLocation;
+}
+
 void Driver::see_cargo_order() {
 
 }

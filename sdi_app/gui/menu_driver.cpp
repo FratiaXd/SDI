@@ -9,6 +9,8 @@ menu_driver::menu_driver(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    driv1.set_n(ussnm_);
+
     //sets up tree widget for displaying or history
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
@@ -28,6 +30,10 @@ menu_driver::menu_driver(QWidget *parent) :
     QStringList availableLocations;
     availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
     ui->comboBox->addItems(availableLocations);
+
+    //driver's location
+    string location = driv1.request_locationDB();
+    ui->label_8->setText(QString::fromStdString(location));
 }
 
 menu_driver::~menu_driver()
@@ -104,6 +110,8 @@ void menu_driver::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
+    string location = driv1.request_locationDB();
+    ui->label_8->setText(QString::fromStdString(location));
 }
 
 void menu_driver::on_pushButton_4_clicked()
@@ -125,6 +133,8 @@ void menu_driver::on_pushButton_6_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_3->clear();
+    string location = driv1.request_locationDB();
+    ui->label_8->setText(QString::fromStdString(location));
 }
 
 void menu_driver::on_pushButton_2_clicked()
@@ -152,6 +162,8 @@ void menu_driver::on_pushButton_7_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget->clear();
     ui->label_5->clear();
+    string location = driv1.request_locationDB();
+    ui->label_8->setText(QString::fromStdString(location));
 }
 
 void menu_driver::on_pushButton_8_clicked()
@@ -200,11 +212,8 @@ void menu_driver::on_pushButton_10_clicked()
         Cargo offerCargo = *it;
         string finalDest = offerCargo.get_destination();
         string driverLocation = ui->comboBox->currentText().toStdString();
-        cout << finalDest << endl;
-        cout << driverLocation << endl;
         if (finalDest == driverLocation) {
             offerCargo.update_db_status("Delivered", "receiver", "success");
-            driv1.set_n(ussnm_);
             driv1.update_position(driverLocation);
             driv1.update_positionDB();
         }
