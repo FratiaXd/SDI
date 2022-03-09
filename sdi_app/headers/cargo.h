@@ -101,29 +101,30 @@ public:
     void update_status(string currentStatus);
 
     void update_db_status(string newStatus, string actor, string usernm);
+
+    /** @brief Assign transportation company to the cargo
+    *
+    * @param dri company's username
+    */
+    void assign_company(string com);
+
+    /** @brief Assign driver to the cargo
+    *
+    * @param forw driver's username
+    */
+    void assign_driver(string dri);
+
+    /** @brief Assign forwarder to the cargo
+    *
+    * @param own forwarder's username
+    */
+    void assign_forwarder(string forw);
+
     /** @brief Assign cargo owner to the cargo
      *
      * @param own cargo owner's username
      */
     void assign_owner(string own);
-
-    /** @brief Assign forwarder to the cargo
-     *
-     * @param own forwarder's username
-     */
-    void assign_forwarder(string forw);
-
-    /** @brief Assign driver to the cargo
-     *
-     * @param forw driver's username
-     */
-    void assign_driver(string dri);
-
-    /** @brief Assign transportation company to the cargo
-     *
-     * @param dri company's username
-     */
-    void assign_company(string com);
 
     /** @brief Assign receiver to the cargo
      *
