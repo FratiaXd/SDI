@@ -77,6 +77,25 @@ void Driver::update_position(string newPosition) {
     currentPos = newPosition;
 }
 
+void Driver::update_positionDB() {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+
+    string positionEncr = encrypt(currentPos);
+    string usernameEncr = encrypt(username);
+
+    string sql = "UPDATE users SET location = '" + positionEncr + "' WHERE username = '" + usernameEncr + "';";
+
+    work W(C);
+    W.exec( sql );
+    W.commit();
+}
+
 bool Driver::check_cpc() {
 
 }

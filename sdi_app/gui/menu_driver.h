@@ -14,6 +14,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QTreeWidgetItem>
+#include <QMessageBox>
 
 namespace Ui {
 class menu_driver;
@@ -30,6 +31,9 @@ class menu_driver : public QWidget
 public:
     explicit menu_driver(QWidget *parent = nullptr);
     ~menu_driver();
+
+private slots:
+    void on_pushButton_10_clicked();
 
 private slots:
     void on_pushButton_9_clicked();

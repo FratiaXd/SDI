@@ -21,6 +21,13 @@ menu_driver::menu_driver(QWidget *parent) :
 
     ui->treeWidget_2->setColumnCount(3);
     ui->treeWidget_2->setHeaderLabels(ColumnNames2);
+
+    ui->treeWidget_3->setColumnCount(3);
+    ui->treeWidget_3->setHeaderLabels(ColumnNames2);
+
+    QStringList availableLocations;
+    availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
+    ui->comboBox->addItems(availableLocations);
 }
 
 menu_driver::~menu_driver()
@@ -103,11 +110,21 @@ void menu_driver::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     //manage driver orders
+    list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
+    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+        AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                 QString::fromStdString(i->get_company()),
+                 QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                 QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                 QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                 QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_3);
+    }
 }
 
 void menu_driver::on_pushButton_6_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_3->clear();
 }
 
 void menu_driver::on_pushButton_2_clicked()
@@ -170,4 +187,36 @@ void menu_driver::on_pushButton_9_clicked()
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
+}
+
+void menu_driver::on_pushButton_10_clicked()
+{
+    //confirm delivery
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
+        int cargoNum = ui->treeWidget_3->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        string finalDest = offerCargo.get_destination();
+        string driverLocation = ui->comboBox->currentText().toStdString();
+        cout << finalDest << endl;
+        cout << driverLocation << endl;
+        if (finalDest == driverLocation) {
+            offerCargo.update_db_status("Delivered", "receiver", "success");
+            driv1.set_n(ussnm_);
+            driv1.update_position(driverLocation);
+            driv1.update_positionDB();
+        }
+        else {
+            QMessageBox::critical(this, "Delivery", "Your location doesn't match with order delivery address");
+        }
+        //compare value in combo box and destination for cargo
+        //update drivers location
+
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_3->clear();
 }

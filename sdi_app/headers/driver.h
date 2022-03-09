@@ -71,6 +71,8 @@ public:
 
     void update_position(string newPosition);
 
+    void update_positionDB();
+
     bool check_cpc();
 
     bool check_regnum();
