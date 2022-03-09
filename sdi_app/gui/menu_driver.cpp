@@ -13,8 +13,14 @@ menu_driver::menu_driver(QWidget *parent) :
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
+    QStringList ColumnNames2;
+    ColumnNames2 << "ID" << "Status" << "Company name";
+
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+
+    ui->treeWidget_2->setColumnCount(3);
+    ui->treeWidget_2->setHeaderLabels(ColumnNames2);
 }
 
 menu_driver::~menu_driver()
@@ -37,6 +43,24 @@ void menu_driver::AddRoot(QString id, QString status, QString wei, QString hei, 
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
+
+void menu_driver::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
+    itm->setText(0, id);
+    itm->setText(1, status);
+    itm->setText(2, actorID);
+    widget->addTopLevelItem(itm);
+
+    AddChild(itm, "weight", wei);
+    AddChild(itm, "height", hei);
+    AddChild(itm, "width", wid);
+    AddChild(itm, "length", len);
+    AddChild(itm, "type", typ);
+    AddChild(itm, "source", src);
+    AddChild(itm, "destination", dest);
+    AddChild(itm, "shipping cost", cost);
+}
+
 void menu_driver::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(0, id);
@@ -56,17 +80,29 @@ void menu_driver::receive_username_d(QString tx) {
 
 void menu_driver::on_pushButton_clicked()
 {
+    //offers
     ui->stackedWidget->setCurrentIndex(1);
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+        AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
+                 QString::fromStdString(i->get_company()),
+                 QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
+                 QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
+                 QString::fromStdString(i->get_type()), QString::fromStdString(i->get_source()),
+                 QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
+    }
 }
 
 void menu_driver::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
 }
 
 void menu_driver::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //manage driver orders
 }
 
 void menu_driver::on_pushButton_6_clicked()
@@ -99,4 +135,31 @@ void menu_driver::on_pushButton_7_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget->clear();
     ui->label_5->clear();
+}
+
+void menu_driver::on_pushButton_8_clicked()
+{
+    //decline
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = o1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.assign_driver("");
+    offerCargo.update_db_status("Company accepted. Waiting for driver", "driver", "");
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
+}
+
+void menu_driver::on_pushButton_9_clicked()
+{
+    //accept
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = o1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
 }

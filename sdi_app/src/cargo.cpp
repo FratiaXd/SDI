@@ -206,6 +206,9 @@ string Cargo::get_destination() {
 string Cargo::get_forwarder() {
     return forwarder;
 }
+string Cargo::get_company() {
+    return company;
+}
 string Cargo::get_shippingCost() {
     return shippingCost;
 }

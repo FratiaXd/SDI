@@ -211,6 +211,8 @@ public:
 
     string get_forwarder();
 
+    string get_company();
+
     /** @brief Returns requested value
      *
      * @return shipping cost

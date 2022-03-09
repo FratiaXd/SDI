@@ -24,11 +24,18 @@ class menu_driver : public QWidget
     Q_OBJECT
 
     void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
+    void AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
     explicit menu_driver(QWidget *parent = nullptr);
     ~menu_driver();
+
+private slots:
+    void on_pushButton_9_clicked();
+
+private slots:
+    void on_pushButton_8_clicked();
 
 private slots:
     void on_pushButton_7_clicked();
