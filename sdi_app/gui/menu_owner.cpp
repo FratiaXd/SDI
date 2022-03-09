@@ -56,7 +56,7 @@ void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     itm->setText(1, status);
     parent->addChild(itm);
 }
-//builds tree view (gui) with list of offers
+//builds tree view (gui) with list of offers version 2
 void menu_owner::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);

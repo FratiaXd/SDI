@@ -40,7 +40,7 @@ menu_driver::~menu_driver()
 {
     delete ui;
 }
-
+//builds tree view (gui) with list of orders
 void menu_driver::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     itm->setText(0, id);
@@ -56,7 +56,7 @@ void menu_driver::AddRoot(QString id, QString status, QString wei, QString hei, 
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
-
+//builds tree view (gui) with list of orders version 2
 void menu_driver::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
@@ -73,7 +73,7 @@ void menu_driver::AddRoot2(QString id, QString status, QString actorID, QString 
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
 }
-
+//builds tree view subcategories (gui) with list of orders
 void menu_driver::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(0, id);
@@ -85,15 +85,14 @@ void menu_driver::on_pushButton_3_clicked()
 {
     emit log_out();
 }
-
+//receives current user username from application
 void menu_driver::receive_username_d(QString tx) {
     ussnm_ = tx.toStdString();
     driv1.set_n(ussnm_);
 }
-
+//lists all offers from transportation company
 void menu_driver::on_pushButton_clicked()
 {
-    //offers
     ui->stackedWidget->setCurrentIndex(1);
     list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
     for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
@@ -105,7 +104,7 @@ void menu_driver::on_pushButton_clicked()
                  QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_2);
     }
 }
-
+//goes back to the main menu
 void menu_driver::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
@@ -113,11 +112,10 @@ void menu_driver::on_pushButton_5_clicked()
     string location = driv1.request_locationDB();
     ui->label_8->setText(QString::fromStdString(location));
 }
-
+//opens delivery page
 void menu_driver::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-    //manage driver orders
     list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
     for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
@@ -128,7 +126,7 @@ void menu_driver::on_pushButton_4_clicked()
                  QString::fromStdString(i->get_destination()), QString::fromStdString(i->get_shippingCost()), ui->treeWidget_3);
     }
 }
-
+//goes back to the main menu
 void menu_driver::on_pushButton_6_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
@@ -136,7 +134,7 @@ void menu_driver::on_pushButton_6_clicked()
     string location = driv1.request_locationDB();
     ui->label_8->setText(QString::fromStdString(location));
 }
-
+//opens order history page
 void menu_driver::on_pushButton_2_clicked()
 {
     //if user doesn't have any orders
@@ -156,7 +154,7 @@ void menu_driver::on_pushButton_2_clicked()
         }
     }
 }
-
+//goes back to the main menu
 void menu_driver::on_pushButton_7_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
@@ -165,10 +163,9 @@ void menu_driver::on_pushButton_7_clicked()
     string location = driv1.request_locationDB();
     ui->label_8->setText(QString::fromStdString(location));
 }
-
+//declines offer from transp company
 void menu_driver::on_pushButton_8_clicked()
 {
-    //decline
     try {
         list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
@@ -183,10 +180,9 @@ void menu_driver::on_pushButton_8_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
-
+//accepts offer from transp company
 void menu_driver::on_pushButton_9_clicked()
 {
-    //accept
     try {
         list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
@@ -200,10 +196,9 @@ void menu_driver::on_pushButton_9_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
-
+//confirms successfull delivery
 void menu_driver::on_pushButton_10_clicked()
 {
-    //confirm delivery
     try {
         list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_3->currentIndex().row();
@@ -220,9 +215,6 @@ void menu_driver::on_pushButton_10_clicked()
         else {
             QMessageBox::critical(this, "Delivery", "Your location doesn't match with order delivery address");
         }
-        //compare value in combo box and destination for cargo
-        //update drivers location
-
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
