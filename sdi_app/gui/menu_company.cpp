@@ -15,11 +15,17 @@ menu_company::menu_company(QWidget *parent) :
     QStringList ColumnNames2;
     ColumnNames2 << "ID" << "Status" << "Forwarder's username";
 
+    QStringList ColumnNames3;
+    ColumnNames3 << "Driver's name" << "Mobile" << "Current location";
+
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
 
     ui->treeWidget_2->setColumnCount(3);
     ui->treeWidget_2->setHeaderLabels(ColumnNames2);
+
+    ui->treeWidget_3->setColumnCount(3);
+    ui->treeWidget_3->setHeaderLabels(ColumnNames3);
 }
 
 menu_company::~menu_company()
@@ -58,6 +64,18 @@ void menu_company::AddRoot2(QString id, QString status, QString actorID, QString
     AddChild(itm, "source", src);
     AddChild(itm, "destination", dest);
     AddChild(itm, "shipping cost", cost);
+}
+
+void menu_company::AddRoot3(QString driName, QString driEmail, QString userName, QString phone, QString addrDri, QString driLocation) {
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_3);
+    itm->setText(0, driName);
+    itm->setText(1, phone);
+    itm->setText(2, driLocation);
+    ui->treeWidget_3->addTopLevelItem(itm);
+
+    AddChild(itm, "username", userName);
+    AddChild(itm, "email", driEmail);
+    AddChild(itm, "address", addrDri);
 }
 
 void menu_company::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
@@ -105,18 +123,41 @@ void menu_company::on_pushButton_6_clicked()
 void menu_company::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    ui->pushButton_13->setVisible(false);
     //find driver
+    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
+    for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
+        ui->comboBox->addItem(QString::fromStdString(i->get_id()));
+    }
 }
 
 void menu_company::on_pushButton_7_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->comboBox->clear();
+    ui->treeWidget_3->clear();
     //go back
 }
 
 void menu_company::on_pushButton_4_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    //find the closest drivers and put them into treewidget
+    ui->treeWidget_3->clear();
+    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
+    int num = ui->comboBox->currentIndex();
+    list<Cargo>::iterator it = h1.begin();
+    advance(it, num);
+    Cargo chosenCargo = *it;
+    string cargoLocation = chosenCargo.get_source();
+    vector<Driver> vecDrivers = driver1.request_drivers();
+    vector <Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
+    //NEED TO CHANGE TO VECDRIVERSSORTED WHEN SORT DRIVERS FUNCTION IS COMPLETED
+    for (vector<Driver>::iterator k = vecDrivers.begin(); k != vecDrivers.end(); ++k) {
+        AddRoot3(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
+                 QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
+                 QString::fromStdString(k->get_address()), QString::fromStdString(k->get_location()));
+    }
+    ui->pushButton_13->setVisible(true);
 }
 
 void menu_company::on_pushButton_5_clicked()
@@ -163,9 +204,52 @@ void menu_company::on_pushButton_10_clicked()
 void menu_company::on_pushButton_12_clicked()
 {
     //decline offer
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = o1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    offerCargo.assign_company("");
+    offerCargo.update_db_status("Accepted. Waiting for further actions", "company", "");
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
 }
 
 void menu_company::on_pushButton_11_clicked()
 {
     //accept offer
+    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
+    int cargoNum = ui->treeWidget_2->currentIndex().row();
+    list<Cargo>::iterator it = o1.begin();
+    advance(it, cargoNum);
+    Cargo offerCargo = *it;
+    //UPDATE FEE
+    offerCargo.assign_company(usrnam_);
+    offerCargo.update_db_status("Company accepted. Waiting for driver", "company", usrnam_);
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->treeWidget_2->clear();
+}
+
+void menu_company::on_pushButton_13_clicked()
+{
+    //send offer to driver
+    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
+    int num = ui->comboBox->currentIndex();
+    list<Cargo>::iterator it = h1.begin();
+    advance(it, num);
+    Cargo chosenCargo = *it;
+    string cargoLocation = chosenCargo.get_source();
+    vector<Driver> vecDrivers = driver1.request_drivers();
+    vector <Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
+    //CHANGE TO VECDRIVERSSORTED WHEN FUNC IS DONE
+    int driverNum = ui->treeWidget_3->currentIndex().row();
+    string driverUsername = vecDrivers[driverNum].get_n();
+    string cargoId = ui->comboBox->currentText().toStdString();
+    Cargo cargo2;
+    cargo2.set_id(cargoId);
+    cargo2.update_db_status("Waiting for driver response", "driver", driverUsername);
+    cout << "Status updated" << endl;
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->comboBox->clear();
+    ui->treeWidget_3->clear();
 }

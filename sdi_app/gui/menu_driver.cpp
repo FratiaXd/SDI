@@ -83,7 +83,7 @@ void menu_driver::on_pushButton_2_clicked()
     }
     //Order history
     else {
-        list<Cargo> d1 = cargo1.request_history(ussnm_, "driver");
+        list<Cargo> d1 = cargo1.request_history("driver", ussnm_);
         for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),

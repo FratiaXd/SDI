@@ -27,6 +27,11 @@ application::application(QWidget *parent) :
     QObject::connect(this, SIGNAL(pass_username_c(QString)), &cmenu, SLOT(receive_username_c(QString)));
     QObject::connect(this, SIGNAL(pass_username_d(QString)), &dmenu, SLOT(receive_username_d(QString)));
     QObject::connect(this, SIGNAL(pass_username_f(QString)), &fmenu, SLOT(receive_username_f(QString)));
+
+    //location list
+    QStringList availableLocations;
+    availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
+    ui->comboBox->addItems(availableLocations);
 }
 
 application::~application()
@@ -115,7 +120,7 @@ void application::on_pushButton_4_clicked()
         string m = ui->lineEdit_15->text().toStdString();
         string o = ui->lineEdit_16->text().toStdString();
         string p = ui->lineEdit_17->text().toStdString(); //cpc
-
+        string r = ui->comboBox->currentText().toStdString(); //current location
         //check cpc function (tbc)
         //check lorry reg number (tbc)
         //if both true
@@ -129,7 +134,7 @@ void application::on_pushButton_4_clicked()
         ui->lineEdit_16->clear();
         ui->lineEdit_17->clear();
         //saves driver's lorry information for later use
-        driv.driver_details(g, h, i, j, k, l, m, o, p);
+        driv.driver_details(g, h, i, j, k, l, m, o, p, r);
         QMessageBox::information(this, "Lorry check", "Check success!");
         ui->stackedWidget->setCurrentIndex(3);
 

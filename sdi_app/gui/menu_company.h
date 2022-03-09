@@ -14,6 +14,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QTreeWidgetItem>
+#include "headers/driver.h"
 
 namespace Ui {
 class menu_company;
@@ -25,11 +26,15 @@ class menu_company : public QWidget
 
     void AddRoot (QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost);
     void AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget);
+    void AddRoot3(QString driName, QString driEmail, QString userName, QString phone, QString addrDri, QString driLocation);
     void AddChild(QTreeWidgetItem *parent, QString id, QString status);
 
 public:
     explicit menu_company(QWidget *parent = nullptr);
     ~menu_company();
+
+private slots:
+    void on_pushButton_13_clicked();
 
 private slots:
     void on_pushButton_11_clicked();
@@ -70,6 +75,7 @@ private:
     Ui::menu_company *ui;
     TranspCompany comp1;
     Cargo cargo1;
+    Driver driver1;
 
 signals:
     void log_out();
