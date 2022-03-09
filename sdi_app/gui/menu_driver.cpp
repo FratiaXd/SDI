@@ -140,13 +140,17 @@ void menu_driver::on_pushButton_7_clicked()
 void menu_driver::on_pushButton_8_clicked()
 {
     //decline
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = o1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.assign_driver("");
-    offerCargo.update_db_status("Company accepted. Waiting for driver", "driver", "");
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.assign_driver("");
+        offerCargo.update_db_status("Company accepted. Waiting for driver", "driver", "");
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
@@ -154,12 +158,16 @@ void menu_driver::on_pushButton_8_clicked()
 void menu_driver::on_pushButton_9_clicked()
 {
     //accept
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = o1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }

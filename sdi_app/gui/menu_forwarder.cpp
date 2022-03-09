@@ -152,13 +152,17 @@ void menu_forwarder::on_pushButton_12_clicked()
 
 void menu_forwarder::on_pushButton_6_clicked()
 {
-    list<Cargo> f2 = cargo1.request_history("status", "Waiting for forwarder");
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = f2.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.assign_forwarder(usnm_);
-    offerCargo.update_db_status("Waiting for owner", "forwarder", usnm_);
+    try {
+        list<Cargo> f2 = cargo1.request_history("status", "Waiting for forwarder");
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = f2.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.assign_forwarder(usnm_);
+        offerCargo.update_db_status("Waiting for owner", "forwarder", usnm_);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
     //add notification
@@ -167,15 +171,17 @@ void menu_forwarder::on_pushButton_6_clicked()
 
 void menu_forwarder::on_pushButton_7_clicked()
 {
-    //check if something is choosen
-    vector<TranspCompany> v1 = comp1.request_companies();
-    int companyNum = ui->treeWidget_3->currentIndex().row();
-    string companyName = v1[companyNum].get_n();
-    string cargoId = ui->comboBox->currentText().toStdString();
-    Cargo cargo2;
-    cargo2.set_id(cargoId);
-    cargo2.update_db_status("Waiting for company response", "company", companyName);
-    cout << "Status updated" << endl;
+    try {
+        vector<TranspCompany> v1 = comp1.request_companies();
+        int companyNum = ui->treeWidget_3->currentIndex().row();
+        string companyName = v1[companyNum].get_n();
+        string cargoId = ui->comboBox->currentText().toStdString();
+        Cargo cargo2;
+        cargo2.set_id(cargoId);
+        cargo2.update_db_status("Waiting for company response", "company", companyName);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
     ui->treeWidget_3->clear();

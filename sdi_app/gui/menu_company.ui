@@ -311,7 +311,7 @@
     <widget class="QTreeWidget" name="treeWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>30</x>
        <y>60</y>
        <width>581</width>
        <height>421</height>

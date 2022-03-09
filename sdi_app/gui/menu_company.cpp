@@ -142,22 +142,27 @@ void menu_company::on_pushButton_7_clicked()
 void menu_company::on_pushButton_4_clicked()
 {
     //find the closest drivers and put them into treewidget
-    ui->treeWidget_3->clear();
-    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
-    int num = ui->comboBox->currentIndex();
-    list<Cargo>::iterator it = h1.begin();
-    advance(it, num);
-    Cargo chosenCargo = *it;
-    string cargoLocation = chosenCargo.get_source();
-    vector<Driver> vecDrivers = driver1.request_drivers();
-    vector <Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
-    //NEED TO CHANGE TO VECDRIVERSSORTED WHEN SORT DRIVERS FUNCTION IS COMPLETED
-    for (vector<Driver>::iterator k = vecDrivers.begin(); k != vecDrivers.end(); ++k) {
-        AddRoot3(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
-                 QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
-                 QString::fromStdString(k->get_address()), QString::fromStdString(k->get_location()));
+    try {
+        ui->treeWidget_3->clear();
+        list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
+                                               usrnam_);
+        int num = ui->comboBox->currentIndex();
+        list<Cargo>::iterator it = h1.begin();
+        advance(it, num);
+        Cargo chosenCargo = *it;
+        string cargoLocation = chosenCargo.get_source();
+        vector<Driver> vecDrivers = driver1.request_drivers();
+        vector<Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
+        //NEED TO CHANGE TO VECDRIVERSSORTED WHEN SORT DRIVERS FUNCTION IS COMPLETED
+        for (vector<Driver>::iterator k = vecDrivers.begin(); k != vecDrivers.end(); ++k) {
+            AddRoot3(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
+                     QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
+                     QString::fromStdString(k->get_address()), QString::fromStdString(k->get_location()));
+        }
+        ui->pushButton_13->setVisible(true);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
     }
-    ui->pushButton_13->setVisible(true);
 }
 
 void menu_company::on_pushButton_5_clicked()
@@ -189,28 +194,38 @@ void menu_company::on_pushButton_9_clicked()
 void menu_company::on_pushButton_10_clicked()
 {
     //calculate comission function
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = o1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    double commision = comp1.calculate_comission(atof(offerCargo.get_shippingCost().c_str()));
-    QString qstr = QString::fromStdString((to_string(commision)));
-    ui->label_7->setText("Comission: " + qstr);
-    ui->pushButton_11->setVisible(true);
-    ui->pushButton_12->setVisible(true);
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+                                               usrnam_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        double commision = comp1.calculate_comission(atof(offerCargo.get_shippingCost().c_str()));
+        QString qstr = QString::fromStdString((to_string(commision)));
+        ui->label_7->setText("Comission: " + qstr);
+        ui->pushButton_11->setVisible(true);
+        ui->pushButton_12->setVisible(true);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
 }
 
 void menu_company::on_pushButton_12_clicked()
 {
     //decline offer
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = o1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.assign_company("");
-    offerCargo.update_db_status("Accepted. Waiting for further actions", "company", "");
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+                                               usrnam_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.assign_company("");
+        offerCargo.update_db_status("Accepted. Waiting for further actions", "company", "");
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
@@ -218,14 +233,19 @@ void menu_company::on_pushButton_12_clicked()
 void menu_company::on_pushButton_11_clicked()
 {
     //accept offer
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = o1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    //UPDATE FEE
-    offerCargo.assign_company(usrnam_);
-    offerCargo.update_db_status("Company accepted. Waiting for driver", "company", usrnam_);
+    try {
+        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+                                               usrnam_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = o1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        //UPDATE FEE
+        offerCargo.assign_company(usrnam_);
+        offerCargo.update_db_status("Company accepted. Waiting for driver", "company", usrnam_);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
@@ -233,22 +253,27 @@ void menu_company::on_pushButton_11_clicked()
 void menu_company::on_pushButton_13_clicked()
 {
     //send offer to driver
-    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
-    int num = ui->comboBox->currentIndex();
-    list<Cargo>::iterator it = h1.begin();
-    advance(it, num);
-    Cargo chosenCargo = *it;
-    string cargoLocation = chosenCargo.get_source();
-    vector<Driver> vecDrivers = driver1.request_drivers();
-    vector <Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
-    //CHANGE TO VECDRIVERSSORTED WHEN FUNC IS DONE
-    int driverNum = ui->treeWidget_3->currentIndex().row();
-    string driverUsername = vecDrivers[driverNum].get_n();
-    string cargoId = ui->comboBox->currentText().toStdString();
-    Cargo cargo2;
-    cargo2.set_id(cargoId);
-    cargo2.update_db_status("Waiting for driver response", "driver", driverUsername);
-    cout << "Status updated" << endl;
+    try {
+        list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
+                                               usrnam_);
+        int num = ui->comboBox->currentIndex();
+        list<Cargo>::iterator it = h1.begin();
+        advance(it, num);
+        Cargo chosenCargo = *it;
+        string cargoLocation = chosenCargo.get_source();
+        vector<Driver> vecDrivers = driver1.request_drivers();
+        vector<Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
+        //CHANGE TO VECDRIVERSSORTED WHEN FUNC IS DONE
+        int driverNum = ui->treeWidget_3->currentIndex().row();
+        string driverUsername = vecDrivers[driverNum].get_n();
+        string cargoId = ui->comboBox->currentText().toStdString();
+        Cargo cargo2;
+        cargo2.set_id(cargoId);
+        cargo2.update_db_status("Waiting for driver response", "driver", driverUsername);
+        cout << "Status updated" << endl;
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
     ui->treeWidget_3->clear();
