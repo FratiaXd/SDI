@@ -26,6 +26,7 @@ protected:
     string lorryLenght;     /*!< a string value */
     string lorryWeight;     /*!< a string value */
     string cpc;             /*!< a string value */
+    string currentPos;      /*!< a string value */
 public:
     /** @brief Default constructor
      *
@@ -56,7 +57,7 @@ public:
      * @param we lorry weight
      * @param cpc lorry's cpc number
      */
-    void driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cpc);
+    void driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cpc, string currLocation);
 
     /** @brief
      *
@@ -67,10 +68,22 @@ public:
      *
      * @return true if lorry is appropriate/ false not appropriate
      */
+
+    void update_position(string newPosition);
+
+    void update_positionDB();
+
     bool check_cpc();
 
     bool check_regnum();
 
+    vector<Driver> request_drivers();
+
+    vector<Driver> sort_drivers(vector<Driver>& unsorted, string cargoLoc);
+
+    string get_location();
+
+    string request_locationDB();
     /** @brief
      *
      */

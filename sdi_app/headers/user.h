@@ -26,18 +26,6 @@ protected:
     string type;        /*!< a string value */
     string address;     /*!< a string value */
 public:
-    /** @brief Sets user type to m
-     *
-     * @param m is string naming one of five actors
-     */
-    void set_type(string m);
-
-    /** @brief Gets user type
-     *
-     * @return string naming one of five actors
-     */
-    string get_type();
-
     /** @brief Default constructor
      *
      */
@@ -54,6 +42,18 @@ public:
      * @param a address
      */
     User(string u, string p, string f_n, string em, string num, string t, string a);
+
+    /** @brief Sets user type to m
+    *
+    * @param m is string naming one of five actors
+    */
+    void set_type(string m);
+
+    /** @brief Gets user type
+     *
+     * @return string naming one of five actors
+     */
+    string get_type();
 
     /** @brief Encrypts data
      *

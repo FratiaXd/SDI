@@ -21,6 +21,12 @@ menu_owner::menu_owner(QWidget *parent) :
 
     ui->treeWidget_2->setColumnCount(3);
     ui->treeWidget_2->setHeaderLabels(ColumnNames2);
+
+    //location list
+    QStringList availableLocations;
+    availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
+    ui->comboBox->addItems(availableLocations);
+    ui->comboBox_2->addItems(availableLocations);
 }
 
 menu_owner::~menu_owner()
@@ -50,7 +56,7 @@ void menu_owner::AddChild(QTreeWidgetItem *parent, QString id, QString status) {
     itm->setText(1, status);
     parent->addChild(itm);
 }
-//builds tree view (gui) with list of offers
+//builds tree view (gui) with list of offers version 2
 void menu_owner::AddRoot2(QString id, QString status, QString actorID, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);
     itm->setText(0, id);
@@ -96,8 +102,6 @@ void menu_owner::on_pushButton_7_clicked()
     ui->lineEdit_3->clear();
     ui->lineEdit_4->clear();
     ui->lineEdit_5->clear();
-    ui->lineEdit_6->clear();
-    ui->lineEdit_7->clear();
     ui->label_2->setText("Price");
 }
 //making order
@@ -118,20 +122,14 @@ void menu_owner::on_pushButton_5_clicked()
     else if (ui->lineEdit_5->text().isEmpty()) {
         ui->label_2->setText("Enter missing details");
     }
-    else if (ui->lineEdit_6->text().isEmpty()) {
-        ui->label_2->setText("Enter missing details");
-    }
-    else if (ui->lineEdit_7->text().isEmpty()) {
-        ui->label_2->setText("Enter missing details");
-    }
     else {
         string wei = ui->lineEdit->text().toStdString(); //float
         string hei = ui->lineEdit_2->text().toStdString(); //float
         string wid = ui->lineEdit_3->text().toStdString(); //float
         string len = ui->lineEdit_4->text().toStdString(); //float
         string typ = ui->lineEdit_5->text().toStdString();
-        string sour = ui->lineEdit_6->text().toStdString();
-        string dest = ui->lineEdit_7->text().toStdString();
+        string sour = ui->comboBox->currentText().toStdString();
+        string dest = ui->comboBox_2->currentText().toStdString();
         //check values to be float
         float wei_fl = stof(wei);
         float hei_fl = stof(hei);
@@ -161,8 +159,6 @@ void menu_owner::on_pushButton_6_clicked()
     ui->lineEdit_3->clear();
     ui->lineEdit_4->clear();
     ui->lineEdit_5->clear();
-    ui->lineEdit_6->clear();
-    ui->lineEdit_7->clear();
 }
 //display forwarder offers
 void menu_owner::on_pushButton_4_clicked()
@@ -215,25 +211,33 @@ void menu_owner::on_pushButton_9_clicked()
 //decline forwarders offer
 void menu_owner::on_pushButton_10_clicked()
 {
-    list<Cargo> v1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = v1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.assign_forwarder("");
-    offerCargo.update_db_status("Waiting for forwarder", "forwarder", "");
+    try {
+        list<Cargo> v1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = v1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.assign_forwarder("");
+        offerCargo.update_db_status("Waiting for forwarder", "forwarder", "");
+    } catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
 }
 //accept forwarders offer
 void menu_owner::on_pushButton_11_clicked()
 {
-    list<Cargo> d1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
-    int cargoNum = ui->treeWidget_2->currentIndex().row();
-    list<Cargo>::iterator it = d1.begin();
-    advance(it, cargoNum);
-    Cargo offerCargo = *it;
-    offerCargo.update_db_status("Accepted. Waiting for further actions", "owner", username_);
+    try {
+        list<Cargo> d1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+        int cargoNum = ui->treeWidget_2->currentIndex().row();
+        list<Cargo>::iterator it = d1.begin();
+        advance(it, cargoNum);
+        Cargo offerCargo = *it;
+        offerCargo.update_db_status("Accepted. Waiting for further actions", "owner", username_);
+    }catch (...){
+        cout << "An exception occured. No option selected." << endl;
+    }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
     //accept

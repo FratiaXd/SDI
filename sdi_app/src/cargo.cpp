@@ -171,45 +171,6 @@ void Cargo::savetoDB() {
     cout << "Cargo saved" << endl;
 }
 
-string Cargo::get_id() {
-    return cargoID;
-}
-
-void Cargo::set_id(string id) {
-    cargoID = id;
-}
-
-string Cargo::get_status() {
-    return status;
-}
-string Cargo::get_weight() {
-    return weight;
-}
-string Cargo::get_height() {
-    return height;
-}
-string Cargo::get_width() {
-    return width;
-}
-string Cargo::get_length() {
-    return length;
-}
-string Cargo::get_type() {
-    return type;
-}
-string Cargo::get_source() {
-    return source;
-}
-string Cargo::get_destination() {
-    return destination;
-}
-string Cargo::get_forwarder() {
-    return forwarder;
-}
-string Cargo::get_shippingCost() {
-    return shippingCost;
-}
-
 bool Cargo::has_any_orders(string unm, string actor) {
     connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
     if (C.is_open()) {
@@ -327,4 +288,46 @@ list<Cargo> Cargo::request_offers(string column, string val, string type, string
     l1.reverse();
 
     return l1;
+}
+
+string Cargo::get_id() {
+    return cargoID;
+}
+
+void Cargo::set_id(string id) {
+    cargoID = id;
+}
+
+string Cargo::get_status() {
+    return status;
+}
+string Cargo::get_weight() {
+    return weight;
+}
+string Cargo::get_height() {
+    return height;
+}
+string Cargo::get_width() {
+    return width;
+}
+string Cargo::get_length() {
+    return length;
+}
+string Cargo::get_type() {
+    return type;
+}
+string Cargo::get_source() {
+    return source;
+}
+string Cargo::get_destination() {
+    return destination;
+}
+string Cargo::get_forwarder() {
+    return forwarder;
+}
+string Cargo::get_company() {
+    return company;
+}
+string Cargo::get_shippingCost() {
+    return shippingCost;
 }
