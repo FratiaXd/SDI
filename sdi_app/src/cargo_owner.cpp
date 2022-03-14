@@ -24,6 +24,7 @@ double CargoOwner::calculate_shipping(float width, float height, float length, f
     // Width, Height and Length measured in meters
     // Weight measured in kilograms
     // Distance measured in kilometers
+    //
     double longSource = 0, latSource = 0, longDest = 0, latDest = 0;
     double dLat = (latSource - latDest) *
                   M_PI / 180.0;
