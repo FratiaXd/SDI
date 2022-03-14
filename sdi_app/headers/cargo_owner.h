@@ -45,7 +45,7 @@ public:
      * @param addr destination address
      * @return shipping price
      */
-   float calculate_shipping(float w, float h, float l, float we, string src, string addr);
+   double calculate_shipping(float w, float h, float l, float we, string src, string addr);
 
    /** @brief
     *
