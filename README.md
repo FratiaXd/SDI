@@ -5,7 +5,6 @@ To make this work you need
 1. Qt Creator
 2. PostgreSQL
 3. libqxx
-4. CLion
 
 ////////////////////////////////
 
@@ -90,6 +89,6 @@ sudo snap install clion --classic
 
 ////////////////////////////////
 
-With everything installed and setup correctly, you then need to open CLion and open the project. From there, you can build and run the application.
+With everything installed and setup correctly, you then need to open an IDE such as QT Creator or CLion and open the project. From there, you can build and run the application.
 
-If you need a licence to use CLion, a free license can be obtained through: https://www.jetbrains.com/community/education/#students
+If you choose to use Clion and need a licence, a free license can be obtained through: https://www.jetbrains.com/community/education/#students
