@@ -94,8 +94,8 @@ void menu_driver::receive_username_d(QString tx) {
 void menu_driver::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
-    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+    list<Cargo> cargoOffers = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+    for (list<Cargo>::iterator i = cargoOffers.begin(); i != cargoOffers.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                  QString::fromStdString(i->get_company()),
                  QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
@@ -116,8 +116,8 @@ void menu_driver::on_pushButton_5_clicked()
 void menu_driver::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-    list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
-    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+    list<Cargo> offersList = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
+    for (list<Cargo>::iterator i = offersList.begin(); i != offersList.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                  QString::fromStdString(i->get_company()),
                  QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
@@ -144,8 +144,8 @@ void menu_driver::on_pushButton_2_clicked()
     }
     //Order history
     else {
-        list<Cargo> d1 = cargo1.request_history("driver", ussnm_);
-        for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+        list<Cargo> orderHistory = cargo1.request_history("driver", ussnm_);
+        for (list<Cargo>::iterator i = orderHistory.begin(); i != orderHistory.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
@@ -167,9 +167,9 @@ void menu_driver::on_pushButton_7_clicked()
 void menu_driver::on_pushButton_8_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+        list<Cargo> offersList = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = offersList.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.assign_driver("");
@@ -185,9 +185,9 @@ void menu_driver::on_pushButton_8_clicked()
 void menu_driver::on_pushButton_9_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
+        list<Cargo> offersList = cargo1.request_offers("status", "Waiting for driver response", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = offersList.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
@@ -202,9 +202,9 @@ void menu_driver::on_pushButton_9_clicked()
 void menu_driver::on_pushButton_10_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
+        list<Cargo> listOffers = cargo1.request_offers("status", "Driver is on the way", "company", "driver", ussnm_);
         int cargoNum = ui->treeWidget_3->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = listOffers.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         string finalDest = offerCargo.get_destination();

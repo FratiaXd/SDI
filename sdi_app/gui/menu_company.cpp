@@ -100,8 +100,8 @@ void menu_company::on_pushButton_2_clicked()
     ui->pushButton_11->setVisible(false);
     ui->pushButton_12->setVisible(false);
     ui->stackedWidget->setCurrentIndex(1);
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
-    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+    list<Cargo> offerList = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
+    for (list<Cargo>::iterator i = offerList.begin(); i != offerList.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                  QString::fromStdString(i->get_forwarder()),
                  QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
@@ -123,8 +123,8 @@ void menu_company::on_pushButton_3_clicked()
     ui->stackedWidget->setCurrentIndex(2);
     ui->pushButton_13->setVisible(false);
     //lists all orders assigned to the company
-    list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
-    for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
+    list<Cargo> cargoOffers = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company", usrnam_);
+    for (list<Cargo>::iterator i = cargoOffers.begin(); i != cargoOffers.end(); ++i) {
         string cargoInfo = "ID - " + i->get_id() + "/" + i->get_source() + " - " + i->get_destination();
         ui->comboBox->addItem(QString::fromStdString(cargoInfo));
     }
@@ -141,10 +141,10 @@ void menu_company::on_pushButton_4_clicked()
 {
     try {
         ui->treeWidget_3->clear();
-        list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
+        list<Cargo> listCargo = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
                                                usrnam_);
         int num = ui->comboBox->currentIndex();
-        list<Cargo>::iterator it = h1.begin();
+        list<Cargo>::iterator it = listCargo.begin();
         advance(it, num);
         Cargo chosenCargo = *it;
         string cargoLocation = chosenCargo.get_source();
@@ -171,8 +171,8 @@ void menu_company::on_pushButton_5_clicked()
         ui->label_6->setText("You don't have any orders");
     }
     else {
-        list<Cargo> d1 = cargo1.request_history("company", usrnam_);
-        for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+        list<Cargo> historyList = cargo1.request_history("company", usrnam_);
+        for (list<Cargo>::iterator i = historyList.begin(); i != historyList.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
@@ -192,10 +192,10 @@ void menu_company::on_pushButton_9_clicked()
 void menu_company::on_pushButton_10_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+        list<Cargo> offersCargo = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
                                                usrnam_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = offersCargo.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         //calculate comission function is in transportation company class
@@ -214,10 +214,10 @@ void menu_company::on_pushButton_10_clicked()
 void menu_company::on_pushButton_12_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+        list<Cargo> listOffers = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
                                                usrnam_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = listOffers.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.assign_company("");
@@ -232,10 +232,10 @@ void menu_company::on_pushButton_12_clicked()
 void menu_company::on_pushButton_11_clicked()
 {
     try {
-        list<Cargo> o1 = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
+        list<Cargo> listOffers = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company",
                                                usrnam_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = o1.begin();
+        list<Cargo>::iterator it = listOffers.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         //UPDATE FEE
@@ -252,10 +252,10 @@ void menu_company::on_pushButton_11_clicked()
 void menu_company::on_pushButton_13_clicked()
 {
     try {
-        list<Cargo> h1 = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
+        list<Cargo> offersCargo = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
                                                usrnam_);
         int num = ui->comboBox->currentIndex();
-        list<Cargo>::iterator it = h1.begin();
+        list<Cargo>::iterator it = offersCargo.begin();
         advance(it, num);
         Cargo chosenCargo = *it;
         string cargoLocation = chosenCargo.get_source();

@@ -116,16 +116,16 @@ void application::on_pushButton_4_clicked()
         ui->label_5->setText("Enter missing details");
     }
     else {
-        string g = ui->lineEdit_3->text().toStdString();
-        string h = ui->lineEdit_4->text().toStdString();
-        string i = ui->lineEdit_5->text().toStdString();
-        string j = ui->lineEdit_6->text().toStdString(); //reg num
-        string k = ui->lineEdit_13->text().toStdString();
-        string l = ui->lineEdit_14->text().toStdString();
-        string m = ui->lineEdit_15->text().toStdString();
-        string o = ui->lineEdit_16->text().toStdString();
-        string p = ui->lineEdit_17->text().toStdString(); //cpc
-        string r = ui->comboBox->currentText().toStdString(); //current location
+        string niNumber = ui->lineEdit_3->text().toStdString();
+        string licenseID = ui->lineEdit_4->text().toStdString();
+        string cpcNumber = ui->lineEdit_5->text().toStdString();
+        string regNumber = ui->lineEdit_6->text().toStdString(); //reg num
+        string lorryType = ui->lineEdit_13->text().toStdString();
+        string lorryWidth = ui->lineEdit_14->text().toStdString();
+        string lorryHeight = ui->lineEdit_15->text().toStdString();
+        string lorryLength = ui->lineEdit_16->text().toStdString();
+        string lorryWeight = ui->lineEdit_17->text().toStdString(); //cpc
+        string driverLocation = ui->comboBox->currentText().toStdString(); //current location
         //check cpc function (tbc)
         //check lorry reg number (tbc)
         //if both true
@@ -139,10 +139,9 @@ void application::on_pushButton_4_clicked()
         ui->lineEdit_16->clear();
         ui->lineEdit_17->clear();
         //saves driver's lorry information for later use
-        driv.driver_details(g, h, i, j, k, l, m, o, p, r);
+        driv.driver_details(niNumber, licenseID, lorryType, regNumber, lorryHeight, lorryWidth, lorryLength, lorryWeight, cpcNumber, driverLocation);
         QMessageBox::information(this, "Lorry check", "Check success!");
         ui->stackedWidget->setCurrentIndex(3);
-
         //if false ask for details again and display message
     }
 }
@@ -168,34 +167,34 @@ void application::on_pushButton_5_clicked()
     }
     else {
         //creates the user according to user.type saved previously in account type window
-        string a = ui->lineEdit_7->text().toStdString();
-        string b = ui->lineEdit_8->text().toStdString();
-        string c = ui->lineEdit_9->text().toStdString();
-        string d = ui->lineEdit_10->text().toStdString();
-        string e = ui->lineEdit_11->text().toStdString();
+        string userUsername = ui->lineEdit_7->text().toStdString();
+        string userPassword = ui->lineEdit_8->text().toStdString();
+        string userFullName = ui->lineEdit_9->text().toStdString();
+        string userEmail = ui->lineEdit_10->text().toStdString();
+        string userMobile = ui->lineEdit_11->text().toStdString();
         string userAddress = ui->comboBox_2->currentText().toStdString();
         if (user1.get_type() == "driver") {
-            driv.set_driver(a, b, c, d, e, "driver", userAddress);
+            driv.set_driver(userUsername, userPassword, userFullName, userEmail, userMobile, "driver", userAddress);
             driv.registration_driver();
             driv.~Driver();
         }
         else if (user1.get_type() == "forwarder") {
-            Forwarder forw(a, b, c, d, e, "forwarder", userAddress);
+            Forwarder forw(userUsername, userPassword, userFullName, userEmail, userMobile, "forwarder", userAddress);
             forw.registration();
             forw.~Forwarder();
         }
         else if (user1.get_type() == "owner") {
-            CargoOwner own(a, b, c, d, e, "cargo owner", userAddress);
+            CargoOwner own(userUsername, userPassword, userFullName, userEmail, userMobile, "cargo owner", userAddress);
             own.registration();
             own.~CargoOwner();
         }
         else if (user1.get_type() == "receiver") {
-            User receiv(a, b, c, d, e, "receiver", userAddress);
+            User receiv(userUsername, userPassword, userFullName, userEmail, userMobile, "receiver", userAddress);
             receiv.registration();
             receiv.~User();
         }
         else if (user1.get_type() == "company") {
-            TranspCompany comp(a, b, c, d, e, "transportation company", userAddress);
+            TranspCompany comp(userUsername, userPassword, userFullName, userEmail, userMobile, "transportation company", userAddress);
             comp.registration();
 
         }
@@ -220,9 +219,9 @@ void application::on_pushButton_2_clicked()
     }
     //does not allow proceeding until each line has user input
     else {
-        string nm = ui->lineEdit->text().toStdString();
-        string pass = ui->lineEdit_2->text().toStdString();
-        if (!user1.sign_in(nm, pass)) {
+        string loginUsernm = ui->lineEdit->text().toStdString();
+        string loginPassw = ui->lineEdit_2->text().toStdString();
+        if (!user1.sign_in(loginUsernm, loginPassw)) {
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
             QMessageBox::critical(this, "Log in", "Incorrect username/password");
@@ -231,26 +230,26 @@ void application::on_pushButton_2_clicked()
             QMessageBox::information(this, "Log in", "Welcome back!");
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
-            QString qna = QString::fromStdString(nm);
-            int m = user1.open_menu(nm);
-            switch (m) {
+            QString usernameToPass = QString::fromStdString(loginUsernm);
+            int menuPage = user1.open_menu(loginUsernm);
+            switch (menuPage) {
                 case 4:
-                    emit pass_username_d(qna);
+                    emit pass_username_d(usernameToPass);
                     break;
                 case 5:
-                    emit pass_username_f(qna);
+                    emit pass_username_f(usernameToPass);
                     break;
                 case 6:
-                    emit pass_username_o(qna);
+                    emit pass_username_o(usernameToPass);
                     break;
                 case 7:
-                    emit pass_username_r(qna);
+                    emit pass_username_r(usernameToPass);
                     break;
                 case 8:
-                    emit pass_username_c(qna);
+                    emit pass_username_c(usernameToPass);
                     break;
             }
-            ui->stackedWidget->setCurrentIndex(m);
+            ui->stackedWidget->setCurrentIndex(menuPage);
         }
     }
 }

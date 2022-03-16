@@ -77,8 +77,8 @@ void menu_forwarder::on_pushButton_clicked()
 void menu_forwarder::on_pushButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
-    list<Cargo> f1 = cargo1.request_history("status", "Waiting for forwarder");
-    for (list<Cargo>::iterator i = f1.begin(); i != f1.end(); ++i) {
+    list<Cargo> historyList = cargo1.request_history("status", "Waiting for forwarder");
+    for (list<Cargo>::iterator i = historyList.begin(); i != historyList.end(); ++i) {
         AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                 QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                 QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
@@ -97,15 +97,15 @@ void menu_forwarder::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     //lists companies on the market
-    vector<TranspCompany> v1 = comp1.request_companies();
-    for (vector<TranspCompany>::iterator k = v1.begin(); k != v1.end(); ++k) {
+    vector<TranspCompany> availableCompanies = comp1.request_companies();
+    for (vector<TranspCompany>::iterator k = availableCompanies.begin(); k != availableCompanies.end(); ++k) {
         AddRoot2(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
                  QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
                  QString::fromStdString(k->get_address()));
     }
     //lists cargos waiting for progress
-    list<Cargo> h1 = cargo1.request_offers("status", "Accepted. Waiting for further actions", "forwarder", "forwarder", usnm_);
-    for (list<Cargo>::iterator i = h1.begin(); i != h1.end(); ++i) {
+    list<Cargo> listOffers = cargo1.request_offers("status", "Accepted. Waiting for further actions", "forwarder", "forwarder", usnm_);
+    for (list<Cargo>::iterator i = listOffers.begin(); i != listOffers.end(); ++i) {
         string cargoInfo = "ID - " + i->get_id() + "/" + i->get_source() + " - " + i->get_destination();
         ui->comboBox->addItem(QString::fromStdString(cargoInfo));
     }
@@ -125,8 +125,8 @@ void menu_forwarder::on_pushButton_3_clicked()
         ui->label_5->setText("You don't have any orders");
     }
     else {
-        list<Cargo> d1 = cargo1.request_history("forwarder", usnm_);
-        for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+        list<Cargo> historyList = cargo1.request_history("forwarder", usnm_);
+        for (list<Cargo>::iterator i = historyList.begin(); i != historyList.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
@@ -146,9 +146,9 @@ void menu_forwarder::on_pushButton_12_clicked()
 void menu_forwarder::on_pushButton_6_clicked()
 {
     try {
-        list<Cargo> f2 = cargo1.request_history("status", "Waiting for forwarder");
+        list<Cargo> historyList = cargo1.request_history("status", "Waiting for forwarder");
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = f2.begin();
+        list<Cargo>::iterator it = historyList.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.assign_forwarder(usnm_);
@@ -165,9 +165,9 @@ void menu_forwarder::on_pushButton_6_clicked()
 void menu_forwarder::on_pushButton_7_clicked()
 {
     try {
-        vector<TranspCompany> v1 = comp1.request_companies();
+        vector<TranspCompany> availableCompanies = comp1.request_companies();
         int companyNum = ui->treeWidget_3->currentIndex().row();
-        string companyName = v1[companyNum].get_n();
+        string companyName = availableCompanies[companyNum].get_n();
         string cargoId = ui->comboBox->currentText().toStdString();
         string cargoIdSubstr = cargoId.substr(5, 3);
         Cargo cargo2;

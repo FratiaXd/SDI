@@ -124,10 +124,10 @@ void menu_owner::on_pushButton_5_clicked()
         ui->label_2->setText("Enter missing details");
     }
     else {
-        string wei = ui->lineEdit->text().toStdString(); //float
-        string hei = ui->lineEdit_2->text().toStdString(); //float
-        string wid = ui->lineEdit_3->text().toStdString(); //float
-        string len = ui->lineEdit_4->text().toStdString(); //float
+        string cargoWeight = ui->lineEdit->text().toStdString(); //float
+        string cargoHeight = ui->lineEdit_2->text().toStdString(); //float
+        string cargoWidth = ui->lineEdit_3->text().toStdString(); //float
+        string cargoLength = ui->lineEdit_4->text().toStdString(); //float
         string cargoType = ui->comboBox_3->currentText().toStdString();
         string cargoSource = ui->comboBox->currentText().toStdString();
         string cargoDestination = ui->comboBox_2->currentText().toStdString();
@@ -136,17 +136,17 @@ void menu_owner::on_pushButton_5_clicked()
         }
         else{
             //check values to be float
-            float wei_fl = stof(wei);
-            float hei_fl = stof(hei);
-            float wid_fl = stof(wid);
-            float len_fl = stof(len);
+            float weightFloat = stof(cargoWeight);
+            float heightFloat = stof(cargoHeight);
+            float widthFloat = stof(cargoWidth);
+            float lengthFloat = stof(cargoLength);
             //calculate shipping function
-            float pr = owner1.calculate_shipping(wei_fl, hei_fl, len_fl, wid_fl, cargoSource, cargoDestination);
+            float pr = owner1.calculate_shipping(weightFloat, heightFloat, lengthFloat, widthFloat, cargoSource, cargoDestination);
             string disp_pr = to_string(pr);
             QString qstr = QString::fromStdString(disp_pr);
             ui->label_2->setText("Final shipping price: " + qstr);
             ui->pushButton_6->setVisible(true);
-            cargo1.set_primary_values(wei, hei, wid, len, cargoType, cargoSource, cargoDestination, disp_pr);
+            cargo1.set_primary_values(cargoWeight, cargoHeight, cargoWidth, cargoLength, cargoType, cargoSource, cargoDestination, disp_pr);
         }
     }
 }
@@ -170,8 +170,8 @@ void menu_owner::on_pushButton_4_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     //need to add if similar to order history if there is no offers
-    list<Cargo> o1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
-    for (list<Cargo>::iterator i = o1.begin(); i != o1.end(); ++i) {
+    list<Cargo> offerList = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+    for (list<Cargo>::iterator i = offerList.begin(); i != offerList.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                  QString::fromStdString(i->get_forwarder()),
                 QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
@@ -196,8 +196,8 @@ void menu_owner::on_pushButton_3_clicked()
     }
     //Order history
     else {
-        list<Cargo> d1 = cargo1.request_history("owner", username_);
-        for (list<Cargo>::iterator i = d1.begin(); i != d1.end(); ++i) {
+        list<Cargo> historyList = cargo1.request_history("owner", username_);
+        for (list<Cargo>::iterator i = historyList.begin(); i != historyList.end(); ++i) {
             AddRoot(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                     QString::fromStdString(i->get_weight()), QString::fromStdString(i->get_height()),
                     QString::fromStdString(i->get_width()), QString::fromStdString(i->get_length()),
@@ -217,9 +217,9 @@ void menu_owner::on_pushButton_9_clicked()
 void menu_owner::on_pushButton_10_clicked()
 {
     try {
-        list<Cargo> v1 = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
+        list<Cargo> offerList = cargo1.request_offers("status", "Waiting for owner", "forwarder", "owner", username_);
         int cargoNum = ui->treeWidget_2->currentIndex().row();
-        list<Cargo>::iterator it = v1.begin();
+        list<Cargo>::iterator it = offerList.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.assign_forwarder("");
