@@ -2,34 +2,25 @@
 
 To make this work you need
 
-1. Qt creator
-2. Postgresql
-3. Libqxx
+1. Qt Creator
+2. PostgreSQL
+3. libqxx
+4. CLion
 
 ////////////////////////////////
 
-Steps to install Postgresql (if not installed already):
+Steps to install PostgreSQL (if not installed already):
 1. sudo apt update
 2. sudo apt install postgresql postgresql-contrib
 
 ////////////////////////////////
 
-Steps to install Libqxx (if not installed already):
-1. sudo apt install libpq-dev
-2. Download .tar file from this URL: https://github.com/jtv/libpqxx/releases/tag/7.6.0
-3. 'cd' into the directory containing the .tar file, and unzip by running: tar xvfz libpqxx-7.6.0.tar.gz
-4. 'cd' into the unzipped folder
-5. ./configure
-6. make
-7. sudo make install
-
-////////////////////////////////
-
-Now you need to set-up Postgresql with these steps:
+With PostgreSQL installed, you now need to set it up with these steps:
 1. sudo -i -u postgres
 2. psql
-3. createdb postgres
-4. psql -d postgres
+3. \q
+4. createdb postgres
+5. psql -d postgres
 
 Then execute this:
 
@@ -74,6 +65,30 @@ create table users
     cpc              varchar(20)
 );
 
-And then this:
+And then these:
 
 ALTER USER postgres PASSWORD 'kek228';
+ALTER TABLE users ADD COLUMN location VARCHAR(25);
+
+////////////////////////////////
+
+Steps to install libqxx (if not installed already):
+1. sudo apt install libpq-dev
+2. Download .tar file from this URL: https://github.com/jtv/libpqxx/releases/tag/7.6.0
+3. 'cd' into the directory containing the .tar file, and unzip by running: tar xvfz libpqxx-7.6.0.tar.gz
+4. 'cd' into the unzipped folder
+5. ./configure
+6. make
+7. sudo make install
+
+////////////////////////////////
+
+Step to install CLion (if not installed already):
+
+sudo snap install clion --classic
+
+////////////////////////////////
+
+With everything installed and setup correctly, you then need to open CLion and open the project. From there, you can build and run the application.
+
+If you need a licence to use CLion, a free license can be obtained through: https://www.jetbrains.com/community/education/#students
