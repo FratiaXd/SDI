@@ -32,6 +32,7 @@ Now you need to set-up Postgresql with these steps:
 4. psql -d postgres
 
 Then execute this:
+
 create table cargo
 (
     cargo_id      varchar(20),
@@ -52,6 +53,7 @@ create table cargo
 );
 
 And this:
+
 create table users
 (
     username         varchar(20),
@@ -73,4 +75,5 @@ create table users
 );
 
 And then this:
+
 ALTER USER postgres PASSWORD 'kek228';
