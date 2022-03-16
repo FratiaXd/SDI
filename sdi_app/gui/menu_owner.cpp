@@ -10,6 +10,8 @@ menu_owner::menu_owner(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->label_6->setVisible(false);
+
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
@@ -192,6 +194,7 @@ void menu_owner::on_pushButton_3_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     //check if user has any orders
     if (!cargo1.has_any_orders(username_, "owner")){
+        ui->label_6->setVisible(true);
         ui->label_6->setText("You don't have any orders");
     }
     //Order history

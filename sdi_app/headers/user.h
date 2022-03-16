@@ -49,6 +49,8 @@ public:
     */
     void set_type(string m);
 
+    bool user_exists(string usernameToCompare);
+
     /** @brief Gets user type
      *
      * @return string naming one of five actors

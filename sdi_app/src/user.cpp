@@ -25,6 +25,28 @@ void User::set_type(string m) {
     type = m;
 }
 
+bool User::user_exists(string usernameToCompare) {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    }
+    else {
+        cout << "Can't open database" << endl;
+    }
+    bool userExists;
+    string encrUsername = encrypt(usernameToCompare);
+    string sql = "SELECT EXISTS(SELECT 1 FROM USERS WHERE username = '" + encrUsername + "');";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        userExists =  c[0].as<bool>();
+    }
+    return userExists;
+}
+
 string User::get_type() {
     return type;
 }

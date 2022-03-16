@@ -9,6 +9,8 @@ menu_company::menu_company(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->label_6->setVisible(false);
+
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
@@ -168,6 +170,7 @@ void menu_company::on_pushButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
     if (!cargo1.has_any_orders(usrnam_, "company")){
+        ui->label_6->setVisible(true);
         ui->label_6->setText("You don't have any orders");
     }
     else {

@@ -11,6 +11,8 @@ menu_driver::menu_driver(QWidget *parent) :
 
     driv1.set_n(ussnm_);
 
+    ui->label_5->setVisible(false);
+
     //sets up tree widget for displaying or history
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
@@ -140,6 +142,7 @@ void menu_driver::on_pushButton_2_clicked()
     //if user doesn't have any orders
     ui->stackedWidget->setCurrentIndex(3);
     if (!cargo1.has_any_orders(ussnm_, "driver")){
+        ui->label_5->setVisible(true);
         ui->label_5->setText("You don't have any orders");
     }
     //Order history

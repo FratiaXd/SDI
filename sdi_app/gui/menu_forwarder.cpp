@@ -9,6 +9,8 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->label_5->setVisible(false);
+
     QStringList ColumnNames;
     ColumnNames << "ID" << "Status";
 
@@ -122,6 +124,7 @@ void menu_forwarder::on_pushButton_3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
     if (!cargo1.has_any_orders(usnm_, "forwarder")){
+        ui->label_5->setVisible(true);
         ui->label_5->setText("You don't have any orders");
     }
     else {

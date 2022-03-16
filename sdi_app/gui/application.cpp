@@ -173,39 +173,44 @@ void application::on_pushButton_5_clicked()
         string userEmail = ui->lineEdit_10->text().toStdString();
         string userMobile = ui->lineEdit_11->text().toStdString();
         string userAddress = ui->comboBox_2->currentText().toStdString();
-        if (user1.get_type() == "driver") {
-            driv.set_driver(userUsername, userPassword, userFullName, userEmail, userMobile, "driver", userAddress);
-            driv.registration_driver();
-            driv.~Driver();
+        if (user1.user_exists(userUsername)) {
+            QMessageBox::critical(this, "Log in", "Username is already taken");
         }
-        else if (user1.get_type() == "forwarder") {
-            Forwarder forw(userUsername, userPassword, userFullName, userEmail, userMobile, "forwarder", userAddress);
-            forw.registration();
-            forw.~Forwarder();
-        }
-        else if (user1.get_type() == "owner") {
-            CargoOwner own(userUsername, userPassword, userFullName, userEmail, userMobile, "cargo owner", userAddress);
-            own.registration();
-            own.~CargoOwner();
-        }
-        else if (user1.get_type() == "receiver") {
-            User receiv(userUsername, userPassword, userFullName, userEmail, userMobile, "receiver", userAddress);
-            receiv.registration();
-            receiv.~User();
-        }
-        else if (user1.get_type() == "company") {
-            TranspCompany comp(userUsername, userPassword, userFullName, userEmail, userMobile, "transportation company", userAddress);
-            comp.registration();
+        else {
+            if (user1.get_type() == "driver") {
+                driv.set_driver(userUsername, userPassword, userFullName, userEmail, userMobile, "driver", userAddress);
+                driv.registration_driver();
+                driv.~Driver();
+            }
+            else if (user1.get_type() == "forwarder") {
+                Forwarder forw(userUsername, userPassword, userFullName, userEmail, userMobile, "forwarder", userAddress);
+                forw.registration();
+                forw.~Forwarder();
+            }
+            else if (user1.get_type() == "owner") {
+                CargoOwner own(userUsername, userPassword, userFullName, userEmail, userMobile, "cargo owner", userAddress);
+                own.registration();
+                own.~CargoOwner();
+            }
+            else if (user1.get_type() == "receiver") {
+                User receiv(userUsername, userPassword, userFullName, userEmail, userMobile, "receiver", userAddress);
+                receiv.registration();
+                receiv.~User();
+            }
+            else if (user1.get_type() == "company") {
+                TranspCompany comp(userUsername, userPassword, userFullName, userEmail, userMobile, "transportation company", userAddress);
+                comp.registration();
 
+            }
+            user1.~User();
+            QMessageBox::information(this, "Registration", "Account was succesfully created");
+            ui->stackedWidget->setCurrentIndex(0);
         }
-        user1.~User();
         ui->lineEdit_7->clear();
         ui->lineEdit_8->clear();
         ui->lineEdit_9->clear();
         ui->lineEdit_10->clear();
         ui->lineEdit_11->clear();
-        QMessageBox::information(this, "Registration", "Account was succesfully created");
-        ui->stackedWidget->setCurrentIndex(0);
     }
 }
 //opens menu according to the user type
