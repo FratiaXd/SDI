@@ -133,16 +133,6 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_5">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>260</y>
-       <width>113</width>
-       <height>25</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_5">
      <property name="geometry">
       <rect>
@@ -284,7 +274,7 @@
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>260</y>
+       <y>250</y>
        <width>67</width>
        <height>17</height>
       </rect>
@@ -317,6 +307,16 @@
      </property>
      <property name="text">
       <string>DESTINATION:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_3">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>250</y>
+       <width>111</width>
+       <height>25</height>
+      </rect>
      </property>
     </widget>
    </widget>

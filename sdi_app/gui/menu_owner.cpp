@@ -27,6 +27,11 @@ menu_owner::menu_owner(QWidget *parent) :
     availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
     ui->comboBox->addItems(availableLocations);
     ui->comboBox_2->addItems(availableLocations);
+
+    //cargo types list
+    QStringList cargoTypes;
+    cargoTypes << "Small box" << "Medium box" << "Large box" << "Fragile";
+    ui->comboBox_3->addItems(cargoTypes);
 }
 
 menu_owner::~menu_owner()
@@ -101,7 +106,6 @@ void menu_owner::on_pushButton_7_clicked()
     ui->lineEdit_2->clear();
     ui->lineEdit_3->clear();
     ui->lineEdit_4->clear();
-    ui->lineEdit_5->clear();
     ui->label_2->setText("Price");
 }
 //making order
@@ -119,29 +123,31 @@ void menu_owner::on_pushButton_5_clicked()
     else if (ui->lineEdit_4->text().isEmpty()) {
         ui->label_2->setText("Enter missing details");
     }
-    else if (ui->lineEdit_5->text().isEmpty()) {
-        ui->label_2->setText("Enter missing details");
-    }
     else {
         string wei = ui->lineEdit->text().toStdString(); //float
         string hei = ui->lineEdit_2->text().toStdString(); //float
         string wid = ui->lineEdit_3->text().toStdString(); //float
         string len = ui->lineEdit_4->text().toStdString(); //float
-        string typ = ui->lineEdit_5->text().toStdString();
-        string sour = ui->comboBox->currentText().toStdString();
-        string dest = ui->comboBox_2->currentText().toStdString();
-        //check values to be float
-        float wei_fl = stof(wei);
-        float hei_fl = stof(hei);
-        float wid_fl = stof(wid);
-        float len_fl = stof(len);
-        //calculate shipping function
-        float pr = owner1.calculate_shipping(wei_fl, hei_fl, len_fl, wid_fl, sour, dest);
-        string disp_pr = to_string(pr);
-        QString qstr = QString::fromStdString(disp_pr);
-        ui->label_2->setText("Final shipping price: " + qstr);
-        ui->pushButton_6->setVisible(true);
-        cargo1.set_primary_values(wei, hei, wid, len, typ, sour, dest, disp_pr);
+        string cargoType = ui->comboBox_3->currentText().toStdString();
+        string cargoSource = ui->comboBox->currentText().toStdString();
+        string cargoDestination = ui->comboBox_2->currentText().toStdString();
+        if (cargoSource == cargoDestination) {
+            ui->label_2->setText("Source and destination have to be different");
+        }
+        else{
+            //check values to be float
+            float wei_fl = stof(wei);
+            float hei_fl = stof(hei);
+            float wid_fl = stof(wid);
+            float len_fl = stof(len);
+            //calculate shipping function
+            float pr = owner1.calculate_shipping(wei_fl, hei_fl, len_fl, wid_fl, cargoSource, cargoDestination);
+            string disp_pr = to_string(pr);
+            QString qstr = QString::fromStdString(disp_pr);
+            ui->label_2->setText("Final shipping price: " + qstr);
+            ui->pushButton_6->setVisible(true);
+            cargo1.set_primary_values(wei, hei, wid, len, cargoType, cargoSource, cargoDestination, disp_pr);
+        }
     }
 }
 //button make order
@@ -158,7 +164,6 @@ void menu_owner::on_pushButton_6_clicked()
     ui->lineEdit_2->clear();
     ui->lineEdit_3->clear();
     ui->lineEdit_4->clear();
-    ui->lineEdit_5->clear();
 }
 //display forwarder offers
 void menu_owner::on_pushButton_4_clicked()
@@ -219,6 +224,7 @@ void menu_owner::on_pushButton_10_clicked()
         Cargo offerCargo = *it;
         offerCargo.assign_forwarder("");
         offerCargo.update_db_status("Waiting for forwarder", "forwarder", "");
+        QMessageBox::information(this, "Offer", "You successfully declined offer");
     } catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -235,6 +241,7 @@ void menu_owner::on_pushButton_11_clicked()
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.update_db_status("Accepted. Waiting for further actions", "owner", username_);
+        QMessageBox::information(this, "Offer", "You successfully accepted offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }

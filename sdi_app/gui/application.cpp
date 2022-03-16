@@ -32,6 +32,11 @@ application::application(QWidget *parent) :
     QStringList availableLocations;
     availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
     ui->comboBox->addItems(availableLocations);
+    ui->comboBox_2->addItems(availableLocations);
+
+    //Hides password
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
+    ui->lineEdit_8->setEchoMode(QLineEdit::Password);
 }
 
 application::~application()
@@ -168,29 +173,29 @@ void application::on_pushButton_5_clicked()
         string c = ui->lineEdit_9->text().toStdString();
         string d = ui->lineEdit_10->text().toStdString();
         string e = ui->lineEdit_11->text().toStdString();
-        string f = ui->lineEdit_12->text().toStdString();
+        string userAddress = ui->comboBox_2->currentText().toStdString();
         if (user1.get_type() == "driver") {
-            driv.set_driver(a, b, c, d, e, "driver", f);
+            driv.set_driver(a, b, c, d, e, "driver", userAddress);
             driv.registration_driver();
             driv.~Driver();
         }
         else if (user1.get_type() == "forwarder") {
-            Forwarder forw(a, b, c, d, e, "forwarder", f);
+            Forwarder forw(a, b, c, d, e, "forwarder", userAddress);
             forw.registration();
             forw.~Forwarder();
         }
         else if (user1.get_type() == "owner") {
-            CargoOwner own(a, b, c, d, e, "cargo owner", f);
+            CargoOwner own(a, b, c, d, e, "cargo owner", userAddress);
             own.registration();
             own.~CargoOwner();
         }
         else if (user1.get_type() == "receiver") {
-            User receiv(a, b, c, d, e, "receiver", f);
+            User receiv(a, b, c, d, e, "receiver", userAddress);
             receiv.registration();
             receiv.~User();
         }
         else if (user1.get_type() == "company") {
-            TranspCompany comp(a, b, c, d, e, "transportation company", f);
+            TranspCompany comp(a, b, c, d, e, "transportation company", userAddress);
             comp.registration();
 
         }
@@ -200,7 +205,6 @@ void application::on_pushButton_5_clicked()
         ui->lineEdit_9->clear();
         ui->lineEdit_10->clear();
         ui->lineEdit_11->clear();
-        ui->lineEdit_12->clear();
         QMessageBox::information(this, "Registration", "Account was succesfully created");
         ui->stackedWidget->setCurrentIndex(0);
     }
@@ -257,4 +261,31 @@ void application::logOutUser()
     ui->stackedWidget->setCurrentIndex(0);
 }
 
+void application::on_pushButton_6_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
 
+void application::on_pushButton_7_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+    ui->lineEdit_3->clear();
+    ui->lineEdit_4->clear();
+    ui->lineEdit_5->clear();
+    ui->lineEdit_6->clear();
+    ui->lineEdit_13->clear();
+    ui->lineEdit_14->clear();
+    ui->lineEdit_15->clear();
+    ui->lineEdit_16->clear();
+    ui->lineEdit_17->clear();
+}
+
+void application::on_pushButton_8_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+    ui->lineEdit_7->clear();
+    ui->lineEdit_8->clear();
+    ui->lineEdit_9->clear();
+    ui->lineEdit_10->clear();
+    ui->lineEdit_11->clear();
+}

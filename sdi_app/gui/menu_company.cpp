@@ -241,6 +241,7 @@ void menu_company::on_pushButton_11_clicked()
         //UPDATE FEE
         offerCargo.assign_company(usrnam_);
         offerCargo.update_db_status("Company accepted. Waiting for driver", "company", usrnam_);
+        QMessageBox::information(this, "Offer", "You successfully accepted cargo");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -264,10 +265,12 @@ void menu_company::on_pushButton_13_clicked()
         int driverNum = ui->treeWidget_3->currentIndex().row();
         string driverUsername = vecDrivers[driverNum].get_n();
         string cargoId = ui->comboBox->currentText().toStdString();
+        string cargoIdSubstr = cargoId.substr(5, 3);
         Cargo cargo2;
-        cargo2.set_id(cargoId);
+        cargo2.set_id(cargoIdSubstr);
         cargo2.update_db_status("Waiting for driver response", "driver", driverUsername);
         cout << "Status updated" << endl;
+        QMessageBox::information(this, "Offer", "You successfully sent an offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }

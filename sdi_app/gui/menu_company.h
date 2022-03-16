@@ -15,6 +15,7 @@
 #include <QtGui>
 #include <QTreeWidgetItem>
 #include "headers/driver.h"
+#include <QMessageBox>
 
 namespace Ui {
 class menu_company;

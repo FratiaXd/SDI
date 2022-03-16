@@ -15,6 +15,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QTreeWidgetItem>
+#include <QMessageBox>
 
 namespace Ui {
 class menu_forwarder;

@@ -174,6 +174,7 @@ void menu_driver::on_pushButton_8_clicked()
         Cargo offerCargo = *it;
         offerCargo.assign_driver("");
         offerCargo.update_db_status("Company accepted. Waiting for driver", "driver", "");
+        QMessageBox::information(this, "Offer", "You successfully declined an offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -190,6 +191,7 @@ void menu_driver::on_pushButton_9_clicked()
         advance(it, cargoNum);
         Cargo offerCargo = *it;
         offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
+        QMessageBox::information(this, "Offer", "You successfully accepted an offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -211,6 +213,7 @@ void menu_driver::on_pushButton_10_clicked()
             offerCargo.update_db_status("Delivered", "receiver", "success");
             driv1.update_position(driverLocation);
             driv1.update_positionDB();
+            QMessageBox::information(this, "Confirmation", "Cargo delivered. Your location updated");
         }
         else {
             QMessageBox::critical(this, "Delivery", "Your location doesn't match with order delivery address");

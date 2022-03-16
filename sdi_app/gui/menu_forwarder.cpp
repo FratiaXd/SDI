@@ -153,6 +153,7 @@ void menu_forwarder::on_pushButton_6_clicked()
         Cargo offerCargo = *it;
         offerCargo.assign_forwarder(usnm_);
         offerCargo.update_db_status("Waiting for owner", "forwarder", usnm_);
+        QMessageBox::information(this, "Offer", "You successfully sent an offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -168,9 +169,11 @@ void menu_forwarder::on_pushButton_7_clicked()
         int companyNum = ui->treeWidget_3->currentIndex().row();
         string companyName = v1[companyNum].get_n();
         string cargoId = ui->comboBox->currentText().toStdString();
+        string cargoIdSubstr = cargoId.substr(5, 3);
         Cargo cargo2;
-        cargo2.set_id(cargoId);
+        cargo2.set_id(cargoIdSubstr);
         cargo2.update_db_status("Waiting for company response", "company", companyName);
+        QMessageBox::information(this, "Offer", "You successfully forwarded cargo");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
