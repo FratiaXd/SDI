@@ -8,16 +8,30 @@ To make this work you need
 
 ////////////////////////////////
 
-after installed
-POSTGRESQL SETUP
+Steps to install Postgresql (if not installed already):
+1. sudo apt update
+2. sudo apt install postgresql postgresql-contrib
 
-sudo -i -u postgres
+////////////////////////////////
 
-psql
+Steps to install Libqxx (if not installed already):
+1. sudo apt install libpq-dev
+2. Download .tar file from this URL: https://github.com/jtv/libpqxx/releases/tag/7.6.0
+3. 'cd' into the directory containing the .tar file, and unzip by running: tar xvfz libpqxx-7.6.0.tar.gz
+4. 'cd' into the unzipped folder
+5. ./configure
+6. make
+7. sudo make install
 
-createdb postgres
+////////////////////////////////
 
-psql -d postgres
+Now you need to set-up Postgresql with these steps:
+1. sudo -i -u postgres
+2. psql
+3. createdb postgres
+4. psql -d postgres
+
+Then execute this:
 
 create table cargo
 (
@@ -37,6 +51,8 @@ create table cargo
     driver        varchar(20),
     receiver      varchar(20)
 );
+
+And this:
 
 create table users
 (
@@ -58,26 +74,6 @@ create table users
     cpc              varchar(20)
 );
 
+And then this:
+
 ALTER USER postgres PASSWORD 'kek228';
-
-//////////////////////////////////////////
-
-LIBQXX SETUP
-
-sudo apt install libpq-dev
-
-download .tar file https://github.com/jtv/libpqxx/releases/tag/7.6.0
-
-unzip with:
-tar xvfz libpqxx-7.6.0.tar.gz
-
-(version changes depending on whatever you
-downloaded)
-
-cd into the unzipped folder and run:
-
-./configure
-
-make
-
-sudo make install
