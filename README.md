@@ -66,9 +66,10 @@ create table users
 
 And then these:
 
-ALTER USER postgres PASSWORD 'kek228';
-
-ALTER TABLE users ADD COLUMN location VARCHAR(25);
+1. ALTER USER postgres PASSWORD 'kek228';
+2. ALTER TABLE users ADD COLUMN location VARCHAR(25);
+3. \q
+4. exit
 
 ////////////////////////////////
 
