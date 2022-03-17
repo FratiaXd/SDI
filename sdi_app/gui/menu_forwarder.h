@@ -1,4 +1,4 @@
-/** @file menu_receiver.h
+/** @file menu_forwarder.h
  *  @brief Class representing GUI functionality for forwarder
  *
  *  @author Katrina Petreikyte (fratiaxd)

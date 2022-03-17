@@ -11,19 +11,16 @@ application::application(QWidget *parent) :
     ui->stackedWidget->addWidget(&dmenu);
     ui->stackedWidget->addWidget(&fmenu);
     ui->stackedWidget->addWidget(&omenu);
-    ui->stackedWidget->addWidget(&rmenu);
     ui->stackedWidget->addWidget(&cmenu);
 
     //signals application to log out the user and go back to the main screen
     connect(&dmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&fmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&omenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
-    connect(&rmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
     connect(&cmenu, SIGNAL(log_out()), this, SLOT(logOutUser()));
 
     //passes username to other menu classes
     QObject::connect(this, SIGNAL(pass_username_o(QString)), &omenu, SLOT(receive_username_o(QString)));
-    QObject::connect(this, SIGNAL(pass_username_r(QString)), &rmenu, SLOT(receive_username_r(QString)));
     QObject::connect(this, SIGNAL(pass_username_c(QString)), &cmenu, SLOT(receive_username_c(QString)));
     QObject::connect(this, SIGNAL(pass_username_d(QString)), &dmenu, SLOT(receive_username_d(QString)));
     QObject::connect(this, SIGNAL(pass_username_f(QString)), &fmenu, SLOT(receive_username_f(QString)));
@@ -63,10 +60,6 @@ void application::on_pushButton_3_clicked()
     }
     else if (ui->radioButton_3->isChecked()) {
         user1.set_type("owner");
-        ui->stackedWidget->setCurrentIndex(3);
-    }
-    else if (ui->radioButton_4->isChecked()) {
-        user1.set_type("receiver");
         ui->stackedWidget->setCurrentIndex(3);
     }
     else if (ui->radioButton_5->isChecked()) {
@@ -192,11 +185,6 @@ void application::on_pushButton_5_clicked()
                 own.registration();
                 own.~CargoOwner();
             }
-            else if (user1.get_type() == "receiver") {
-                User receiv(userUsername, userPassword, userFullName, userEmail, userMobile, "receiver", userAddress);
-                receiv.registration();
-                receiv.~User();
-            }
             else if (user1.get_type() == "company") {
                 TranspCompany comp(userUsername, userPassword, userFullName, userEmail, userMobile, "transportation company", userAddress);
                 comp.registration();
@@ -248,9 +236,6 @@ void application::on_pushButton_2_clicked()
                     emit pass_username_o(usernameToPass);
                     break;
                 case 7:
-                    emit pass_username_r(usernameToPass);
-                    break;
-                case 8:
                     emit pass_username_c(usernameToPass);
                     break;
             }

@@ -181,12 +181,8 @@ int User::open_menu(string usn) {
         //
         return 6;
     }
-    else if (tpe == "receiver"){
-        //
-        return 7;
-    }
     else {
         //
-        return 8;
+        return 7;
     }
 }

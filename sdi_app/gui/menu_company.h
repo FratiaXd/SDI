@@ -1,4 +1,4 @@
-/** @file menu_receiver.h
+/** @file menu_company.h
  *  @brief Class representing GUI functionality for transportation company
  *
  *  @author Katrina Petreikyte (fratiaxd)

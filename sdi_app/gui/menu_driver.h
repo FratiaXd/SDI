@@ -1,4 +1,4 @@
-/** @file menu_receiver.h
+/** @file menu_driver.h
  *  @brief Class representing GUI functionality for driver
  *
  *  @author Katrina Petreikyte (fratiaxd)

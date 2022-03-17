@@ -1,4 +1,4 @@
-/** @file menu_receiver.h
+/** @file application.h
  *  @brief Class representing GUI functionality for login/registration windows
  *
  *  @author Katrina Petreikyte (fratiaxd)
@@ -12,7 +12,6 @@
 #include "menu_forwarder.h"
 #include "menu_company.h"
 #include "menu_owner.h"
-#include "menu_receiver.h"
 
 namespace Ui {
 class application;
@@ -55,12 +54,10 @@ private:
     menu_forwarder fmenu;
     menu_owner omenu;
     menu_company cmenu;
-    menu_receiver rmenu;
     Driver driv;
 
     signals:
     void pass_username_o(QString tx);
-    void pass_username_r(QString tx);
     void pass_username_c(QString tx);
     void pass_username_f(QString tx);
     void pass_username_d(QString tx);

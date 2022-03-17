@@ -169,7 +169,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>130</y>
+       <y>140</y>
        <width>112</width>
        <height>23</height>
       </rect>
@@ -188,7 +188,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>170</y>
+       <y>190</y>
        <width>112</width>
        <height>23</height>
       </rect>
@@ -207,7 +207,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>210</y>
+       <y>240</y>
        <width>112</width>
        <height>23</height>
       </rect>
@@ -220,25 +220,6 @@
      </property>
      <property name="text">
       <string>Owner</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_4">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>250</y>
-       <width>112</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Manjari</family>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Receiver</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_5">
@@ -289,7 +270,7 @@
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>250</x>
        <y>70</y>
        <width>201</width>
        <height>31</height>

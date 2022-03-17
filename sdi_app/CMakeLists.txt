@@ -39,9 +39,6 @@ if(ANDROID)
           gui/menu_forwarder.cpp
           gui/menu_forwarder.h
           gui/menu_forwarder.ui
-          gui/menu_receiver.cpp
-          gui/menu_receiver.h
-          gui/menu_receiver.ui
           gui/menu_company.cpp
           gui/menu_company.h
           gui/menu_company.ui
@@ -61,9 +58,6 @@ else()
           gui/menu_forwarder.cpp
           gui/menu_forwarder.h
           gui/menu_forwarder.ui
-          gui/menu_receiver.cpp
-          gui/menu_receiver.h
-          gui/menu_receiver.ui
           gui/menu_company.cpp
           gui/menu_company.h
           gui/menu_company.ui
