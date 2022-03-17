@@ -1,6 +1,7 @@
 #include "application.h"
 #include "ui_application.h"
 #include <QMessageBox>
+#include "headers/myudp.h"
 
 application::application(QWidget *parent) :
     QWidget(parent),
@@ -34,6 +35,7 @@ application::application(QWidget *parent) :
     //Hides password
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->lineEdit_8->setEchoMode(QLineEdit::Password);
+
 }
 
 application::~application()

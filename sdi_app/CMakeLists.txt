@@ -26,6 +26,10 @@ set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -no-pie")
 #endif()
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5Network)
+
+include_directories(${Qt5Core_INCLUDE_DIRS})
+include_directories(${Qt5Network_INCLUDE_DIRS})
 
 if(ANDROID)
   add_library(sdi_app SHARED
@@ -64,7 +68,9 @@ else()
           gui/menu_owner.cpp
           gui/menu_owner.h
           gui/menu_owner.ui
+          src/myudp.cpp
+          headers/myudp.h
           headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h src/cargo_owner.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp headers/cargo.h src/cargo.cpp)
 endif()
 
-target_link_libraries(sdi_app PRIVATE Qt5::Widgets -lpqxx -lpq)
+target_link_libraries(sdi_app PRIVATE Qt5::Widgets Qt5::Network -lpqxx -lpq)
