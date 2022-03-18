@@ -2,22 +2,27 @@
 #define MYUDP_H
 
 #include <QObject>
-#include <QUdpSocket>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QString>
+#include <QStringList>
+#include <QMap>
 
-class MyUdp : public QObject
-{
-    Q_OBJECT
+#define PORT 1234
+
+
+class Server : QObject {
+Q_OBJECT
 public:
-    explicit MyUdp(QObject *parent = nullptr);
-    void SayHello(QString a);
-
+    explicit Server(QObject* parent = 0);
+    void sendToAll(const QString&);
 public slots:
-    void readyRead();
-
-signals:
-
+    void onNewConnection();
+    void onDisconnect();
+    void onReadyRead();
 private:
-    QUdpSocket *socket;
+    QTcpServer* server;
+    QMap<QTcpSocket*,QString> clients;
 };
 
 #endif // MYUDP_H

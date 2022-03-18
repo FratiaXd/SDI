@@ -12,6 +12,8 @@
 #include "menu_forwarder.h"
 #include "menu_company.h"
 #include "menu_owner.h"
+#include "headers/myudp.h"
+#include <QRegExp>
 
 namespace Ui {
 class application;

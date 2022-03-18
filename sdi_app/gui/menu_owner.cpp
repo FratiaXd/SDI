@@ -34,6 +34,13 @@ menu_owner::menu_owner(QWidget *parent) :
     QStringList cargoTypes;
     cargoTypes << "Small box" << "Medium box" << "Large box" << "Fragile";
     ui->comboBox_3->addItems(cargoTypes);
+
+    //validate input
+    QRegExp cargoReg("^[+-]?([0-9]*[.])?[0-9]+$");
+    ui->lineEdit->setValidator(new QRegExpValidator(cargoReg, this));
+    ui->lineEdit_2->setValidator(new QRegExpValidator(cargoReg, this));
+    ui->lineEdit_3->setValidator(new QRegExpValidator(cargoReg, this));
+    ui->lineEdit_4->setValidator(new QRegExpValidator(cargoReg, this));
 }
 
 menu_owner::~menu_owner()

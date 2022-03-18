@@ -13,6 +13,8 @@
 #include <QtCore>
 #include <QtGui>
 #include <QTreeWidgetItem>
+#include <QTcpSocket>
+#include <QRegExpValidator>
 
 namespace Ui {
 class menu_owner;
@@ -63,6 +65,7 @@ private slots:
 
 private:
     Ui::menu_owner *ui;
+    QTcpSocket* socket;
     CargoOwner owner1;
     Cargo cargo1;
 

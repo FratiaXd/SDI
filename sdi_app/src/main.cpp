@@ -7,9 +7,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     application w;
     w.show();
-    MyUdp Server;
-    MyUdp Client;
-
-    Client.SayHello("privet");
+    Server server;
     return a.exec();
 }

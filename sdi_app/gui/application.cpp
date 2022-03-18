@@ -1,7 +1,6 @@
 #include "application.h"
 #include "ui_application.h"
 #include <QMessageBox>
-#include "headers/myudp.h"
 
 application::application(QWidget *parent) :
     QWidget(parent),
@@ -36,6 +35,24 @@ application::application(QWidget *parent) :
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->lineEdit_8->setEchoMode(QLineEdit::Password);
 
+    //Validate input
+    QRegExp usernameReg("^[a-zA-Z]\\w+");
+    ui->lineEdit->setValidator(new QRegExpValidator(usernameReg, this));
+    ui->lineEdit_7->setValidator(new QRegExpValidator(usernameReg, this));
+    QRegExp fullnameReg("^[a-zA-Z\\s]*$");
+    ui->lineEdit_9->setValidator(new QRegExpValidator(fullnameReg, this));
+    QRegExp digitsReg("^[0-9]+$");
+    ui->lineEdit_11->setValidator(new QRegExpValidator(digitsReg, this));
+    ui->lineEdit_4->setValidator(new QRegExpValidator(digitsReg, this));
+    QRegExp ninumReg("^[A-Z0-9]*$");
+    ui->lineEdit_3->setValidator(new QRegExpValidator(ninumReg, this));
+    ui->lineEdit_5->setValidator(new QRegExpValidator(ninumReg, this));
+    ui->lineEdit_6->setValidator(new QRegExpValidator(ninumReg, this));
+    QRegExp lorryReg("^[+-]?([0-9]*[.])?[0-9]+$");
+    ui->lineEdit_14->setValidator(new QRegExpValidator(lorryReg, this));
+    ui->lineEdit_15->setValidator(new QRegExpValidator(lorryReg, this));
+    ui->lineEdit_16->setValidator(new QRegExpValidator(lorryReg, this));
+    ui->lineEdit_17->setValidator(new QRegExpValidator(lorryReg, this));
 }
 
 application::~application()
@@ -80,16 +97,16 @@ void application::on_pushButton_4_clicked()
 {
     //does not allow proceeding until each line has user input
     if (ui->lineEdit_3->text().isEmpty()) {
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter NI number");
     }
     else if (ui->lineEdit_4->text().isEmpty()) {
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter driving license ID");
     }
     else if (ui->lineEdit_5->text().isEmpty()) {
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter cpc number");
     }
     else if (ui->lineEdit_6->text().isEmpty()) {
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter registration number");
     }
     else if (ui->lineEdit_13->text().isEmpty()) {
         //has to be double (tbc)
@@ -97,18 +114,18 @@ void application::on_pushButton_4_clicked()
     }
     else if (ui->lineEdit_14->text().isEmpty()) {
         //has to be double (tbc)
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter lorry width");
     }
     else if (ui->lineEdit_15->text().isEmpty()) {
         //has to be double (tbc)
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter lorry height");
     }
     else if (ui->lineEdit_16->text().isEmpty()) {
         //has to be double (tbc)
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter lorry length");
     }
     else if (ui->lineEdit_17->text().isEmpty()) {
-        ui->label_5->setText("Enter missing details");
+        ui->label_5->setText("Enter lorry weight");
     }
     else {
         string niNumber = ui->lineEdit_3->text().toStdString();
@@ -146,19 +163,19 @@ void application::on_pushButton_5_clicked()
 {
     //does not allow proceeding until each line has user input
     if (ui->lineEdit_7->text().isEmpty()) {
-        ui->label_4->setText("Enter missing details");
+        ui->label_4->setText("Enter username");
     }
     else if (ui->lineEdit_8->text().isEmpty()) {
-        ui->label_4->setText("Enter missing details");
+        ui->label_4->setText("Enter password");
     }
     else if (ui->lineEdit_9->text().isEmpty()) {
-        ui->label_4->setText("Enter missing details");
+        ui->label_4->setText("Enter full name");
     }
     else if (ui->lineEdit_10->text().isEmpty()) {
-        ui->label_4->setText("Enter missing details");
+        ui->label_4->setText("Enter email");
     }
     else if (ui->lineEdit_11->text().isEmpty()) {
-        ui->label_4->setText("Enter missing details");
+        ui->label_4->setText("Enter phone number");
     }
     else {
         //creates the user according to user.type saved previously in account type window
@@ -207,10 +224,10 @@ void application::on_pushButton_5_clicked()
 void application::on_pushButton_2_clicked()
 {
     if (ui->lineEdit->text().isEmpty()) {
-        ui->label_6->setText("Enter missing details");
+        ui->label_6->setText("Enter username");
     }
     else if (ui->lineEdit_2->text().isEmpty()) {
-        ui->label_6->setText("Enter missing details");
+        ui->label_6->setText("Enter password");
     }
     //does not allow proceeding until each line has user input
     else {
