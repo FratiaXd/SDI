@@ -4,6 +4,7 @@
 #include <QListWidgetItem>
 
 string username_;
+QString serverName = "localhost";
 
 menu_owner::menu_owner(QWidget *parent) :
     QWidget(parent),
@@ -43,16 +44,12 @@ menu_owner::menu_owner(QWidget *parent) :
     ui->lineEdit_3->setValidator(new QRegExpValidator(cargoReg, this));
     ui->lineEdit_4->setValidator(new QRegExpValidator(cargoReg, this));
 
-    QString serverName = "localhost";
-
+    //server connection
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
-
-    socket->connectToHost(serverName, 1234);
-
-    connect(ui->lineEdit_5, SIGNAL(returnPressed()), this, SLOT(onpbSend()));
+    //connect(ui->lineEdit_5, SIGNAL(returnPressed()), this, SLOT(onpbSend(QString)));
 }
 
 menu_owner::~menu_owner()
@@ -60,12 +57,15 @@ menu_owner::~menu_owner()
     delete ui;
 }
 
-void menu_owner::onpbSend() {
-    QString message = ui->lineEdit_5->text().trimmed();
-    if (!message.isEmpty()) {
-        socket->write(QString("/say:" + message + "\n").toUtf8());
-        ui->lineEdit_5->clear();
-        ui->lineEdit_5->setFocus();
+void menu_owner::clientConnected()
+{
+    socket->connectToHost(serverName, 1234);
+}
+
+void menu_owner::onpbSend(QString t) {
+    //QString message = ui->lineEdit_5->text().trimmed();
+    if (!t.isEmpty()) {
+        socket->write(QString("/say:" + t + "\n").toUtf8());
     }
 }
 
@@ -90,14 +90,12 @@ void menu_owner::onReadyRead() {
 void menu_owner::onConnected() {
     ui->label_14->clear();
     socket->write(QString("/login:" + QString::fromStdString(username_) + "\n").toUtf8());
-    ui->lineEdit_5->setFocus();
 }
 
 void menu_owner::onDisconnected() {
     QMessageBox::warning(NULL, "Warning",
                          "You have been disconnected from the server", QMessageBox::Ok);
 }
-
 
 //builds tree view (gui) with list of orders
 void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
@@ -225,6 +223,7 @@ void menu_owner::on_pushButton_6_clicked()
     ui->lineEdit_2->clear();
     ui->lineEdit_3->clear();
     ui->lineEdit_4->clear();
+    onpbSend(QString::fromStdString(username_) + " made an order");
 }
 //display forwarder offers
 void menu_owner::on_pushButton_4_clicked()

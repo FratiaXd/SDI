@@ -34,7 +34,7 @@ public:
     explicit menu_owner(QWidget *parent = nullptr);
     ~menu_owner();
 public slots:
-    void onpbSend();
+    void onpbSend(QString t);
 
 private slots:
     void on_pushButton_11_clicked();
@@ -66,6 +66,7 @@ private slots:
     void on_pushButton_6_clicked();
 
     void receive_username_o(QString tx);
+    void clientConnected();
 
 
     void onReadyRead();

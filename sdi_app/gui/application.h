@@ -63,6 +63,7 @@ private:
     void pass_username_c(QString tx);
     void pass_username_f(QString tx);
     void pass_username_d(QString tx);
+    void connectClient();
 };
 
 #endif // APPLICATION_H
