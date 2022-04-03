@@ -1,6 +1,7 @@
 #include "menu_owner.h"
 #include "ui_menu_owner.h"
 #include "QMessageBox"
+#include <QListWidgetItem>
 
 string username_;
 
@@ -41,12 +42,63 @@ menu_owner::menu_owner(QWidget *parent) :
     ui->lineEdit_2->setValidator(new QRegExpValidator(cargoReg, this));
     ui->lineEdit_3->setValidator(new QRegExpValidator(cargoReg, this));
     ui->lineEdit_4->setValidator(new QRegExpValidator(cargoReg, this));
+
+    QString serverName = "localhost";
+
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
+    socket->connectToHost(serverName, 1234);
+
+    connect(ui->lineEdit_5, SIGNAL(returnPressed()), this, SLOT(onpbSend()));
 }
 
 menu_owner::~menu_owner()
 {
     delete ui;
 }
+
+void menu_owner::onpbSend() {
+    QString message = ui->lineEdit_5->text().trimmed();
+    if (!message.isEmpty()) {
+        socket->write(QString("/say:" + message + "\n").toUtf8());
+        ui->lineEdit_5->clear();
+        ui->lineEdit_5->setFocus();
+    }
+}
+
+void menu_owner::onReadyRead() {
+    QRegExp systemRex("^/system:(.*)$");
+    QRegExp messageRex("^(.*):(.*)$");
+    while (socket->canReadLine()) {
+        QString line = QString::fromUtf8(socket->readLine()).trimmed();
+        if (systemRex.indexIn(line) != -1) {
+            QString msg = systemRex.cap(1);
+            ui->label_14->setText(msg);
+        }
+            // Если сообщение - от пользователя
+        else if (messageRex.indexIn(line) != -1) {
+            QString user = messageRex.cap(1);
+            QString message = messageRex.cap(2);
+            ui->label_14->setText(user + "   " + message);
+        }
+    }
+}
+
+void menu_owner::onConnected() {
+    ui->label_14->clear();
+    socket->write(QString("/login:" + QString::fromStdString(username_) + "\n").toUtf8());
+    ui->lineEdit_5->setFocus();
+}
+
+void menu_owner::onDisconnected() {
+    QMessageBox::warning(NULL, "Warning",
+                         "You have been disconnected from the server", QMessageBox::Ok);
+}
+
+
 //builds tree view (gui) with list of orders
 void menu_owner::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(widget);

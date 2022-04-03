@@ -13,6 +13,8 @@
 #include <QtCore>
 #include <QtGui>
 #include <QTreeWidgetItem>
+
+#include <QMainWindow>
 #include <QTcpSocket>
 #include <QRegExpValidator>
 
@@ -31,6 +33,8 @@ class menu_owner : public QWidget
 public:
     explicit menu_owner(QWidget *parent = nullptr);
     ~menu_owner();
+public slots:
+    void onpbSend();
 
 private slots:
     void on_pushButton_11_clicked();
@@ -62,6 +66,11 @@ private slots:
     void on_pushButton_6_clicked();
 
     void receive_username_o(QString tx);
+
+
+    void onReadyRead();
+    void onConnected();
+    void onDisconnected();
 
 private:
     Ui::menu_owner *ui;
