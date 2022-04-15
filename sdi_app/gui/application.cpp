@@ -26,7 +26,10 @@ application::application(QWidget *parent) :
     QObject::connect(this, SIGNAL(pass_username_f(QString)), &fmenu, SLOT(receive_username_f(QString)));
 
     //send user details to server
-    connect(this, SIGNAL(connectClient()), &omenu, SLOT(clientConnected()));
+    connect(this, SIGNAL(connectClient_o()), &omenu, SLOT(clientConnected()));
+    connect(this, SIGNAL(connectClient_f()), &fmenu, SLOT(clientConnected()));
+    connect(this, SIGNAL(connectClient_c()), &cmenu, SLOT(clientConnected()));
+    connect(this, SIGNAL(connectClient_d()), &dmenu, SLOT(clientConnected()));
 
     //location list
     QStringList availableLocations;
@@ -250,18 +253,21 @@ void application::on_pushButton_2_clicked()
             switch (menuPage) {
                 case 4:
                     emit pass_username_d(usernameToPass);
+                    emit connectClient_d();
                     break;
                 case 5:
                     emit pass_username_f(usernameToPass);
+                    emit connectClient_f();
                     break;
                 case 6:
                     emit pass_username_o(usernameToPass);
+                    emit connectClient_o();
                     break;
                 case 7:
                     emit pass_username_c(usernameToPass);
+                    emit connectClient_c();
                     break;
             }
-            emit connectClient();
             ui->stackedWidget->setCurrentIndex(menuPage);
         }
     }

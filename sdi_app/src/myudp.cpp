@@ -28,6 +28,7 @@ void Server::onNewConnection() {
     qDebug() << "Client connected: " << socket->peerAddress().toString();
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(&men, SIGNAL(log_out()), socket, SIGNAL(disconnected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnect()));
 
     // оставим клиента безымянным пока он не залогинится
@@ -35,10 +36,11 @@ void Server::onNewConnection() {
 }
 
 /* Слот, вызываемый при отключении клиента */
+//doesnt know which one disconnects!!!!!!!!!!!!!!
 void Server::onDisconnect() {
+    cout << "disconnect" << endl;
     QTcpSocket* socket = (QTcpSocket*)sender();
     qDebug() << "Client disconnected: " << socket->peerAddress().toString();
-
     QString username = clients.value(socket);
     sendToAll(QString("/system:" + username + " has left the chat.\n"));
     clients.remove(socket);

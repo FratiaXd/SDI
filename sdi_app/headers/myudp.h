@@ -7,11 +7,12 @@
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include "gui/menu_owner.h"
 
 #define PORT 1234
 
 
-class Server : QObject {
+class Server : public QObject {
 Q_OBJECT
 public:
     explicit Server(QObject* parent = 0);
@@ -23,6 +24,7 @@ public slots:
 private:
     QTcpServer* server;
     QMap<QTcpSocket*,QString> clients;
+    menu_owner men;
 };
 
 #endif // MYUDP_H

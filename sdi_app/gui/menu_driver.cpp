@@ -2,6 +2,7 @@
 #include "ui_menu_driver.h"
 
 string ussnm_;
+QString serverN = "localhost";
 
 menu_driver::menu_driver(QWidget *parent) :
     QWidget(parent),
@@ -36,11 +37,35 @@ menu_driver::menu_driver(QWidget *parent) :
     //driver's location
     string location = driv1.request_locationDB();
     ui->label_8->setText(QString::fromStdString(location));
+
+    //server connection
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 }
 
 menu_driver::~menu_driver()
 {
     delete ui;
+}
+void menu_driver::clientConnected()
+{
+    socket->connectToHost(serverN, 1234);
+}
+
+void menu_driver::onpbSend(QString t) {
+    if (!t.isEmpty()) {
+        socket->write(QString("/say:" + t + "\n").toUtf8());
+    }
+}
+
+void menu_driver::onConnected() {
+    socket->write(QString("/login:" + QString::fromStdString(ussnm_) + "\n").toUtf8());
+}
+
+void menu_driver::onDisconnected() {
+    QMessageBox::warning(NULL, "Warning",
+                         "You have been disconnected from the server", QMessageBox::Ok);
 }
 //builds tree view (gui) with list of orders
 void menu_driver::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
@@ -195,6 +220,8 @@ void menu_driver::on_pushButton_9_clicked()
         Cargo offerCargo = *it;
         offerCargo.update_db_status("Driver is on the way", "driver", ussnm_);
         QMessageBox::information(this, "Offer", "You successfully accepted an offer");
+        QString ownerName = QString::fromStdString(offerCargo.get_owner());
+        onpbSend(ownerName + " your order is on the way");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -217,6 +244,8 @@ void menu_driver::on_pushButton_10_clicked()
             driv1.update_position(driverLocation);
             driv1.update_positionDB();
             QMessageBox::information(this, "Confirmation", "Cargo delivered. Your location updated");
+            QString ownerName = QString::fromStdString(offerCargo.get_owner());
+            onpbSend(ownerName + " cargo delivered");
         }
         else {
             QMessageBox::critical(this, "Delivery", "Your location doesn't match with order delivery address");

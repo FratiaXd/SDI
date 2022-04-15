@@ -325,6 +325,28 @@ string Cargo::get_destination() {
 string Cargo::get_forwarder() {
     return forwarder;
 }
+string Cargo::get_owner() {
+    connection C("dbname = postgres user = postgres password = kek228 hostaddr = 127.0.0.1 port = 5432");
+    if (C.is_open()) {
+        cout << "Opened database successfully: " << C.dbname() << endl;
+    } else {
+        cout << "Can't open database" << endl;
+    }
+    string ownerName;
+    string encrId = encrypt(cargoID);
+    string sql = "SELECT owner FROM CARGO WHERE cargo_id = '" + encrId + "';";
+
+    nontransaction N(C);
+
+    result R(N.exec(sql));
+
+    for (result::const_iterator c = R.begin(); c != R.end(); ++c) {
+        ownerName =  c[0].as<string>();
+    }
+
+    string decryptOwnName = decrypt(ownerName);
+    return decryptOwnName;
+}
 string Cargo::get_company() {
     return company;
 }

@@ -16,6 +16,7 @@
 #include <QtGui>
 #include <QTreeWidgetItem>
 #include <QMessageBox>
+#include <QTcpSocket>
 
 namespace Ui {
 class menu_forwarder;
@@ -32,6 +33,8 @@ class menu_forwarder : public QWidget
 public:
     explicit menu_forwarder(QWidget *parent = nullptr);
     ~menu_forwarder();
+public slots:
+    void onpbSend(QString t);
 
 private slots:
     void on_pushButton_7_clicked();
@@ -62,11 +65,18 @@ private slots:
 
     void receive_username_f(QString tx);
 
+    void clientConnected();
+
+    void onReadyRead();
+    void onConnected();
+    void onDisconnected();
+
 private:
     Ui::menu_forwarder *ui;
     Forwarder forw1;
     Cargo cargo1;
     TranspCompany comp1;
+    QTcpSocket* socket;
 
 signals:
     void log_out();

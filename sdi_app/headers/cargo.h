@@ -212,6 +212,8 @@ public:
 
     string get_forwarder();
 
+    string get_owner();
+
     string get_company();
 
     /** @brief Returns requested value

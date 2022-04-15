@@ -16,6 +16,7 @@
 #include <QTreeWidgetItem>
 #include "headers/driver.h"
 #include <QMessageBox>
+#include <QTcpSocket>
 
 namespace Ui {
 class menu_company;
@@ -33,7 +34,8 @@ class menu_company : public QWidget
 public:
     explicit menu_company(QWidget *parent = nullptr);
     ~menu_company();
-
+public slots:
+    void onpbSend(QString t);
 private slots:
     void on_pushButton_13_clicked();
 
@@ -72,11 +74,16 @@ private slots:
 
     void receive_username_c(QString tx);
 
+    void clientConnected();
+
+    void onConnected();
+    void onDisconnected();
 private:
     Ui::menu_company *ui;
     TranspCompany comp1;
     Cargo cargo1;
     Driver driver1;
+    QTcpSocket* socket;
 
 signals:
     void log_out();

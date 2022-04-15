@@ -2,6 +2,7 @@
 #include "ui_menu_company.h"
 
 string usrnam_;
+QString serverNa = "localhost";
 
 menu_company::menu_company(QWidget *parent) :
     QWidget(parent),
@@ -28,12 +29,37 @@ menu_company::menu_company(QWidget *parent) :
 
     ui->treeWidget_3->setColumnCount(3);
     ui->treeWidget_3->setHeaderLabels(ColumnNames3);
+
+    //server connection
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 }
 
 menu_company::~menu_company()
 {
     delete ui;
 }
+void menu_company::clientConnected()
+{
+    socket->connectToHost(serverNa, 1234);
+}
+
+void menu_company::onpbSend(QString t) {
+    if (!t.isEmpty()) {
+        socket->write(QString("/say:" + t + "\n").toUtf8());
+    }
+}
+
+void menu_company::onConnected() {
+    socket->write(QString("/login:" + QString::fromStdString(usrnam_) + "\n").toUtf8());
+}
+
+void menu_company::onDisconnected() {
+    QMessageBox::warning(NULL, "Warning",
+                         "You have been disconnected from the server", QMessageBox::Ok);
+}
+
 //builds tree view (gui) with list of orders
 void menu_company::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
@@ -225,6 +251,8 @@ void menu_company::on_pushButton_12_clicked()
         Cargo offerCargo = *it;
         offerCargo.assign_company("");
         offerCargo.update_db_status("Accepted. Waiting for further actions", "company", "");
+        QString ownerName = QString::fromStdString(offerCargo.get_owner());
+        onpbSend(ownerName + " company declined, cargo is waiting for forwarder");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -245,6 +273,8 @@ void menu_company::on_pushButton_11_clicked()
         offerCargo.assign_company(usrnam_);
         offerCargo.update_db_status("Company accepted. Waiting for driver", "company", usrnam_);
         QMessageBox::information(this, "Offer", "You successfully accepted cargo");
+        QString ownerName = QString::fromStdString(offerCargo.get_owner());
+        onpbSend(ownerName + " company accepted your cargo, processing");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -274,6 +304,8 @@ void menu_company::on_pushButton_13_clicked()
         cargo2.update_db_status("Waiting for driver response", "driver", driverUsername);
         cout << "Status updated" << endl;
         QMessageBox::information(this, "Offer", "You successfully sent an offer");
+        QString ownerName = QString::fromStdString(cargo2.get_owner());
+        onpbSend(ownerName + ", cargo is waiting for the driver");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }

@@ -2,6 +2,7 @@
 #include "ui_menu_forwarder.h"
 
 string usnm_;
+QString serverNam = "localhost";
 
 menu_forwarder::menu_forwarder(QWidget *parent) :
     QWidget(parent),
@@ -25,11 +26,58 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
 
     ui->treeWidget_3->setColumnCount(2);
     ui->treeWidget_3->setHeaderLabels(ColumnNames3);
+
+    //server connection
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
 }
 
 menu_forwarder::~menu_forwarder()
 {
     delete ui;
+}
+void menu_forwarder::clientConnected()
+{
+    socket->connectToHost(serverNam, 1234);
+}
+
+void menu_forwarder::onpbSend(QString t) {
+    if (!t.isEmpty()) {
+        socket->write(QString("/say:" + t + "\n").toUtf8());
+    }
+}
+
+void menu_forwarder::onReadyRead() {
+    QRegExp systemRex("^/system:(.*)$");
+    QRegExp messageRex("^(.*):(.*)$");
+    while (socket->canReadLine()) {
+        QString line = QString::fromUtf8(socket->readLine()).trimmed();
+        if (messageRex.indexIn(line) != -1) {
+            QString user = messageRex.cap(1);
+            QString message = messageRex.cap(2);
+            if (message.toStdString().find("made an order") != string::npos)
+            {
+                ui->label_7->setText(user + "   " + message);
+            }
+            else
+            {
+                ui->label_7->clear();
+            }
+        }
+    }
+}
+
+void menu_forwarder::onConnected() {
+    ui->label_7->clear();
+    socket->write(QString("/login:" + QString::fromStdString(usnm_) + "\n").toUtf8());
+}
+
+void menu_forwarder::onDisconnected() {
+    QMessageBox::warning(NULL, "Warning",
+                         "You have been disconnected from the server", QMessageBox::Ok);
 }
 //builds tree view (gui) with list of orders
 void menu_forwarder::AddRoot(QString id, QString status, QString wei, QString hei, QString wid, QString len, QString typ, QString src, QString dest, QString cost, QTreeWidget *widget) {
@@ -157,6 +205,8 @@ void menu_forwarder::on_pushButton_6_clicked()
         offerCargo.assign_forwarder(usnm_);
         offerCargo.update_db_status("Waiting for owner", "forwarder", usnm_);
         QMessageBox::information(this, "Offer", "You successfully sent an offer");
+        QString ownerName = QString::fromStdString(offerCargo.get_owner());
+        onpbSend(ownerName + " received an offer from forwarder");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }
@@ -177,6 +227,8 @@ void menu_forwarder::on_pushButton_7_clicked()
         cargo2.set_id(cargoIdSubstr);
         cargo2.update_db_status("Waiting for company response", "company", companyName);
         QMessageBox::information(this, "Offer", "You successfully forwarded cargo");
+        QString ownerName = QString::fromStdString(cargo2.get_owner());
+        onpbSend(ownerName + ", forwarder sent an offer to the company");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
     }

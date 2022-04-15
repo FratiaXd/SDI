@@ -49,6 +49,7 @@ menu_owner::menu_owner(QWidget *parent) :
     connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+
     //connect(ui->lineEdit_5, SIGNAL(returnPressed()), this, SLOT(onpbSend(QString)));
 }
 
@@ -82,7 +83,14 @@ void menu_owner::onReadyRead() {
         else if (messageRex.indexIn(line) != -1) {
             QString user = messageRex.cap(1);
             QString message = messageRex.cap(2);
-            ui->label_14->setText(user + "   " + message);
+            if (message.toStdString().find(username_) != string::npos)
+            {
+                ui->label_14->setText(user + "   " + message);
+            }
+            else
+            {
+                ui->label_14->clear();
+            }
         }
     }
 }
