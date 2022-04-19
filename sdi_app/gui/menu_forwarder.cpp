@@ -30,7 +30,6 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
     //server connection
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));
-    connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 
 }
@@ -50,28 +49,7 @@ void menu_forwarder::onpbSend(QString t) {
     }
 }
 
-void menu_forwarder::onReadyRead() {
-    QRegExp systemRex("^/system:(.*)$");
-    QRegExp messageRex("^(.*):(.*)$");
-    while (socket->canReadLine()) {
-        QString line = QString::fromUtf8(socket->readLine()).trimmed();
-        if (messageRex.indexIn(line) != -1) {
-            QString user = messageRex.cap(1);
-            QString message = messageRex.cap(2);
-            if (message.toStdString().find("made an order") != string::npos)
-            {
-                ui->label_7->setText(user + "   " + message);
-            }
-            else
-            {
-                ui->label_7->clear();
-            }
-        }
-    }
-}
-
 void menu_forwarder::onConnected() {
-    ui->label_7->clear();
     socket->write(QString("/login:" + QString::fromStdString(usnm_) + "\n").toUtf8());
 }
 

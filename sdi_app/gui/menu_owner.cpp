@@ -50,7 +50,6 @@ menu_owner::menu_owner(QWidget *parent) :
     connect(socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 
-    //connect(ui->lineEdit_5, SIGNAL(returnPressed()), this, SLOT(onpbSend(QString)));
 }
 
 menu_owner::~menu_owner()
@@ -79,7 +78,7 @@ void menu_owner::onReadyRead() {
             QString msg = systemRex.cap(1);
             ui->label_14->setText(msg);
         }
-            // Если сообщение - от пользователя
+            //notification from user
         else if (messageRex.indexIn(line) != -1) {
             QString user = messageRex.cap(1);
             QString message = messageRex.cap(2);
@@ -202,7 +201,6 @@ void menu_owner::on_pushButton_5_clicked()
             ui->label_2->setText("Source and destination have to be different");
         }
         else{
-            //check values to be float
             float weightFloat = stof(cargoWeight);
             float heightFloat = stof(cargoHeight);
             float widthFloat = stof(cargoWidth);

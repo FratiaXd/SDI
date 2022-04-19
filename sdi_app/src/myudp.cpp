@@ -14,15 +14,14 @@ Server::Server(QObject* parent) : QObject(parent) {
     }
 }
 
-/* Отправить сообщение всем пользователям */
+/* Sent a notification to all users*/
 void Server::sendToAll(const QString& msg) {
             foreach (QTcpSocket* socket, clients.keys()) {
             socket->write(msg.toUtf8());
         }
 }
 
-/* Слот, который вызывается, когда к серверу подключается
- * новый клиент */
+/* Is called when the new user is connected to the server*/
 void Server::onNewConnection() {
     QTcpSocket* socket = server->nextPendingConnection();
     qDebug() << "Client connected: " << socket->peerAddress().toString();
@@ -31,11 +30,11 @@ void Server::onNewConnection() {
     connect(&men, SIGNAL(log_out()), socket, SIGNAL(disconnected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(onDisconnect()));
 
-    // оставим клиента безымянным пока он не залогинится
+    // leaving client without username until client logs in
     clients.insert(socket, "");
 }
 
-/* Слот, вызываемый при отключении клиента */
+/* Is called when the user disconnects from the server*/
 //doesnt know which one disconnects!!!!!!!!!!!!!!
 void Server::onDisconnect() {
     cout << "disconnect" << endl;
@@ -46,21 +45,21 @@ void Server::onDisconnect() {
     clients.remove(socket);
 }
 
-/* Прием данных от клиента */
+/* Receives data */
 void Server::onReadyRead() {
     QRegExp loginRex("^/login:(.*)$");
     QRegExp messageRex("^/say:(.*)$");
     QTcpSocket* socket = (QTcpSocket*)sender();
     while (socket->canReadLine()) {
         QString line = QString::fromUtf8(socket->readLine()).trimmed();
-        /* Сообщение - пользователь логинится */
+        /* Message - new user connected */
         if (loginRex.indexIn(line) != -1) {
             QString user = loginRex.cap(1);
             clients[socket] = user;
             sendToAll(QString("/system:" + user + " has joined the chat.\n"));
             qDebug() << user << "logged in.";
         }
-            /* Сообщение в чат */
+            /* Notification */
         else if (messageRex.indexIn(line) != -1) {
             QString user = clients.value(socket);
             QString msg = messageRex.cap(1);
@@ -68,7 +67,7 @@ void Server::onReadyRead() {
             qDebug() << "User:" << user;
             qDebug() << "Message:" << msg;
         }
-            /* Некорректное сообщение от клиента */
+            /* Error handling */
         else {
             qDebug() << "Bad message from " << socket->peerAddress().toString();
         }

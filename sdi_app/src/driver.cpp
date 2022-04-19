@@ -97,11 +97,11 @@ void Driver::update_positionDB() {
 }
 
 bool Driver::check_cpc() {
-
+    return true;
 }
 
 bool Driver::check_regnum() {
-
+    return true;
 }
 
 vector<Driver> Driver::request_drivers() {

@@ -30,6 +30,8 @@ menu_company::menu_company(QWidget *parent) :
     ui->treeWidget_3->setColumnCount(3);
     ui->treeWidget_3->setHeaderLabels(ColumnNames3);
 
+    ui->label_8->setWordWrap(true);
+
     //server connection
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(onConnected()));

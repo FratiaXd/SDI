@@ -67,7 +67,6 @@ private slots:
 
     void clientConnected();
 
-    void onReadyRead();
     void onConnected();
     void onDisconnected();
 

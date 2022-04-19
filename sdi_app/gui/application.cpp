@@ -115,19 +115,15 @@ void application::on_pushButton_4_clicked()
         ui->label_5->setText("Enter registration number");
     }
     else if (ui->lineEdit_13->text().isEmpty()) {
-        //has to be double (tbc)
         ui->label_5->setText("Enter missing details");
     }
     else if (ui->lineEdit_14->text().isEmpty()) {
-        //has to be double (tbc)
         ui->label_5->setText("Enter lorry width");
     }
     else if (ui->lineEdit_15->text().isEmpty()) {
-        //has to be double (tbc)
         ui->label_5->setText("Enter lorry height");
     }
     else if (ui->lineEdit_16->text().isEmpty()) {
-        //has to be double (tbc)
         ui->label_5->setText("Enter lorry length");
     }
     else if (ui->lineEdit_17->text().isEmpty()) {
@@ -147,6 +143,18 @@ void application::on_pushButton_4_clicked()
         //check cpc function (tbc)
         //check lorry reg number (tbc)
         //if both true
+        if ((driv.check_cpc())&&(driv.check_regnum()))
+        {
+            //saves driver's lorry information for later use
+            driv.driver_details(niNumber, licenseID, lorryType, regNumber, lorryHeight, lorryWidth, lorryLength, lorryWeight, cpcNumber, driverLocation);
+            QMessageBox::information(this, "Lorry check", "Check success!");
+            ui->stackedWidget->setCurrentIndex(3);
+        }
+        else
+        {
+            //if false ask for details again and display message
+            QMessageBox::critical(this, "Invalid data", "Your cpc and registration numbers are invalid. Please, try again.");
+        }
         ui->lineEdit_3->clear();
         ui->lineEdit_4->clear();
         ui->lineEdit_5->clear();
@@ -156,11 +164,7 @@ void application::on_pushButton_4_clicked()
         ui->lineEdit_15->clear();
         ui->lineEdit_16->clear();
         ui->lineEdit_17->clear();
-        //saves driver's lorry information for later use
-        driv.driver_details(niNumber, licenseID, lorryType, regNumber, lorryHeight, lorryWidth, lorryLength, lorryWeight, cpcNumber, driverLocation);
-        QMessageBox::information(this, "Lorry check", "Check success!");
-        ui->stackedWidget->setCurrentIndex(3);
-        //if false ask for details again and display message
+
     }
 }
 
