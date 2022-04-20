@@ -56,24 +56,24 @@ menu_owner::~menu_owner()
 {
     delete ui;
 }
-
+//connect user to the socket
 void menu_owner::clientConnected()
 {
     socket->connectToHost(serverName, 1234);
 }
-
+//send notification
 void menu_owner::onpbSend(QString t) {
-    //QString message = ui->lineEdit_5->text().trimmed();
     if (!t.isEmpty()) {
         socket->write(QString("/say:" + t + "\n").toUtf8());
     }
 }
-
+//read from the socket
 void menu_owner::onReadyRead() {
     QRegExp systemRex("^/system:(.*)$");
     QRegExp messageRex("^(.*):(.*)$");
     while (socket->canReadLine()) {
         QString line = QString::fromUtf8(socket->readLine()).trimmed();
+        //connection confirmation message
         if (systemRex.indexIn(line) != -1) {
             QString msg = systemRex.cap(1);
             ui->label_14->setText(msg);
@@ -93,12 +93,12 @@ void menu_owner::onReadyRead() {
         }
     }
 }
-
+//
 void menu_owner::onConnected() {
     ui->label_14->clear();
     socket->write(QString("/login:" + QString::fromStdString(username_) + "\n").toUtf8());
 }
-
+//when client disconnects
 void menu_owner::onDisconnected() {
     QMessageBox::warning(NULL, "Warning",
                          "You have been disconnected from the server", QMessageBox::Ok);
@@ -163,7 +163,7 @@ void menu_owner::on_pushButton_2_clicked()
 //go back from order page
 void menu_owner::on_pushButton_7_clicked()
 {
-    //details will be lost message
+    //clear all fields
     ui->stackedWidget->setCurrentIndex(0);
     if (cargo1.cargo_exists()){
         cargo1.~Cargo();
@@ -174,9 +174,10 @@ void menu_owner::on_pushButton_7_clicked()
     ui->lineEdit_4->clear();
     ui->label_2->setText("Price");
 }
-//making order
+//making order section
 void menu_owner::on_pushButton_5_clicked()
 {
+    //check values to be not null
     if (ui->lineEdit->text().isEmpty()) {
         ui->label_2->setText("Enter missing details");
     }
@@ -189,6 +190,7 @@ void menu_owner::on_pushButton_5_clicked()
     else if (ui->lineEdit_4->text().isEmpty()) {
         ui->label_2->setText("Enter missing details");
     }
+    //order process
     else {
         string cargoWeight = ui->lineEdit->text().toStdString(); //float
         string cargoHeight = ui->lineEdit_2->text().toStdString(); //float

@@ -147,12 +147,21 @@ public:
 
     /** @brief Pulls list of user orders from database
      *
-     * @param user username
-     * @param actor user type
+     * @param column user type column
+     * @param val username
      * @return
      */
     list<Cargo> request_history(string column, string val);
 
+    /** @brief Pulls list of user orders from database
+     *
+     * @param column column in the database
+     * @param val value to look for in the column
+     * @param type user type column
+     * @param actor second user type
+     * @param nm username
+     * @return
+     */
     list<Cargo> request_offers(string column, string val, string type, string actor, string nm);
 
     /** @brief Returns requested value
@@ -161,7 +170,12 @@ public:
      */
     string get_id();
 
+    /** @brief Sets cargo id
+     *
+     * @param id new cargo ID
+     */
     void set_id(string id);
+
     /** @brief Returns requested value
      *
      * @return status
@@ -210,10 +224,22 @@ public:
      */
     string get_destination();
 
+    /** @brief Returns requested value
+     *
+     * @return forwarder
+     */
     string get_forwarder();
 
+    /** @brief Returns requested value
+     *
+     * @return owner
+     */
     string get_owner();
 
+    /** @brief Returns requested value
+     *
+     * @return company
+     */
     string get_company();
 
     /** @brief Returns requested value

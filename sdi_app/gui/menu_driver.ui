@@ -22,6 +22,9 @@
      <height>511</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(136, 138, 133);</string>
+   </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
@@ -29,66 +32,85 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>50</y>
+       <x>220</x>
+       <y>100</y>
        <width>191</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Manjari&quot;;</string>
+     </property>
      <property name="text">
-      <string>Driver menu</string>
+      <string>DRIVER MENU</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>250</x>
        <y>410</y>
        <width>89</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Log out</string>
+      <string>LOG OUT</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>120</y>
-       <width>171</width>
+       <y>160</y>
+       <width>181</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>New offers</string>
+      <string>NEW OFFERS</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>280</y>
-       <width>171</width>
+       <y>300</y>
+       <width>181</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Order history</string>
+      <string>ORDER HISTORY</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_4">
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>200</y>
-       <width>171</width>
+       <y>230</y>
+       <width>181</width>
        <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Current order</string>
+      <string>CURRENT ORDER</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_7">
@@ -99,6 +121,9 @@
        <width>111</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;</string>
      </property>
      <property name="text">
       <string>LOCATION:</string>
@@ -112,6 +137,9 @@
        <width>121</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;</string>
      </property>
      <property name="text">
       <string/>
@@ -128,8 +156,12 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Manjari&quot;;
+</string>
+     </property>
      <property name="text">
-      <string>New offers</string>
+      <string>NEW OFFERS</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_5">
@@ -141,14 +173,18 @@
        <height>25</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Go back</string>
+      <string>GO BACK</string>
      </property>
     </widget>
     <widget class="QTreeWidget" name="treeWidget_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>30</x>
        <y>70</y>
        <width>511</width>
        <height>341</height>
@@ -163,27 +199,35 @@
     <widget class="QPushButton" name="pushButton_8">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>440</y>
-       <width>89</width>
-       <height>25</height>
+       <x>310</x>
+       <y>430</y>
+       <width>121</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Decline</string>
+      <string>DECLINE</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_9">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>440</y>
-       <width>89</width>
-       <height>25</height>
+       <x>110</x>
+       <y>430</y>
+       <width>121</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Accept</string>
+      <string>ACCEPT</string>
      </property>
     </widget>
    </widget>
@@ -191,14 +235,18 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>30</y>
-       <width>141</width>
+       <x>210</x>
+       <y>20</y>
+       <width>201</width>
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Manjari&quot;;
+</string>
+     </property>
      <property name="text">
-      <string>Current order</string>
+      <string>CURRENT ORDERS</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_6">
@@ -210,17 +258,21 @@
        <height>25</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Go back</string>
+      <string>GO BACK</string>
      </property>
     </widget>
     <widget class="QTreeWidget" name="treeWidget_3">
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>80</y>
+       <y>100</y>
        <width>511</width>
-       <height>281</height>
+       <height>241</height>
       </rect>
      </property>
      <column>
@@ -232,21 +284,29 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>220</x>
-       <y>390</y>
+       <x>170</x>
+       <y>380</y>
        <width>231</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+background-color: rgb(85, 87, 83);</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>390</y>
+       <x>190</x>
+       <y>360</y>
        <width>201</width>
        <height>17</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+</string>
      </property>
      <property name="text">
       <string>CHOOSE YOUR LOCATION:</string>
@@ -255,14 +315,35 @@
     <widget class="QPushButton" name="pushButton_10">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>210</x>
        <y>440</y>
        <width>151</width>
        <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Confirm delivery</string>
+      <string>CONFIRM DELIVERY</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>80</y>
+       <width>161</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+</string>
+     </property>
+     <property name="text">
+      <string>CHOOSE CARGO:</string>
      </property>
     </widget>
    </widget>
@@ -270,35 +351,43 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>210</x>
        <y>10</y>
-       <width>141</width>
+       <width>161</width>
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Manjari&quot;;
+</string>
+     </property>
      <property name="text">
-      <string>Order history</string>
+      <string>ORDER HISTORY</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_7">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>30</y>
+       <x>30</x>
+       <y>20</y>
        <width>89</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 11pt &quot;Manjari&quot;;
+background-color: rgb(85, 87, 83);</string>
+     </property>
      <property name="text">
-      <string>Go back</string>
+      <string>GO BACK</string>
      </property>
     </widget>
     <widget class="QTreeWidget" name="treeWidget">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>40</x>
        <y>60</y>
-       <width>481</width>
+       <width>501</width>
        <height>421</height>
       </rect>
      </property>

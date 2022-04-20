@@ -1,3 +1,9 @@
+/** @file myudp.h
+ *  @brief
+ *
+ *  @author Katrina Petreikyte (fratiaxd)
+ */
+
 #ifndef MYUDP_H
 #define MYUDP_H
 

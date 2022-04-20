@@ -38,11 +38,12 @@ menu_forwarder::~menu_forwarder()
 {
     delete ui;
 }
+//connect user to the socket
 void menu_forwarder::clientConnected()
 {
     socket->connectToHost(serverNam, 1234);
 }
-
+//send notification
 void menu_forwarder::onpbSend(QString t) {
     if (!t.isEmpty()) {
         socket->write(QString("/say:" + t + "\n").toUtf8());
@@ -190,7 +191,6 @@ void menu_forwarder::on_pushButton_6_clicked()
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
-    //add notification
 }
 //sends offer to transp com
 void menu_forwarder::on_pushButton_7_clicked()
@@ -213,5 +213,4 @@ void menu_forwarder::on_pushButton_7_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
     ui->treeWidget_3->clear();
-    //add notification
 }

@@ -52,7 +52,7 @@ void menu_driver::clientConnected()
 {
     socket->connectToHost(serverN, 1234);
 }
-
+//send notification
 void menu_driver::onpbSend(QString t) {
     if (!t.isEmpty()) {
         socket->write(QString("/say:" + t + "\n").toUtf8());
