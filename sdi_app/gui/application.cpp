@@ -280,12 +280,12 @@ void application::logOutUser()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
+//go back
 void application::on_pushButton_6_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-
+//go back to choose user type page from registration page and clear all input
 void application::on_pushButton_7_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
@@ -299,7 +299,7 @@ void application::on_pushButton_7_clicked()
     ui->lineEdit_16->clear();
     ui->lineEdit_17->clear();
 }
-
+//go back to choose user type page from lorry registration page and clear all input
 void application::on_pushButton_8_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);

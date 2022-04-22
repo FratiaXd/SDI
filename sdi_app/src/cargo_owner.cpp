@@ -45,12 +45,6 @@ double CargoOwner::calculate_shipping(float width, float height, float length, f
 
     double finalShippingCost = ((distanceKilometers/2) * (weight) * (width * length * height));
     return finalShippingCost;
-
-
-
 }
 
-void CargoOwner::place_order() {
-
-}
 

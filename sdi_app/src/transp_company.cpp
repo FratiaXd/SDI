@@ -48,10 +48,9 @@ vector<TranspCompany> TranspCompany::request_companies() {
 }
 
 double TranspCompany::calculate_comission(double fullPrice) {
-    return 25.1;
+    double comission = fullPrice * 0.75;
+    comission = round(comission * 100.0) / 100.0;
+    return comission;
 }
 
-void TranspCompany::offer_driver() {
-
-}
 

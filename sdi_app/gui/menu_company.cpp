@@ -23,12 +23,20 @@ menu_company::menu_company(QWidget *parent) :
 
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+    ui->treeWidget->setColumnWidth(0, 150);
+    ui->treeWidget->resizeColumnToContents(1);
 
     ui->treeWidget_2->setColumnCount(3);
     ui->treeWidget_2->setHeaderLabels(ColumnNames2);
+    ui->treeWidget_2->setColumnWidth(0, 150);
+    ui->treeWidget_2->setColumnWidth(1, 100);
+    ui->treeWidget_2->resizeColumnToContents(2);
 
     ui->treeWidget_3->setColumnCount(3);
     ui->treeWidget_3->setHeaderLabels(ColumnNames3);
+    ui->treeWidget_3->setColumnWidth(0, 150);
+    ui->treeWidget_3->setColumnWidth(1, 100);
+    ui->treeWidget_3->resizeColumnToContents(2);
 
     ui->label_8->setWordWrap(true);
 
@@ -131,6 +139,7 @@ void menu_company::on_pushButton_2_clicked()
     ui->pushButton_12->setVisible(false);
     ui->stackedWidget->setCurrentIndex(1);
     list<Cargo> offerList = cargo1.request_offers("status", "Waiting for company response", "forwarder", "company", usrnam_);
+    //puts offers and their info into the tree view
     for (list<Cargo>::iterator i = offerList.begin(); i != offerList.end(); ++i) {
         AddRoot2(QString::fromStdString(i->get_id()), QString::fromStdString(i->get_status()),
                  QString::fromStdString(i->get_forwarder()),
@@ -166,23 +175,21 @@ void menu_company::on_pushButton_7_clicked()
     ui->comboBox->clear();
     ui->treeWidget_3->clear();
 }
-//finds closest drivers to chosen cargo
+//finds drivers
 void menu_company::on_pushButton_4_clicked()
 {
     try {
         ui->treeWidget_3->clear();
         list<Cargo> listCargo = cargo1.request_offers("status", "Company accepted. Waiting for driver", "forwarder", "company",
                                                usrnam_);
+        //identifies selected combobox option
         int num = ui->comboBox->currentIndex();
         list<Cargo>::iterator it = listCargo.begin();
         advance(it, num);
         Cargo chosenCargo = *it;
         string cargoLocation = chosenCargo.get_source();
+        //displays available drivers in the tree view
         vector<Driver> vecDrivers = driver1.request_drivers();
-        //SORT_DRIVERS() FUNCTION NEEDS TO BE IMPLEMENTED
-        //SORTS DRIVERS ACCORDING TO THEIR DISTANCE TO CARGO
-        vector<Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
-        //NEED TO CHANGE TO VECDRIVERSSORTED WHEN SORT DRIVERS FUNCTION IS COMPLETED
         for (vector<Driver>::iterator k = vecDrivers.begin(); k != vecDrivers.end(); ++k) {
             AddRoot3(QString::fromStdString(k->get_fulln()), QString::fromStdString(k->get_email()),
                      QString::fromStdString(k->get_n()), QString::fromStdString(k->get_mobile()),
@@ -191,6 +198,7 @@ void menu_company::on_pushButton_4_clicked()
         ui->pushButton_13->setVisible(true);
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
 }
 //displays order history
@@ -229,9 +237,6 @@ void menu_company::on_pushButton_10_clicked()
         list<Cargo>::iterator it = offersCargo.begin();
         advance(it, cargoNum);
         Cargo offerCargo = *it;
-        //calculate comission function is in transportation company class
-        //NEEDS TO BE IMPLEMENTED
-        //TAKES FULL PRICE OWNER PAID AND CALCULATES THE AMOUNT TO BE TAKEN OFF BY COMPANY
         double commision = comp1.calculate_comission(atof(offerCargo.get_shippingCost().c_str()));
         QString qstr = QString::fromStdString((to_string(commision)));
         ui->label_7->setText("Comission: " + qstr);
@@ -239,6 +244,7 @@ void menu_company::on_pushButton_10_clicked()
         ui->pushButton_12->setVisible(true);
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
 }
 //declines offer from forwarder
@@ -257,6 +263,7 @@ void menu_company::on_pushButton_12_clicked()
         onpbSend(ownerName + " company declined, cargo is waiting for forwarder");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
@@ -279,6 +286,7 @@ void menu_company::on_pushButton_11_clicked()
         onpbSend(ownerName + " company accepted your cargo, processing");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
@@ -295,8 +303,6 @@ void menu_company::on_pushButton_13_clicked()
         Cargo chosenCargo = *it;
         string cargoLocation = chosenCargo.get_source();
         vector<Driver> vecDrivers = driver1.request_drivers();
-        vector<Driver> vecDriversSorted = driver1.sort_drivers(vecDrivers, cargoLocation);
-        //CHANGE TO VECDRIVERSSORTED WHEN FUNC IS DONE
         int driverNum = ui->treeWidget_3->currentIndex().row();
         string driverUsername = vecDrivers[driverNum].get_n();
         string cargoId = ui->comboBox->currentText().toStdString();
@@ -310,6 +316,7 @@ void menu_company::on_pushButton_13_clicked()
         onpbSend(ownerName + ", cargo is waiting for the driver");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();

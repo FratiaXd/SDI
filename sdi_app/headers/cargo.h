@@ -100,11 +100,11 @@ public:
      */
     void update_status(string currentStatus);
 
-    /** @brief
+    /** @brief Updates cargo status value in the database and assigns the user to the cargo
      *
-     * @param newStatus
-     * @param actor
-     * @param usernm
+     * @param newStatus status to be set
+     * @param actor user type
+     * @param usernm username
      */
     void update_db_status(string newStatus, string actor, string usernm);
 

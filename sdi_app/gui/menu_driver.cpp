@@ -23,12 +23,20 @@ menu_driver::menu_driver(QWidget *parent) :
 
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+    ui->treeWidget->setColumnWidth(0, 150);
+    ui->treeWidget->resizeColumnToContents(1);
 
     ui->treeWidget_2->setColumnCount(3);
     ui->treeWidget_2->setHeaderLabels(ColumnNames2);
+    ui->treeWidget_2->setColumnWidth(0, 150);
+    ui->treeWidget_2->setColumnWidth(1, 200);
+    ui->treeWidget_2->resizeColumnToContents(2);
 
     ui->treeWidget_3->setColumnCount(3);
     ui->treeWidget_3->setHeaderLabels(ColumnNames2);
+    ui->treeWidget_3->setColumnWidth(0, 150);
+    ui->treeWidget_3->setColumnWidth(1, 150);
+    ui->treeWidget_3->resizeColumnToContents(2);
 
     QStringList availableLocations;
     availableLocations << "Nottingham" << "Leeds" << "Liverpool" << "London" << "Manchester" << "Birmingham" << "Edinburgh";
@@ -205,6 +213,7 @@ void menu_driver::on_pushButton_8_clicked()
         QMessageBox::information(this, "Offer", "You successfully declined an offer");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
@@ -224,6 +233,7 @@ void menu_driver::on_pushButton_9_clicked()
         onpbSend(ownerName + " your order is on the way");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
@@ -252,6 +262,7 @@ void menu_driver::on_pushButton_10_clicked()
         }
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_3->clear();

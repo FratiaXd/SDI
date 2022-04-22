@@ -35,13 +35,11 @@ void Server::onNewConnection() {
 }
 
 /* Is called when the user disconnects from the server*/
-//doesnt know which one disconnects!!!!!!!!!!!!!!
 void Server::onDisconnect() {
     cout << "disconnect" << endl;
     QTcpSocket* socket = (QTcpSocket*)sender();
     qDebug() << "Client disconnected: " << socket->peerAddress().toString();
     QString username = clients.value(socket);
-    sendToAll(QString("/system:" + username + " has left the chat.\n"));
     clients.remove(socket);
 }
 
@@ -56,8 +54,6 @@ void Server::onReadyRead() {
         if (loginRex.indexIn(line) != -1) {
             QString user = loginRex.cap(1);
             clients[socket] = user;
-            sendToAll(QString("/system:" + user + " has joined the chat.\n"));
-            qDebug() << user << "logged in.";
         }
             /* Notification */
         else if (messageRex.indexIn(line) != -1) {

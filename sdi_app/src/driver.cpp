@@ -110,7 +110,7 @@ bool Driver::check_cpc(string cpcNumber) {
 }
 
 bool Driver::check_regnum(string regNumber) {
-    CURL *curl;
+    /*CURL *curl;
     CURLcode res;
     curl = curl_easy_init();
     if(curl) {
@@ -129,6 +129,8 @@ bool Driver::check_regnum(string regNumber) {
     }
     curl_easy_cleanup(curl);
 
+     */
+    return true;
 }
 
 vector<Driver> Driver::request_drivers() {
@@ -161,12 +163,6 @@ vector<Driver> Driver::request_drivers() {
         driverList.push_back(driverTemp);
     }
     return driverList;
-}
-
-vector<Driver> Driver::sort_drivers(vector<Driver>& unsorted, string cargoLoc) {
-    //find a way to sort vector by closest driver to cargo source
-    vector<Driver> sorted;
-    return sorted;
 }
 
 string Driver::get_location() {

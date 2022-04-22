@@ -16,6 +16,7 @@
 #include <pqxx/pqxx>
 #include "string"
 #include "user.h"
+#include <cmath>
 using namespace std;
 using namespace pqxx;
 
@@ -47,9 +48,6 @@ public:
      */
     double calculate_comission(double fullPrice);
 
-    /** @brief Sends an offer with cargo details to the closest driver
-     */
-    void offer_driver();
 };
 
 #endif //SDI_APP_TRANSP_COMPANY_H

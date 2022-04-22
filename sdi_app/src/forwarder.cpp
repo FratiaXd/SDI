@@ -19,12 +19,5 @@ Forwarder::Forwarder(string u, string p, string f_n, string em, string num, stri
     address = a;
 }
 
-void Forwarder::make_offer() {
-
-}
-
-void Forwarder::move_cargo() {
-
-}
 
 

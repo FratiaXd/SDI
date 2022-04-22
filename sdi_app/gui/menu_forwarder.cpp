@@ -20,12 +20,20 @@ menu_forwarder::menu_forwarder(QWidget *parent) :
 
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setHeaderLabels(ColumnNames);
+    ui->treeWidget->setColumnWidth(0, 150);
+    ui->treeWidget->resizeColumnToContents(1);
 
     ui->treeWidget_2->setColumnCount(2);
     ui->treeWidget_2->setHeaderLabels(ColumnNames);
+    ui->treeWidget_2->setColumnWidth(0, 150);
+    ui->treeWidget_2->resizeColumnToContents(1);
+    ui->treeWidget_2->resizeColumnToContents(2);
 
     ui->treeWidget_3->setColumnCount(2);
     ui->treeWidget_3->setHeaderLabels(ColumnNames3);
+    ui->treeWidget_3->setColumnWidth(0, 150);
+    ui->treeWidget_3->resizeColumnToContents(1);
+    ui->treeWidget_3->resizeColumnToContents(2);
 
     //server connection
     socket = new QTcpSocket(this);
@@ -97,7 +105,7 @@ void menu_forwarder::receive_username_f(QString tx) {
     usnm_ = tx.toStdString();
     forw1.set_n(usnm_);
 }
-
+//log out
 void menu_forwarder::on_pushButton_clicked()
 {
     emit log_out();
@@ -188,6 +196,7 @@ void menu_forwarder::on_pushButton_6_clicked()
         onpbSend(ownerName + " received an offer from forwarder");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->treeWidget_2->clear();
@@ -209,6 +218,7 @@ void menu_forwarder::on_pushButton_7_clicked()
         onpbSend(ownerName + ", forwarder sent an offer to the company");
     }catch (...){
         cout << "An exception occured. No option selected." << endl;
+        QMessageBox::critical(this, "Error", "No option selected");
     }
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();

@@ -47,10 +47,6 @@ public:
      */
    double calculate_shipping(float w, float h, float l, float we, string src, string addr);
 
-   /** @brief
-    *
-    */
-   void place_order();
 };
 
 #endif //SDI_APP_CARGO_OWNER_H
