@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -no-pie")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lcurl")
+
+
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.
@@ -25,11 +28,19 @@ set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -no-pie")
 #    endif()
 #endif()
 
+include(FindPkgConfig)
+
+find_package(PkgConfig)
+
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Network)
+pkg_check_modules(CURLPP REQUIRED curlpp)
 
 include_directories(${Qt5Core_INCLUDE_DIRS})
 include_directories(${Qt5Network_INCLUDE_DIRS})
+
+include_directories(${PROJECT_SOURCE_DIR}/include/driver.cpp)
+
 
 if(ANDROID)
   add_library(sdi_app SHARED
@@ -73,4 +84,4 @@ else()
           headers/cargo_owner.h headers/forwarder.h headers/driver.h headers/transp_company.h src/cargo_owner.cpp src/driver.cpp src/forwarder.cpp src/transp_company.cpp headers/user.h src/user.cpp headers/cargo.h src/cargo.cpp)
 endif()
 
-target_link_libraries(sdi_app PRIVATE Qt5::Widgets Qt5::Network -lpqxx -lpq)
+target_link_libraries(sdi_app PRIVATE Qt5::Widgets Qt5::Network -lpqxx -lpq curlpp -lcurl)

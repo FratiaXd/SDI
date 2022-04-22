@@ -8,6 +8,7 @@
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 #include <curl/curl.h>
+#include <nlohmann/json.hpp>
 
 using namespace pqxx;
 using namespace std;
@@ -110,9 +111,12 @@ bool Driver::check_cpc(string cpcNumber) {
 }
 
 bool Driver::check_regnum(string regNumber) {
-    /*CURL *curl;
+    CURL *curl;
     CURLcode res;
     curl = curl_easy_init();
+    nlohmann::json body = {
+            {"registrationNumber", regNumber}
+    };
     if(curl) {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_easy_setopt(curl, CURLOPT_URL, "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles");
@@ -122,15 +126,15 @@ bool Driver::check_regnum(string regNumber) {
         headers = curl_slist_append(headers, "x-api-key: 6mUEHLR1ju7Z8sMg927oa9TblqrMA7Xa1eI3da2o");
         headers = curl_slist_append(headers, "Content-Type: application/json");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-        const char *data = "{\r\n  \"registrationNumber\": \"SW56 DBX\"\r\n}"; // Needs to be changed to use the parameter regNumber
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+        string bodyTest = body.dump();
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, bodyTest.c_str());
         res = curl_easy_perform(curl);
-        cout << res; // res holds the response from the API request
+        if (res == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    curl_easy_cleanup(curl);
-
-     */
-    return true;
 }
 
 vector<Driver> Driver::request_drivers() {
