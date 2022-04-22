@@ -59,28 +59,54 @@ public:
      */
     void driver_details(string ni, string lid, string tp, string reg, string he, string wi, string le, string we, string cpc, string currLocation);
 
-    /** @brief
+    /** @brief saves driver's data into the database
      *
      */
     void registration_driver();
 
-    /** @brief Validates lorry's cpc number with use of API
+    /** @brief Validates lorry's cpc number
+     *
+     * @param cpcNumber cpc number
      *
      * @return true if lorry is appropriate/ false not appropriate
      */
-
-    void update_position(string newPosition);
-
-    void update_positionDB();
-
     bool check_cpc(string cpcNumber);
 
+    /** @brief sets new driver's position
+     *
+     * @param newPosition position to set
+     */
+    void update_position(string newPosition);
+
+    /** @brief updates driver's position in the database
+     *
+     */
+    void update_positionDB();
+
+    /** @brief Validates lorry's registration number with use of API
+     *
+     * @param regNumber registration number
+     *
+     * @return true if number is appropriate/ false not appropriate
+     */
     bool check_regnum(string regNumber);
 
+    /** @brief requests all existing users with the type driver
+     *
+     * @return vector of existing drivers
+     */
     vector<Driver> request_drivers();
 
+    /** @brief requests for current driver's location
+     *
+     * @return driver's location
+     */
     string get_location();
 
+    /** requests for current driver's location from the database
+     *
+     * @return driver's location from the database
+     */
     string request_locationDB();
 };
 
