@@ -83,12 +83,28 @@ public:
      */
     string get_n();
 
+    /** @brief Accesses just a full name of an object
+     *
+     * @return full name
+     */
     string get_fulln();
 
+    /** @brief Accesses just an email of an object
+     *
+     * @return email
+     */
     string get_email();
 
+    /** @brief Accesses just a mobile number of an object
+     *
+     * @return mobile number
+     */
     string get_mobile();
 
+    /** @brief Accesses just an address of an object
+     *
+     * @return address
+     */
     string get_address();
     /** @brief Connects to the database and saves user details in there
      */

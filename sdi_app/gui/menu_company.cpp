@@ -46,7 +46,7 @@ void menu_company::clientConnected()
 {
     socket->connectToHost(serverNa, 1234);
 }
-
+//sends notification
 void menu_company::onpbSend(QString t) {
     if (!t.isEmpty()) {
         socket->write(QString("/say:" + t + "\n").toUtf8());
