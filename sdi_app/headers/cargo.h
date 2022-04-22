@@ -100,6 +100,12 @@ public:
      */
     void update_status(string currentStatus);
 
+    /** @brief
+     *
+     * @param newStatus
+     * @param actor
+     * @param usernm
+     */
     void update_db_status(string newStatus, string actor, string usernm);
 
     /** @brief Assign transportation company to the cargo

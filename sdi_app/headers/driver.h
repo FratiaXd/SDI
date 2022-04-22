@@ -84,15 +84,6 @@ public:
     string get_location();
 
     string request_locationDB();
-    /** @brief
-     *
-     */
-    void see_cargo_order();
-
-    /** @brief
-     *
-     */
-    void update_order();
 };
 
 #endif //SDI_APP_DRIVER_H

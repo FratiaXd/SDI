@@ -196,10 +196,3 @@ string Driver::request_locationDB() {
     return currLocation;
 }
 
-void Driver::see_cargo_order() {
-
-}
-
-void Driver::update_order() {
-
-}

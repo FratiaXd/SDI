@@ -50,9 +50,9 @@ application::application(QWidget *parent) :
     QRegExp digitsReg("^[0-9]+$");
     ui->lineEdit_11->setValidator(new QRegExpValidator(digitsReg, this));
     ui->lineEdit_4->setValidator(new QRegExpValidator(digitsReg, this));
+    ui->lineEdit_5->setValidator(new QRegExpValidator(digitsReg, this));
     QRegExp ninumReg("^[A-Z0-9]*$");
     ui->lineEdit_3->setValidator(new QRegExpValidator(ninumReg, this));
-    ui->lineEdit_5->setValidator(new QRegExpValidator(ninumReg, this));
     ui->lineEdit_6->setValidator(new QRegExpValidator(ninumReg, this));
     QRegExp lorryReg("^[+-]?([0-9]*[.])?[0-9]+$");
     ui->lineEdit_14->setValidator(new QRegExpValidator(lorryReg, this));
@@ -140,8 +140,6 @@ void application::on_pushButton_4_clicked()
         string lorryLength = ui->lineEdit_16->text().toStdString();
         string lorryWeight = ui->lineEdit_17->text().toStdString(); //cpc
         string driverLocation = ui->comboBox->currentText().toStdString(); //current location
-        //check cpc function (tbc)
-        //check lorry reg number (tbc)
         //if both true
         if ((driv.check_cpc(cpcNumber))&&(driv.check_regnum(regNumber)))
         {
@@ -153,7 +151,7 @@ void application::on_pushButton_4_clicked()
         else
         {
             //if false ask for details again and display message
-            QMessageBox::critical(this, "Invalid data", "Your cpc and registration numbers are invalid. Please, try again.");
+            QMessageBox::critical(this, "Invalid data", "Your cpc and/or registration numbers are invalid. Please, try again.");
         }
         ui->lineEdit_3->clear();
         ui->lineEdit_4->clear();
