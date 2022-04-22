@@ -4,6 +4,10 @@
 #include "headers/driver.h"
 #include <pqxx/pqxx>
 #include "iostream"
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
+#include <curl/curl.h>
 
 using namespace pqxx;
 using namespace std;
@@ -96,12 +100,35 @@ void Driver::update_positionDB() {
     W.commit();
 }
 
-bool Driver::check_cpc() {
-    return true;
+bool Driver::check_cpc(string cpcNumber) {
+    if (cpcNumber.length() == 6){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-bool Driver::check_regnum() {
-    return true;
+bool Driver::check_regnum(string regNumber) {
+    CURL *curl;
+    CURLcode res;
+    curl = curl_easy_init();
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_easy_setopt(curl, CURLOPT_URL, "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles");
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+        curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "x-api-key: 6mUEHLR1ju7Z8sMg927oa9TblqrMA7Xa1eI3da2o");
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        const char *data = "{\r\n  \"registrationNumber\": \"\r\n}";
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+        res = curl_easy_perform(curl);
+        cout << res;
+    }
+    curl_easy_cleanup(curl);
+
 }
 
 vector<Driver> Driver::request_drivers() {

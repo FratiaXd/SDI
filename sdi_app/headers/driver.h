@@ -73,9 +73,9 @@ public:
 
     void update_positionDB();
 
-    bool check_cpc();
+    bool check_cpc(string cpcNumber);
 
-    bool check_regnum();
+    bool check_regnum(string regNumber);
 
     vector<Driver> request_drivers();
 

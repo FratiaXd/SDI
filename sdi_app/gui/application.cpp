@@ -143,7 +143,7 @@ void application::on_pushButton_4_clicked()
         //check cpc function (tbc)
         //check lorry reg number (tbc)
         //if both true
-        if ((driv.check_cpc())&&(driv.check_regnum()))
+        if ((driv.check_cpc(cpcNumber))&&(driv.check_regnum(regNumber)))
         {
             //saves driver's lorry information for later use
             driv.driver_details(niNumber, licenseID, lorryType, regNumber, lorryHeight, lorryWidth, lorryLength, lorryWeight, cpcNumber, driverLocation);
