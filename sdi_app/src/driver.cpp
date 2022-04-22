@@ -122,10 +122,10 @@ bool Driver::check_regnum(string regNumber) {
         headers = curl_slist_append(headers, "x-api-key: 6mUEHLR1ju7Z8sMg927oa9TblqrMA7Xa1eI3da2o");
         headers = curl_slist_append(headers, "Content-Type: application/json");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-        const char *data = "{\r\n  \"registrationNumber\": \"\r\n}";
+        const char *data = "{\r\n  \"registrationNumber\": \"SW56 DBX\"\r\n}"; // Needs to be changed to use the parameter regNumber
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
         res = curl_easy_perform(curl);
-        cout << res;
+        cout << res; // res holds the response from the API request
     }
     curl_easy_cleanup(curl);
 
